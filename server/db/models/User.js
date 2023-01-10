@@ -25,6 +25,10 @@ const User = db.define('user', {
   password: {
     type: Sequelize.STRING,
   },
+  cart: {
+    type: Sequelize.ARRAY(Sequelize.JSON),
+    defaultValue: [],
+  },
 });
 
 module.exports = User;
