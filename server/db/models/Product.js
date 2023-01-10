@@ -20,7 +20,7 @@ const Product = db.define('product', {
     allowNull: false,
   },
   price: {
-    type: Sequelize.DECIMAL(2, 2),
+    type: Sequelize.DECIMAL(10, 2),
   },
   availability: {
     type: Sequelize.BOOLEAN,
