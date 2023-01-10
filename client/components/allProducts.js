@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllProducts } from "../reducers/products";
+import { getAllProducts, addToCart } from "../reducers/products";
 import { Link } from "react-router-dom";
 
 const allProducts = () => {
@@ -26,7 +26,9 @@ const allProducts = () => {
             <div>
               <button
                 id="add"
-                onClick={(event) => dispatch(addToCart(product.id))}
+                onClick={(event) =>
+                  dispatch(addToCart(product.name, product.price))
+                }
               >
                 Add to cart
               </button>
