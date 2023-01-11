@@ -1,6 +1,6 @@
 import React from "react";
-import AllProducts from "../components/AllProducts";
-import SingleProduct from "../components/singleProduct";
+import AllProducts from "../features/products/allProducts";
+import SingleProduct from "../features/products/singleProduct";
 import Navbar from "../features/navbar/Navbar";
 import AppRoutes from "./AppRoutes";
 
