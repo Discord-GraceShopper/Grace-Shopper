@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import AllProducts from "../../components/AllProducts";
+import AllProducts from '../products/allProducts'
 
 /**
  * COMPONENT
