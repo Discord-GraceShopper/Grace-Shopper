@@ -2011,57 +2011,12 @@ const users = [
     last_name: "Brown",
     email: "sb@gmail.com",
     password: "fancypassword",
-    cart: [
-      {
-        title:
-          '1.5" Ring Three-Hold Punch Binder - Five Star (Colors May Vary)',
-        brand: "Five Star",
-        main_image:
-          "https://target.scene7.com/is/image/Target/GUEST_82e2bc8b-cf4f-4e51-98d5-6dd28899d845",
-        sku: 78802630,
-        description:
-          'LASTS ALL YEAR. GUARANTEED! The built-in 3-hole punch allows you to easily punch papers and handouts for storage inside of the binder, and the removable lid captures the punched holes so you can discard them later. Binder is designed with three D-rings that allow for increased paper storage and keep 3-hole punched papers securely in place. The spine structure lays flat for easy desktop use. Measures 11 3/4" x 11" and is available in assorted colors (color chosen for you): Black, White, Red, Purple, Cobalt Blue, Green.',
-        price: 8.99,
-        availability: true,
-        quantity: 25,
-        primary_category: "School & Office Supplies",
-      },
-    ],
   },
   {
     first_name: "Michael",
     last_name: "Timo",
     email: "mt@gmail.com",
     password: "secretpassword",
-    cart: [
-      {
-        title:
-          "Messermeister Red Stainless Steel 4.5 Inch Serrated Tomato Knife with Sheath",
-        brand: "Messermeister",
-        main_image:
-          "https://target.scene7.com/is/image/Target/GUEST_1ddc7b7f-a672-4afd-bedf-432d04095270",
-        sku: 84278073,
-        description:
-          "Add slices of juicy tomato to your sandwich with this tomato knife from Messermeister. The high carbon stainless steel blade has a serrated edge to easily slice. It also features an enveloped tang with a red handle and red protective sheath for storing your blade or taking it on the go. Backed by a manufacturer's lifetime warranty, this tomato knife is ideal for slicing soft-skinned fruits and vegetables, baguettes, and more. Measurements: 4-1/2\" L",
-        price: 14.2,
-        availability: true,
-        quantity: 26,
-        primary_category: "Kitchen & Dining",
-      },
-      {
-        title: "Onyx Impulse A/M-33 Automatic/Manual Inflatable Life Jacket",
-        brand: "ABSOLUTE OUTDOORS",
-        main_image:
-          "https://target.scene7.com/is/image/Target/GUEST_dbeecee3-60e4-421b-ac07-199e86eeb36e",
-        sku: 86434206,
-        description:
-          'The Onyx Impulse Inflatable life jacket is able to convert from automatic/manual to manual inflation only. The front zipper closure has a low profile design for a secure fit without sacrificing mobility. Once hitting the water the water soluble bobbin the vest will automatically inflate. In manual mode simply pull the secure pull handle for quick inflation. This is a US Coast Guard Approved Type V inflatable life jacket. \n\nFeatures: \n·Dual adjustments\n·Webbing locks\n·Inflation chamber\n·V-Back design\nSpecifications: \n·Sizing: fits chests up to 65"\n·USCG Approved Type V\n·For persons 16 years of age and older\n·For replacement CO2 cartridge, use Onyx A/M-33 All Clear Re-Arm Kit #1363\n·For persons weighing over 80 lbs.\n·Not recommended for non-swimmers or weak swimmers\n·Minimum buoyancy of 35 lbs. when inflated\n**Item contains a CO2 cylinder and is not be available to ship to Alaska or Hawaii \n\n.',
-        price: 209.99,
-        availability: true,
-        quantity: 16,
-        primary_category: "Sports & Outdoors",
-      },
-    ],
   },
   {
     first_name: "Donovan",
@@ -2069,81 +2024,35 @@ const users = [
     email: "dt@gmail.com",
     password: "mysupersecretpw",
     account_type: "ADMIN",
-    cart: [
-      {
-        title:
-          "Baby Girls' Fruit Print One Piece Swimsuit - Cat & Jack™ Peach Orange 0-3M",
-        brand: "Cat & Jack",
-        main_image:
-          "https://target.scene7.com/is/image/Target/GUEST_58de9673-d456-4632-87d6-60adec83c27c",
-        sku: 84895703,
-        description:
-          "Add some fruit-tastic charm to your little one's swim looks with this Fruit Print One-Piece Swimsuit from Cat & Jack™. This one-piece swimsuit for babies is covered with a fun print of peaches and oranges against its green background, creating a beautiful, eye-catching contrast. Designed with cinches at the front, this sleeveless swimsuit is adorned with ruffles below the waist, and crisscross straps for a cute look everyone will love. Its soft, stretchy fabric helps your little one move and stretch in comfort, while the soft fabric lining keeps them comfy throughout their activities. Offering sun protection with UPF 50+ rated fabric, this printed swimsuit is also easy to dress up and change with the crotch snaps at the bottom.  Cat & Jack™: Classics with an imagination of their own.",
-        price: 12.0,
-        availability: true,
-        quantity: 7,
-        primary_category: "Clothing, Shoes & Accessories",
-      },
-      {
-        title: "Sunlite Straight Cable Cable Only 10mm 4`/122cm",
-        brand: "Sunlite",
-        main_image:
-          "https://target.scene7.com/is/image/Target/GUEST_9bd0d0c2-38f2-4106-9eea-0874250fe0a9",
-        sku: 82183453,
-        description:
-          "LOCK SUNLT CBL 10mmx4f ONLY STRAIGHT BK Straight security cable. Weatherproof Protective Coating.",
-        price: 24.32,
-        availability: true,
-        quantity: 15,
-        primary_category: "Sports & Outdoors",
-      },
-      {
-        title: "Docker Recliner Chair Gray",
-        brand: "",
-        main_image:
-          "https://target.scene7.com/is/image/Target/GUEST_35ea451e-6353-4635-be78-8492ddc5561e",
-        sku: 53725040,
-        description:
-          "Beautifully designed, the Docker Recliner Chair makes a stunning statement in any room. This recliner chair features a high camel back and rolled arms in beautiful upholstery with an elegant fretwork print, for a chic transitional look. The solid wood legs display a dark finish to create a rich contrast that complements the design, while a removable cushion provides exceptional comfort. With an elegant silhouette, this recliner chair offers a luxurious and fashionable update to your home decor. Leg assembly is required. Max weight capacity: 300lbs.",
-        price: 557.99,
-        availability: true,
-        quantity: 7,
-        primary_category: "Furniture",
-      },
-      {
-        title:
-          "Floortex Desktex Polycarbonate Anti-Slip Desk Mat 59 x 29 Clear FPDE2949RA",
-        brand: "Floortex",
-        main_image:
-          "https://target.scene7.com/is/image/Target/GUEST_b13a0ace-1e78-4a34-a40d-a0f3e0e9dadf",
-        sku: 82878158,
-        description:
-          'Original Flortex Polycarbonate desk protection mat. Anti-slip coating adds to stability on desk surfaces. Clear materials allow the natural beauty of your desk to show through. Extreme durability ensures reliable protection from scratches, scuffs and spillage. Embossed, heat-resistant (up to 212° F) surface provides the perfect writing surface. Compatible with optical and ball-operated mouse units. Safe for use on all lacquered and varnished wood surfaces. 29" Length x 59" Width. Rectangle. Crystal Clear. Polycarbonate. 1 Each. Sold as 1 Each.',
-        price: 72.72,
-        availability: true,
-        quantity: 32,
-        primary_category: "School & Office Supplies",
-      },
+  },
+];
 
-      {
-        title:
-          'NORTHLIGHT 5" Portly Smiling Snowman with Broom Glass Christmas Ornament - Gold/Gray',
-        brand: "Northlight",
-        main_image:
-          "https://target.scene7.com/is/image/Target/GUEST_23c8226c-11ca-4a4c-a4b3-eb62dc9cef1e",
-        sku: 75522780,
-        description:
-          'Snowman is a definition of joy and charm! Grab this enthralling holiday ornament, which showcases a snowman in a colorful, glittered scarf. Hang this gorgeous accent using its gold cord, and witness the majestic appearance! This happy little snowman will surely sweep you off your feet!\n\nProduct Features:\nPortly snowman wrapped up in a striped scarf and red mittens carrying a broom\nLightly glittered to add shine and sparkle\nFully dimensional ornament\nComes ready to hang on a gold cord\n\nDimensions: 5" high (120mm) diameter\nMaterial(s): glass',
-        price: 12.99,
-        availability: true,
-        quantity: 12,
-        primary_category: "Holiday Shop",
-      },
-    ],
+const orders = [
+  {
+    userId: 1,
+    purchased: false,
+  },
+];
+
+const orderDetails = [
+  // OrderDetails.findAll(where: orderId === 1)
+  {
+    orderId: 1,
+    productId: 1,
+    item_quantity: 1,
+    total_price: 10.99,
+  },
+  {
+    orderId: 1,
+    productId: 2,
+    item_quantity: 1,
+    total_price: 10.99,
   },
 ];
 
 module.exports = {
   products,
   users,
+  orders,
+  orderDetails,
 };
