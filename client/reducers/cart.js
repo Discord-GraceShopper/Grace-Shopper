@@ -16,10 +16,11 @@ export const addToCart = createAsyncThunk(
   "cart/add",
   async ({ id, price, quantity }) => {
     try {
-      const { data } = await axios.post(
-        "/api/orderdetails",
-        (id, price, quantity)
-      );
+      const { data } = await axios.post("/api/orderdetails", {
+        id,
+        price,
+        quantity,
+      });
       return data;
     } catch (error) {
       return error;
