@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllProducts } from "../reducers/products";
-import { addToCart } from "../reducers/cart";
+import { getAllProducts } from "../../reducers/products";
+import { addToCart } from "../../reducers/cart";
 import { Link } from "react-router-dom";
 
 const AllProducts = () => {
