@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { authenticate } from "../../app/store";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 /**
   The AuthForm component can be used for Login or Sign Up.
@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 const AuthForm = ({ name, displayName }) => {
   const { error } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -32,8 +33,10 @@ const AuthForm = ({ name, displayName }) => {
           method: formName,
         })
       );
+      navigate("/");
     } else {
       dispatch(authenticate({ email, password, method: formName }));
+      navigate("/");
     }
   };
 
@@ -41,30 +44,31 @@ const AuthForm = ({ name, displayName }) => {
     <div>
       {name === "signup" ? (
         <div>
+          <h2>Create new account</h2>
           <form onSubmit={handleSubmit} name={name}>
             <div>
               <label htmlFor="first name">
                 <small>First Name</small>
               </label>
-              <input name="first_name" type="text" />
+              <input required name="first_name" type="text" />
             </div>
             <div>
               <label htmlFor="last name">
                 <small>Last Name</small>
               </label>
-              <input name="last_name" type="text" />
+              <input required name="last_name" type="text" />
             </div>
             <div>
               <label htmlFor="email">
                 <small>Email</small>
               </label>
-              <input name="email" type="text" />
+              <input required name="email" type="text" />
             </div>
             <div>
               <label htmlFor="password">
                 <small>Password</small>
               </label>
-              <input name="password" type="text" />
+              <input required name="password" type="text" />
             </div>
             <div>
               <button type="submit">{displayName}</button>
@@ -80,13 +84,13 @@ const AuthForm = ({ name, displayName }) => {
               <label htmlFor="email">
                 <small>Email</small>
               </label>
-              <input name="email" type="text" />
+              <input required name="email" type="text" />
             </div>
             <div>
               <label htmlFor="password">
                 <small>Password</small>
               </label>
-              <input name="password" type="password" />
+              <input required name="password" type="password" />
             </div>
             <div>
               <button type="submit">{displayName}</button>
