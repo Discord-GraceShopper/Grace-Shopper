@@ -22,8 +22,8 @@ const SingleProduct = () => {
         // dispatch(fetchSingleProductAsync(id));
     }, [dispatch])
     
-    const addToCart = (e) => {
-         
+    const addToCart = (e) => { // Updates redux cart reducer
+         // dispatch(addToCart(name, price))
         // Once added to cart, make post request to current user's cart via async thunk on cart reducer
     }
 
