@@ -33,6 +33,7 @@ const AuthForm = ({ name, displayName }) => {
           method: formName,
         })
       );
+      navigate("/");
     } else {
       dispatch(authenticate({ email, password, method: formName }));
       navigate("/");
@@ -43,6 +44,7 @@ const AuthForm = ({ name, displayName }) => {
     <div>
       {name === "signup" ? (
         <div>
+          <h2>Create new account</h2>
           <form onSubmit={handleSubmit} name={name}>
             <div>
               <label htmlFor="first name">
