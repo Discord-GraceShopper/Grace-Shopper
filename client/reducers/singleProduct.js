@@ -30,7 +30,7 @@ export const singleProductSlice = createSlice({
 });
 
 export const selectSingleProduct = (state) => {
-    return state;
+    return state.singleProduct.product;
 }
 
 export default singleProductSlice.reducer;
