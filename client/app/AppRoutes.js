@@ -4,8 +4,9 @@ import { Route, Routes } from "react-router-dom";
 import AuthForm from "../features/auth/AuthForm";
 import Home from "../features/home/Home";
 import { me } from "./store";
-import SingleProduct from '../features/products/singleProduct';
-import AllProducts from '../features/products/allProducts';
+import SingleProduct from "../features/products/singleProduct";
+import AllProducts from "../features/products/allProducts";
+import Profile from "../features/profile/Profile";
 
 /**
  * COMPONENT
@@ -23,12 +24,13 @@ const AppRoutes = () => {
     <div>
       {isLoggedIn ? (
         <Routes>
-          <Route path="/*" element={<Home />} />
-          <Route to="/home" element={<Home />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/products/:productId" element={<SingleProduct />} />
         </Routes>
       ) : (
         <Routes>
-          <Route path="/*" element={<AllProducts />} />
+          <Route path="/" element={<AllProducts />} />
           <Route
             path="/login"
             element={<AuthForm name="login" displayName="Login" />}
@@ -37,8 +39,7 @@ const AppRoutes = () => {
             path="/signup"
             element={<AuthForm name="signup" displayName="Sign Up" />}
           />
-        <Route path="/products" element={<AllProducts />} />
-        <Route path="/products/:productId" element={<SingleProduct />} />
+          <Route path="/products/:productId" element={<SingleProduct />} />
         </Routes>
       )}
     </div>
