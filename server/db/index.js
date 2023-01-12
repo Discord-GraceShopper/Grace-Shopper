@@ -8,7 +8,7 @@ const OrderDetails = require("./models/OrderDetails");
 User.hasMany(Order);
 Order.belongsTo(User);
 
-Order.belongsToMany(Product, { through: OrderDetails });
+Order.belongsToMany(Product, { through: OrderDetails, as: "cart" });
 Product.belongsToMany(Order, { through: OrderDetails });
 
 module.exports = {

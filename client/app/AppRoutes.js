@@ -24,12 +24,13 @@ const AppRoutes = () => {
     <div>
       {isLoggedIn ? (
         <Routes>
-          <Route path="/*" element={<Home />} />
-          <Route to="/home" element={<Home />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/products/:productId" element={<SingleProduct />} />
         </Routes>
       ) : (
         <Routes>
-          <Route path="/*" element={<AllProducts />} />
+          <Route path="/" element={<AllProducts />} />
           <Route
             path="/login"
             element={<AuthForm name="login" displayName="Login" />}

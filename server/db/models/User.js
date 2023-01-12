@@ -30,10 +30,6 @@ const User = db.define("user", {
     type: Sequelize.STRING,
     defaultValue: "USER", // Two account types: USER & ADMIN
   },
-  // purchase_history: {
-  //   type: Sequelize.ARRAY(Sequelize.JSON),
-  //   defaultValue: [],
-  // },
 });
 
 module.exports = User;

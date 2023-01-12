@@ -2030,12 +2030,19 @@ const users = [
 const orders = [
   {
     userId: 1,
+    purchased: true,
+  },
+  {
+    userId: 1,
+    purchased: true,
+  },
+  {
+    userId: 2,
     purchased: false,
   },
 ];
 
 const orderDetails = [
-  // OrderDetails.findAll(where: orderId === 1)
   {
     orderId: 1,
     productId: 1,
@@ -2045,8 +2052,20 @@ const orderDetails = [
   {
     orderId: 1,
     productId: 2,
+    item_quantity: 2,
+    total_price: 25.98,
+  },
+  {
+    orderId: 2,
+    productId: 1,
     item_quantity: 1,
     total_price: 10.99,
+  },
+  {
+    orderId: 2,
+    productId: 2,
+    item_quantity: 2,
+    total_price: 25.98,
   },
 ];
 
