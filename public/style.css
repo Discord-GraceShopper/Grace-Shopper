@@ -9,6 +9,7 @@
 
 body {
   font-family: sans-serif;
+  color: #28262c;
 }
 
 a {
@@ -23,8 +24,12 @@ input {
   margin-bottom: 1em;
 }
 
+.navbar {
+  display: flex;
+  justify-content: flex-end;
+}
+
 nav a {
-  display: inline-block;
   margin: 1em;
 }
 
