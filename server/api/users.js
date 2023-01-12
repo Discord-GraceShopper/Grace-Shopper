@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const {
-  models: { User },
+  models: { User, Order, Product },
 } = require("../db");
 module.exports = router;
 
@@ -32,15 +32,24 @@ router.get("/directory", async (req, res, next) => {
 });
 
 // Get single user (for cart request)
-router.get("/:id", async (req, res, next) => {
+router.get("/:id/purchase-history", async (req, res, next) => {
   try {
-    const user = await User.findOne({
-      where: { id: req.params.id },
-      attributes: ["id", "first_name"],
-      include: ["orders"],
+    const cart = await Order.findOne({
+      where: { userId: req.params.id, purchased: true },
+      include: { model: Product, as: "cart" },
     });
-    res.json(user);
+    res.json(cart);
   } catch (error) {
     next(error);
   }
 });
+
+// try {
+//   const cart = await Order.findAll({
+//     where: { userId: req.params.userId, purchased: true },
+//     include: { model: Product, as: "cart" },
+//   });
+//   res.json(cart);
+// } catch (error) {
+//   next(error);
+// }
