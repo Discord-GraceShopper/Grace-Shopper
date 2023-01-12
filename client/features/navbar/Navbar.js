@@ -9,7 +9,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const logoutAndRedirectHome = () => {
     dispatch(logout());
-    navigate("/home");
+    navigate("/");
   };
 
   return (
@@ -20,6 +20,7 @@ const Navbar = () => {
           <div>
             {/* The navbar will show these links after you log in */}
             <Link to="/">Home</Link>
+            <Link to="/profile">Account</Link>
             <button type="button" onClick={logoutAndRedirectHome}>
               Logout
             </button>
@@ -29,7 +30,6 @@ const Navbar = () => {
             {/* The navbar will show these links before you log in */}
             <Link to="/">Home</Link>
             <Link to="/login">Login/Register</Link>
-            {/* <Link to="/signup">Sign Up</Link> */}
           </div>
         )}
       </nav>
