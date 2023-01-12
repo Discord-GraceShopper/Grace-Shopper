@@ -17,18 +17,6 @@ router.get("/:userId", async (req, res, next) => {
   }
 });
 
-router.get("/:userId/purchase-history", async (req, res, next) => {
-  try {
-    const cart = await Order.findAll({
-      where: { userId: req.params.userId, purchased: true },
-      include: { model: Product, as: "cart" },
-    });
-    res.json(cart);
-  } catch (error) {
-    next(error);
-  }
-});
-
 // add an item to cart
 router.post("/addItem", async (req, res, next) => {
   try {
