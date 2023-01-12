@@ -18,3 +18,29 @@ router.get("/", async (req, res, next) => {
     next(err);
   }
 });
+
+// Directory route for all users
+router.get("/directory", async (req, res, next) => {
+  try {
+    const users = await User.findAll({
+      attributes: ["id", "first_name", "last_name", "email", "account_type"],
+    });
+    res.json(users);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Get single user (for cart request)
+router.get("/:id", async (req, res, next) => {
+  try {
+    const user = await User.findOne({
+      where: { id: req.params.id },
+      attributes: ["id", "first_name"],
+      include: ["orders"],
+    });
+    res.json(user);
+  } catch (error) {
+    next(error);
+  }
+});
