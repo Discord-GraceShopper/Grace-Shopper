@@ -43,13 +43,3 @@ router.get("/:id/purchase-history", async (req, res, next) => {
     next(error);
   }
 });
-
-// try {
-//   const cart = await Order.findAll({
-//     where: { userId: req.params.userId, purchased: true },
-//     include: { model: Product, as: "cart" },
-//   });
-//   res.json(cart);
-// } catch (error) {
-//   next(error);
-// }
