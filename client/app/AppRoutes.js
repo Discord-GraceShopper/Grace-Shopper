@@ -4,8 +4,9 @@ import { Route, Routes } from "react-router-dom";
 import AuthForm from "../features/auth/AuthForm";
 import Home from "../features/home/Home";
 import { me } from "./store";
-import SingleProduct from '../features/products/singleProduct';
-import AllProducts from '../features/products/allProducts';
+import SingleProduct from "../features/products/singleProduct";
+import AllProducts from "../features/products/allProducts";
+import Cart from "../features/products/Cart";
 
 /**
  * COMPONENT
@@ -37,8 +38,9 @@ const AppRoutes = () => {
             path="/signup"
             element={<AuthForm name="signup" displayName="Sign Up" />}
           />
-        <Route path="/products" element={<AllProducts />} />
-        <Route path="/products/:productId" element={<SingleProduct />} />
+          <Route path="/products" element={<AllProducts />} />
+          <Route path="/products/:productId" element={<SingleProduct />} />
+          <Route path="/cart" element={<Cart />} />
         </Routes>
       )}
     </div>

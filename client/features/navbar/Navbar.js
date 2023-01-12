@@ -29,6 +29,7 @@ const Navbar = () => {
             {/* The navbar will show these links before you log in */}
             <Link to="/">Home</Link>
             <Link to="/login">Login/Register</Link>
+            <Link to="/cart">Cart</Link>
             {/* <Link to="/signup">Sign Up</Link> */}
           </div>
         )}
