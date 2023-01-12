@@ -10,30 +10,45 @@ const Checkout = () => {
         )
     })
 
-    const submitOrder = (evt) => {
+    const saveShippingInfo = (evt) => {
         evt.preventDefault();
-        console.log('Order submitted!');
-        console.log('Order details:')
-        console.log(fullName, phoneNum, address, city, state, zip)
-        // By submitting the order, we need to...
-        // 1. Set 'purchased' on the order to TRUE.
-        // 2. Send order details to purchase history.
-        // 3. Reset the user's cart.
-        // 4. Adjust each purchased item's stock in the db.
+        console.log('Shipping details saved!');
+        // Dispatch shipping info to user profile.
+        // Clear out shipping info.
+        setFullName = '';
+        setPhoneNum = '';
+        setAddress = '';
+        setCity = '';
+        setState = '';
+        setZip = '';
+        const cardNameElement = evt.target.children[13];
+        cardNameElement.required = true;
+        setFormTitle('Billing Information')
+        setBillingVisible(false);
+        // POST request to User to save shipping info
     }
 
-    // Shipping form details:
-    // Full name (First and Last name)
-    // Phone number
-    // Address [Street address or P.O. Box] & [Apt, suite, unit, building, floor, etc]
-    // City
-    // State (select, dropdown)
-    // ZIP Code
+    const saveOrder = (evt) => {
+
+    }
+
+    // By submitting the order, we need to...
+    // 1. Set 'purchased' on the order to TRUE.
+    // 2. Send order details to purchase history.
+    // 3. Reset the user's cart.
+    // 4. Adjust each purchased item's stock in the db.
 
     // Billing form is the same, but with payment method inputs
 
-    const changeState = (e) => {
+    const changeUserState = (e) => {
         setState(e.target.value);
+    }
+
+    const sameAsBilling = (e) => { // should this be on the billing page to bring over shipping info?
+        if (e.target.checked) {
+            // Send shipping info to billing
+        }
+        // If not, clear billing info.
     }
 
     const [fullName, setFullName] = useState('');
@@ -42,44 +57,68 @@ const Checkout = () => {
     const [city, setCity] = useState('');
     const [state, setState] = useState('');
     const [zip, setZip] = useState('');
+    const [formTitle, setFormTitle] = useState('Shipping Information');
+    const [cardName, setCardName] = useState('');
+    const [billingVisible, setBillingVisible] = useState(true);
+    const [enableSubmit, setEnableSubmit] = useState(true);
+    const [enableSave, setEnableSave] = useState(false);
 
     return (
         <div>
             <h1>Checkout</h1>
-        <form id="shipping-billing-info" onSubmit={submitOrder}>
+        <form id="shipping-billing-info" onSubmit={saveShippingInfo}>
+            <h2>{formTitle}</h2>
             <label htmlFor='fullName'> Full name: </label>
             <input
                 name="fullName"
                 value={fullName}
+                required={true}
+                placeholder='First and Last name'
                 onChange={(e) => setFullName(e.target.value)}
                 />
             <label htmlFor='phoneNum'> Phone Number: </label>
             <input
                 name="phoneNum"
                 value={phoneNum}
+                required={true}
                 onChange={(e) => setPhoneNum(e.target.value)}
                 />
             <label htmlFor='address'> Address: </label>
             <input
                 name="address"
                 value={address}
+                required={true}
+                placeholder='Street address or P.O. Box'
                 onChange={(e) => setAddress(e.target.value)}
                 />
             <label htmlFor='city'> City: </label>
             <input
                 name="city"
                 value={city}
+                required={true}
                 onChange={(e) => setCity(e.target.value)}
                 />
-            <select value={state} onChange={changeState}>
+            <select value={state} onChange={changeUserState}>
                 {stateList}
             </select>
             <label htmlFor='zip'> Zip Code: </label>
             <input
                 name="zip"
                 value={zip}
+                required={true}
+                // Valid zipcode/numbers only 
                 onChange={(e) => setZip(e.target.value)}
                 />
+            <label htmlFor='cardName'>Name on Card:</label>
+            <input
+                name='cardName'
+                value={cardName}
+                // required={true}
+                hidden={billingVisible}
+                onChange={(e) => setCardName(e.target.value)}
+                />
+                {/* <label htmlFor="billingInfo"> Same as billing? </label> */}
+                {/* <input type="checkbox" id="billingInfo" value="billingInfoSame" onClick={sameAsBilling}/> */}
                 <button type='submit'>Submit Order</button>
         </form>
         </div>
