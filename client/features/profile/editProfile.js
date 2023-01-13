@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { update } from "../auth/authSlice";
 
 const EditProfile = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const user = useSelector((state) => state.auth.me);
   const id = user.id;
 
@@ -16,8 +17,8 @@ const EditProfile = () => {
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
-    console.log("Submit clicked");
     dispatch(update({ id, first_name, last_name, email }));
+    navigate("/profile");
   };
 
   return (
