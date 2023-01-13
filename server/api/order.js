@@ -5,10 +5,11 @@ const {
 module.exports = router;
 
 // route @ api/order
+// Get a user's cart
 router.get("/:userId", async (req, res, next) => {
   try {
     const cart = await Order.findOne({
-      where: { userId: req.params.userId },
+      where: { userId: req.params.userId, purchased: false },
       include: { model: Product, as: "cart" },
     });
     res.json(cart);
