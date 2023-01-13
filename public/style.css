@@ -8,8 +8,9 @@
 */
 
 body {
-  font-family: sans-serif;
+  font-family: "Poppins", sans-serif;
   color: #28262c;
+  margin: 0;
 }
 
 a {
@@ -22,6 +23,10 @@ label {
 
 input {
   margin-bottom: 1em;
+}
+
+hr {
+  width: 100%;
 }
 
 .navbar {
@@ -49,6 +54,7 @@ nav a {
   color: #ffffff;
   border-radius: 8px;
   cursor: pointer;
+  transition: 0.2s;
 }
 
 .btn:hover {
@@ -80,12 +86,12 @@ nav a {
   width: 480px;
 }
 
-.login-signup-link {
+.link {
   text-decoration: underline;
   color: #28262c;
 }
 
-.login-signup-link:hover {
+.link:hover {
   text-decoration: none;
 }
 
@@ -103,4 +109,31 @@ nav a {
   color: #f9f5ff;
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
+}
+
+.edit-profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5%;
+}
+
+.edit-profile-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 500px;
+}
+
+.edit-profile-input {
+  padding: 9px 8px;
+  width: 480px;
+}
+
+.edit-profile-btn {
+  font-size: 19px;
+  font-weight: bold;
+  height: 56px;
+  width: 500px;
+  margin-bottom: 20px;
 }
