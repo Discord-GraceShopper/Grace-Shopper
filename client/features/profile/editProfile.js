@@ -63,19 +63,19 @@ const EditProfile = () => {
             onChange={(e) => setEmail(e.target.value)}
           ></input>
         </div>
-        <div>
+        {/* <div>
           <label htmlFor="password">
             <small>Password</small>
           </label>
-          {/* <input
+          <input
             className="edit-profile-input"
             required
             name="password"
-            defaultValue="*********"
+            placeholder="*********"
             type="text"
             onChange={(e) => setPassword(e.target.value)}
-          ></input> */}
-        </div>
+          ></input>
+        </div> */}
         <button className="btn" type="submit">
           Save Changes
         </button>
