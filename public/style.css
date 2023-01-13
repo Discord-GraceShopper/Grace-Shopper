@@ -88,3 +88,19 @@ nav a {
 .login-signup-link:hover {
   text-decoration: none;
 }
+
+.directory-container {
+  box-shadow: inset 0px 0px 0px 3px #e7e7e7;
+  border-radius: 10px;
+  margin: 1rem;
+}
+
+.directory-container > p {
+  margin: 0;
+  padding: 1.2rem 1rem;
+  font-size: 30px;
+  background-color: #14248a;
+  color: #f9f5ff;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+}
