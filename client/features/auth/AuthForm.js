@@ -102,7 +102,7 @@ const AuthForm = ({ name, displayName }) => {
             {error && <div> {error} </div>}
           </form>
           <h3>Or</h3>
-          <Link className="login-signup-link" to="/login">
+          <Link className="link" to="/login">
             Login
           </Link>
         </div>
