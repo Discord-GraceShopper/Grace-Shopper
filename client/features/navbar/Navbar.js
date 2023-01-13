@@ -22,10 +22,20 @@ const Navbar = () => {
             </div>
             {/* The navbar will show these links after you log in */}
             <div className="nav-link-container">
-              <Link to="/">Home</Link>
-              <Link to="/profile">Account</Link>
+              <Link to="/">
+                <img
+                  className="navbar-icons"
+                  src="./home_FILL0_wght400_GRAD0_opsz48.svg"
+                />
+              </Link>
+              <Link to="/profile">
+                <img
+                  className="navbar-icons"
+                  src="./person_FILL0_wght400_GRAD0_opsz48.svg"
+                />
+              </Link>
               <button
-                className="btn"
+                className="btn navbar-btn"
                 type="button"
                 onClick={logoutAndRedirectHome}
               >
@@ -38,8 +48,18 @@ const Navbar = () => {
             <img id="logo-img-nav" src="./logo-no-background.svg" />
             {/* The navbar will show these links before you log in */}
             <div className="nav-link-container">
-              <Link to="/">Home</Link>
-              <Link to="/login">Login/Register</Link>
+              <Link to="/">
+                <img
+                  className="navbar-icons"
+                  src="./home_FILL0_wght400_GRAD0_opsz48.svg"
+                />
+              </Link>
+              <Link to="/login">
+                <img
+                  className="navbar-icons"
+                  src="./person_FILL0_wght400_GRAD0_opsz48.svg"
+                />
+              </Link>
             </div>
           </div>
         )}
