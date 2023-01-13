@@ -2067,6 +2067,18 @@ const orderDetails = [
     item_quantity: 2,
     total_price: 25.98,
   },
+  {
+    orderId: 3,
+    productId: 1,
+    item_quantity: 1,
+    total_price: 10.99,
+  },
+  {
+    orderId: 3,
+    productId: 2,
+    item_quantity: 2,
+    total_price: 25.98,
+  },
 ];
 
 module.exports = {
