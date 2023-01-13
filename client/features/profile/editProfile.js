@@ -2,22 +2,27 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
+import { update } from "../auth/authSlice";
+
 const EditProfile = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.me);
+  const id = user.id;
 
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [first_name, setFirstName] = useState(user.first_name);
+  const [last_name, setLastName] = useState(user.last_name);
+  const [email, setEmail] = useState(user.email);
+  // const [password, setPassword] = useState(user.password);
 
-  const handleSubmit = (evt) => {
+  const handleSubmit = async (evt) => {
     evt.preventDefault();
+    console.log("Submit clicked");
+    dispatch(update({ id, first_name, last_name, email }));
   };
 
   return (
     <div className="edit-profile-container">
-      <form className="edit-profile-form">
+      <form className="edit-profile-form" onSubmit={handleSubmit}>
         <div>
           <label htmlFor="first name">
             <small>First Name</small>
@@ -61,18 +66,20 @@ const EditProfile = () => {
           <label htmlFor="password">
             <small>Password</small>
           </label>
-          <input
+          {/* <input
             className="edit-profile-input"
             required
             name="password"
             defaultValue="*********"
             type="text"
             onChange={(e) => setPassword(e.target.value)}
-          ></input>
+          ></input> */}
         </div>
+        <button className="btn" type="submit">
+          Save Changes
+        </button>
       </form>
       <Link to="/profile">Cancel</Link>
-      <button className="btn">Save Changes</button>
     </div>
   );
 };
