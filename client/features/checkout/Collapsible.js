@@ -1,8 +1,8 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState, useRef } from "react";
 
 const Collapsible = (props) => {
     const [open, setOpen] = useState(false);
+    const contentRef = useRef();
 
     const toggle = () => {
         setOpen(!open);
@@ -10,10 +10,13 @@ const Collapsible = (props) => {
 
     return (
         <div>
-            <button onClick={toggle}>{props.section}</button>
-            {open && (
-                <div className='toggle'> {props.children} </div>
-            )}
+            <button className='toggleButton' onClick={toggle}>{props.section}</button>
+
+            <div className='content-parent'
+                ref={contentRef}
+                style={open ? { height: contentRef.current.scrollHeight + 'px' } : { height: "0px" }}>
+                <div className='content'>{props.children}</div>
+            </div>
         </div>
     )
 }
