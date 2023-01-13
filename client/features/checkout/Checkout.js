@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import ShippingBillingForm from './ShippingBillingForm';
+import { useRef } from 'react';
 
 const Checkout = () => {
 
@@ -11,6 +12,10 @@ const Checkout = () => {
     // 4. Adjust each purchased item's stock in the db.
 
     
+    const contentRef = useRef();
+    if (contentRef.current) console.log(contentRef.current.scrollHeight);
+
+    
     const sameAsBilling = (e) => { // should this be on the billing page to bring over shipping info?
         if (e.target.checked) {
             // Send shipping info to billing
@@ -18,10 +23,31 @@ const Checkout = () => {
         // If not, clear billing info.
     }
 
+    // return (
+    //     <ShippingBillingForm />
+    // )
+
+    const ref = useRef([]);
+
+    const [open, setOpen] = useState(false);
+
+    const toggle = () => {
+        setOpen(!open);
+    }
+  
     return (
-        <ShippingBillingForm />
+        <div>
+            <button className='toggleButton' onClick={toggle}>Toggle</button>
+
+            <div className={open ? "content-show" : "content-parent"}
+                ref={contentRef}
+                style={open ? { height: contentRef.current.scrollHeight + 'px' } : { height: '0px' }}>
+                    <div className='content'> <ShippingBillingForm /> </div>
+                </div>
+        </div>
     )
-    
 }
+    
+
 
 export default Checkout;
