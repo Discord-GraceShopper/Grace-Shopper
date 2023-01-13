@@ -31,10 +31,10 @@ router.get("/directory", async (req, res, next) => {
   }
 });
 
-// Get single user (for cart request)
+// Get purchase history for single user
 router.get("/:id/purchase-history", async (req, res, next) => {
   try {
-    const cart = await Order.findOne({
+    const cart = await Order.findAll({
       where: { userId: req.params.id, purchased: true },
       include: { model: Product, as: "cart" },
     });
