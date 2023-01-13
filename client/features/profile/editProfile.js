@@ -59,7 +59,7 @@ const EditProfile = () => {
             required
             name="email"
             defaultValue={user.email}
-            type="text"
+            type="email"
             onChange={(e) => setEmail(e.target.value)}
           ></input>
         </div>
@@ -76,11 +76,13 @@ const EditProfile = () => {
             onChange={(e) => setPassword(e.target.value)}
           ></input>
         </div> */}
-        <button className="btn" type="submit">
+        <button className="btn edit-profile-btn" type="submit">
           Save Changes
         </button>
       </form>
-      <Link to="/profile">Cancel</Link>
+      <Link className="link" to="/profile">
+        Cancel
+      </Link>
     </div>
   );
 };
