@@ -16,7 +16,7 @@ const UserTable = () => {
   const pagination = usePagination(data, {
     state: {
       page: 0,
-      size: 2,
+      size: 10,
     },
   });
 
@@ -31,12 +31,16 @@ const UserTable = () => {
   }, [dispatch]);
   return (
     <div className="user-table">
-      <Table data={data}>
+      <Table
+        data={data}
+        pagination={pagination}
+        columns={[{ Header: "ID", width: 50 }]}
+      >
         {(tableList) => (
           <>
             <Header>
               <HeaderRow>
-                <HeaderCell>ID</HeaderCell>
+                <HeaderCell className="id-col">ID</HeaderCell>
                 <HeaderCell>First Name</HeaderCell>
                 <HeaderCell>Last Name</HeaderCell>
                 <HeaderCell>Email</HeaderCell>
@@ -47,7 +51,7 @@ const UserTable = () => {
             <Body>
               {tableList.map((user) => (
                 <Row key={user.id} user={user}>
-                  <Cell>{user.id}</Cell>
+                  <Cell className="id-col">{user.id}</Cell>
                   <Cell>{user.first_name}</Cell>
                   <Cell>{user.last_name}</Cell>
                   <Cell>{user.email}</Cell>
@@ -58,28 +62,26 @@ const UserTable = () => {
           </>
         )}
       </Table>
-      {/* <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-            <th>Account Type</th>
-          </tr>
-        </thead>
-        <tbody>
-          {userList.map((user) => (
-            <tr key={user.id}>
-              <td>{user.id}</td>
-              <td>{user.first_name}</td>
-              <td>{user.last_name}</td>
-              <td>{user.email}</td>
-              <td>{user.account_type}</td>
-            </tr>
+      <div className="pagination-container">
+        <span>Total Pages: {pagination.state.getTotalPages(data.nodes)}</span>
+
+        <span>
+          Page:{" "}
+          {pagination.state.getPages(data.nodes).map((_, index) => (
+            <button
+              key={index}
+              type="button"
+              className="pagination-btn"
+              style={{
+                fontWeight: pagination.state.page === index ? "bold" : "normal",
+              }}
+              onClick={() => pagination.fns.onSetPage(index)}
+            >
+              {index + 1}
+            </button>
           ))}
-        </tbody>
-      </table> */}
+        </span>
+      </div>
     </div>
   );
 };
