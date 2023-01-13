@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-const ShippingBillingForm = () => {
-
+const ShippingBillingForm = (props) => {
     
-
+    const isBillingForm = props.billingForm;
+    console.log(isBillingForm)
 
     const [fullName, setFullName] = useState('');
     const [phoneNum, setPhoneNum] = useState('');
@@ -12,6 +12,13 @@ const ShippingBillingForm = () => {
     const [city, setCity] = useState('');
     const [state, setState] = useState('');
     const [zip, setZip] = useState('');
+    
+    const stateAbbreviations = ["AK", "AL", "AR", "AS", "AZ", "CA", "CO", "CT", "DC", "DE", "FL", "GA", "GU", "HI", "IA", "ID", "IL", "IN", "KS", "KY", "LA", "MA", "MD", "ME", "MI", "MN", "MO", "MP", "MS", "MT", "NC", "ND", "NE", "NH", "NJ", "NM", "NV", "NY", "OH", "OK", "OR", "PA", "PR", "RI", "SC", "SD", "TN", "TX", "UM", "UT", "VA", "VI", "VT", "WA", "WI", "WV", "WY"];
+    const stateList = stateAbbreviations.map((state) => {
+        return (
+            <option value={state} key={state}>{state}</option>
+        )
+    })
 
     const changeUserState = (e) => {
         setState(e.target.value);
@@ -31,19 +38,43 @@ const ShippingBillingForm = () => {
         // POST request to User to save shipping info
     }
 
-    const stateAbbreviations = ["AK", "AL", "AR", "AS", "AZ", "CA", "CO", "CT", "DC", "DE", "FL", "GA", "GU", "HI", "IA", "ID", "IL", "IN", "KS", "KY", "LA", "MA", "MD", "ME", "MI", "MN", "MO", "MP", "MS", "MT", "NC", "ND", "NE", "NH", "NJ", "NM", "NV", "NY", "OH", "OK", "OR", "PA", "PR", "RI", "SC", "SD", "TN", "TX", "UM", "UT", "VA", "VI", "VT", "WA", "WI", "WV", "WY"];
-    const stateList = stateAbbreviations.map((state) => {
-        return (
-            <option value={state} key={state}>{state}</option>
-        )
-    })
+    const [cardName, setCardName] = useState('');
+    const [cardNumber, setCardNumber] = useState('');
+    const [expDate, setExpDate] = useState('');
+
+    const billingFormFields = (
+        <div>
+         <label htmlFor='cardName'>Name on Card:</label>
+            <input
+                name='cardName'
+                value={cardName}
+                required={true}
+                onChange={(e) => setCardName(e.target.value)}
+            />
+        <label htmlFor='cardNumber'>Card Number:</label>
+            <input
+                name='cardNumber'
+                value={cardNumber}
+                required={true}
+                onChange={(e) => setCardNumber(e.target.value)}
+            />
+        <label htmlFor='expDate'>Expiration Date:</label>
+            <input
+                name='expDate'
+                value={expDate}
+                required={true}
+                onChange={(e) => setExpDate(e.target.value)}
+                />
+        </div>
+    )
+
 
 
     return (
         <div>
             <h1>Checkout</h1>
         <form id="shipping-billing-info" onSubmit={saveShippingInfo}>
-            <h2>ship/bill info</h2>
+            <h2>Shipping Information</h2>
             <label htmlFor='fullName'> Full name: </label>
             <input
                 name="fullName"
@@ -85,15 +116,8 @@ const ShippingBillingForm = () => {
                 // Valid zipcode/numbers only 
                 onChange={(e) => setZip(e.target.value)}
                 />
-            {/* <label htmlFor='cardName'>Name on Card:</label>
-            <input
-                name='cardName'
-                value={cardName}
-                // required={true}
-                hidden={billingVisible}
-                onChange={(e) => setCardName(e.target.value)}
-                />
-                 */}
+            {isBillingForm ? billingFormFields : null}
+                
                 {/* <label htmlFor="billingInfo"> Same as billing? </label> */}
                 {/* <input type="checkbox" id="billingInfo" value="billingInfoSame" onClick={sameAsBilling}/> */}
                 <button type='submit'>Submit Order</button>
