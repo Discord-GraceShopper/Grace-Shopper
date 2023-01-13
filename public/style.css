@@ -1,5 +1,15 @@
+/*
+--------- COLORS -----------
+#28262C - Raisin Black
+#998FC7 - Blue Shell
+#D4C2FC - Lavender Blue
+#F9F5FF - Magnolia
+#14248A - Resolution Blue
+*/
+
 body {
   font-family: sans-serif;
+  color: #28262c;
 }
 
 a {
@@ -10,12 +20,71 @@ label {
   display: block;
 }
 
+input {
+  margin-bottom: 1em;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 10px 15px 10px;
+}
+
+#logo-img-nav {
+  width: 200px;
+  height: 50px;
+}
+
+.nav-link-container {
+  display: flex;
+}
+
 nav a {
-  display: inline-block;
   margin: 1em;
 }
 
-form div {
-  margin: 1em;
-  display: inline-block;
+.btn {
+  background-color: #14248a;
+  border: none;
+  color: #ffffff;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #14248ad7;
+}
+
+.login-signup-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-signup-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 500px;
+}
+
+.login-signup-btn {
+  font-size: 19px;
+  font-weight: bold;
+  height: 56px;
+  width: 500px;
+}
+
+.login-signup-input {
+  padding: 9px 8px;
+  width: 480px;
+}
+
+.login-signup-link {
+  text-decoration: underline;
+  color: #28262c;
+}
+
+.login-signup-link:hover {
+  text-decoration: none;
 }
