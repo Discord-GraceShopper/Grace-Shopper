@@ -95,6 +95,77 @@ nav a {
   text-decoration: none;
 }
 
+/* 
+*
+* USER DIRECTORY COMPONENT
+*
+*/
+
+.directory-container {
+  box-shadow: inset 0px 0px 0px 3px #e7e7e7;
+  border-radius: 10px;
+  margin: 1rem;
+}
+
+.directory-container > p {
+  margin: 0;
+  padding: 1.2rem 1rem;
+  font-size: 30px;
+  background-color: #14248a;
+  color: #f9f5ff;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+}
+
+/* 
+*
+* USER DIRECTORY COMPONENT -> USER TABLE
+*
+*/
+
+.user-table {
+  margin: 1rem;
+  padding: 0 0 1rem 0;
+}
+
+.user-table table {
+  border-collapse: collapse;
+}
+
+.user-table th {
+  background-color: #14248a;
+  color: #f9f5ff;
+}
+
+.user-table th,
+td {
+  border-top: 2px solid gray;
+  padding: 5px;
+}
+
+.user-table tr {
+  margin: 0.5rem;
+}
+
+.user-table td,
+tr div {
+  padding-left: 0.5rem;
+}
+
+.pagination-container span {
+  margin-right: 1rem;
+}
+
+thead tr:first-child {
+  width: 100px;
+}
+
+/* 
+*
+* USER -> EDIT PROFILE
+*
+*/
+
 .edit-profile-container {
   display: flex;
   flex-direction: column;
