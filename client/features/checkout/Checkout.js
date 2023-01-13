@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import ShippingBillingForm from './ShippingBillingForm';
 import { useRef } from 'react';
+import Collapsible from './Collapsible';
 
 const Checkout = () => {
 
@@ -36,16 +37,25 @@ const Checkout = () => {
     }
   
     return (
-        <div>
-            <button className='toggleButton' onClick={toggle}>Toggle</button>
-
-            <div className={open ? "content-show" : "content-parent"}
-                ref={contentRef}
-                style={open ? { height: contentRef.current.scrollHeight + 'px' } : { height: '0px' }}>
-                    <div className='content'> <ShippingBillingForm /> </div>
-                </div>
-        </div>
+        <Collapsible section='Shipping Information'>
+            <ShippingBillingForm />
+        </Collapsible>
     )
+
+
+
+
+    // return (
+    //     <div>
+    //         <button className='toggleButton' onClick={toggle}>Toggle</button>
+
+    //         <div className={open ? "content-show" : "content-parent"}
+    //             ref={contentRef}
+    //             style={open ? { height: contentRef.current.scrollHeight + 'px' } : { height: '0px' }}>
+    //                 <div className='content'> <ShippingBillingForm /> </div>
+    //             </div>
+    //     </div>
+    // )
 }
     
 
