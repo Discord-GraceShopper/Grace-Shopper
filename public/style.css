@@ -7,6 +7,12 @@
 #14248A - Resolution Blue
 */
 
+/* 
+*
+* UNIVERSAL
+*
+*/
+
 body {
   font-family: "Poppins", sans-serif;
   color: #28262c;
@@ -29,25 +35,6 @@ hr {
   width: 100%;
 }
 
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  padding: 15px 10px 15px 10px;
-}
-
-#logo-img-nav {
-  width: 200px;
-  height: 50px;
-}
-
-.nav-link-container {
-  display: flex;
-}
-
-nav a {
-  margin: 1em;
-}
-
 .btn {
   background-color: #14248a;
   border: none;
@@ -60,6 +47,57 @@ nav a {
 .btn:hover {
   background-color: #14248ad7;
 }
+
+.link {
+  text-decoration: underline;
+  color: #28262c;
+}
+
+.link:hover {
+  text-decoration: none;
+}
+
+/* 
+*
+* NAVBAR
+*
+*/
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 30px 15px 15px 15px;
+}
+
+.navbar-icons {
+  width: 32px;
+  height: 32px;
+}
+
+#logo-img-nav {
+  width: 200px;
+  height: 50px;
+}
+
+.nav-link-container {
+  display: flex;
+}
+
+nav a {
+  margin-right: 1em;
+  margin-top: 1em;
+}
+
+.navbar-btn {
+  margin-top: 1em;
+  height: 32px;
+}
+
+/* 
+*
+* LOGIN / SIGNUP
+*
+*/
 
 .login-signup-container {
   display: flex;
@@ -86,14 +124,11 @@ nav a {
   width: 480px;
 }
 
-.link {
-  text-decoration: underline;
-  color: #28262c;
-}
-
-.link:hover {
-  text-decoration: none;
-}
+/* 
+*
+* USER -> PROFILE
+*
+*/
 
 .profile-container {
   display: flex;
@@ -142,6 +177,39 @@ nav a {
   font-weight: bold;
   height: 56px;
   justify-content: center;
+}
+
+/* 
+*
+* USER -> EDIT PROFILE
+*
+*/
+
+.edit-profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5%;
+}
+
+.edit-profile-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 500px;
+}
+
+.edit-profile-input {
+  padding: 9px 8px;
+  width: 480px;
+}
+
+.edit-profile-btn {
+  font-size: 19px;
+  font-weight: bold;
+  height: 56px;
+  width: 500px;
+  margin-bottom: 20px;
 }
 
 /* 
@@ -207,37 +275,4 @@ tr div {
 
 thead tr:first-child {
   width: 100px;
-}
-
-/* 
-*
-* USER -> EDIT PROFILE
-*
-*/
-
-.edit-profile-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 5%;
-}
-
-.edit-profile-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 500px;
-}
-
-.edit-profile-input {
-  padding: 9px 8px;
-  width: 480px;
-}
-
-.edit-profile-btn {
-  font-size: 19px;
-  font-weight: bold;
-  height: 56px;
-  width: 500px;
-  margin-bottom: 20px;
 }
