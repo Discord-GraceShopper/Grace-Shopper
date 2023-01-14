@@ -9,27 +9,58 @@ const Navbar = () => {
   const navigate = useNavigate();
   const logoutAndRedirectHome = () => {
     dispatch(logout());
-    navigate("/home");
+    navigate("/");
   };
 
   return (
     <div>
-      <h1>Grace Shopper</h1>
       <nav>
         {isLoggedIn ? (
-          <div>
+          <div className="navbar">
+            <div className="logo-container">
+              <img id="logo-img-nav" src="./logo-no-background.svg" />
+            </div>
             {/* The navbar will show these links after you log in */}
-            <Link to="/">Home</Link>
-            <button type="button" onClick={logoutAndRedirectHome}>
-              Logout
-            </button>
+            <div className="nav-link-container">
+              <Link to="/">
+                <img
+                  className="navbar-icons"
+                  src="./home_FILL0_wght400_GRAD0_opsz48.svg"
+                />
+              </Link>
+              <Link to="/profile">
+                <img
+                  className="navbar-icons"
+                  src="./person_FILL0_wght400_GRAD0_opsz48.svg"
+                />
+              </Link>
+              <button
+                className="btn navbar-btn"
+                type="button"
+                onClick={logoutAndRedirectHome}
+              >
+                Logout
+              </button>
+            </div>
           </div>
         ) : (
-          <div>
+          <div className="navbar">
+            <img id="logo-img-nav" src="./logo-no-background.svg" />
             {/* The navbar will show these links before you log in */}
-            <Link to="/">Home</Link>
-            <Link to="/login">Login/Register</Link>
-            {/* <Link to="/signup">Sign Up</Link> */}
+            <div className="nav-link-container">
+              <Link to="/">
+                <img
+                  className="navbar-icons"
+                  src="./home_FILL0_wght400_GRAD0_opsz48.svg"
+                />
+              </Link>
+              <Link to="/login">
+                <img
+                  className="navbar-icons"
+                  src="./person_FILL0_wght400_GRAD0_opsz48.svg"
+                />
+              </Link>
+            </div>
           </div>
         )}
       </nav>

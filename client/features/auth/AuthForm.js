@@ -43,62 +43,110 @@ const AuthForm = ({ name, displayName }) => {
   return (
     <div>
       {name === "signup" ? (
-        <div>
+        <div className="login-signup-container">
           <h2>Create new account</h2>
-          <form onSubmit={handleSubmit} name={name}>
+          <form
+            className="login-signup-form"
+            onSubmit={handleSubmit}
+            name={name}
+          >
             <div>
               <label htmlFor="first name">
                 <small>First Name</small>
               </label>
-              <input required name="first_name" type="text" />
+              <input
+                className="login-signup-input"
+                required
+                name="first_name"
+                type="text"
+              />
             </div>
             <div>
               <label htmlFor="last name">
                 <small>Last Name</small>
               </label>
-              <input required name="last_name" type="text" />
+              <input
+                className="login-signup-input"
+                required
+                name="last_name"
+                type="text"
+              />
             </div>
             <div>
               <label htmlFor="email">
                 <small>Email</small>
               </label>
-              <input required name="email" type="text" />
+              <input
+                className="login-signup-input"
+                required
+                name="email"
+                type="text"
+              />
             </div>
             <div>
               <label htmlFor="password">
                 <small>Password</small>
               </label>
-              <input required name="password" type="text" />
+              <input
+                className="login-signup-input"
+                required
+                name="password"
+                type="text"
+              />
             </div>
             <div>
-              <button type="submit">{displayName}</button>
+              <button className="login-signup-btn btn" type="submit">
+                {displayName}
+              </button>
             </div>
             {error && <div> {error} </div>}
           </form>
+          <h3>Or</h3>
+          <Link className="link" to="/login">
+            Login
+          </Link>
         </div>
       ) : (
-        <div>
+        <div className="login-signup-container">
           <h2>Sign into your account</h2>
-          <form onSubmit={handleSubmit} name={name}>
+          <form
+            className="login-signup-form"
+            onSubmit={handleSubmit}
+            name={name}
+          >
             <div>
               <label htmlFor="email">
                 <small>Email</small>
               </label>
-              <input required name="email" type="text" />
+              <input
+                className="login-signup-input"
+                required
+                name="email"
+                type="text"
+              />
             </div>
             <div>
               <label htmlFor="password">
                 <small>Password</small>
               </label>
-              <input required name="password" type="password" />
+              <input
+                className="login-signup-input"
+                required
+                name="password"
+                type="password"
+              />
             </div>
             <div>
-              <button type="submit">{displayName}</button>
+              <button className="login-signup-btn btn" type="submit">
+                {displayName}
+              </button>
             </div>
             {error && <div> {error} </div>}
           </form>
           <h3>Don't have an account?</h3>
-          <Link to="/signup">Register</Link>
+          <Link className="link" to="/signup">
+            Register
+          </Link>
         </div>
       )}
     </div>

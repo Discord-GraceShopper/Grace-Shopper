@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const {
-  models: { User },
+  models: { User, Order, Product },
 } = require("../db");
 module.exports = router;
 
@@ -16,5 +16,30 @@ router.get("/", async (req, res, next) => {
     res.json(users);
   } catch (err) {
     next(err);
+  }
+});
+
+// Directory route for all users
+router.get("/directory", async (req, res, next) => {
+  try {
+    const users = await User.findAll({
+      attributes: ["id", "first_name", "last_name", "email", "account_type"],
+    });
+    res.json(users);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Get purchase history for single user
+router.get("/:id/purchase-history", async (req, res, next) => {
+  try {
+    const cart = await Order.findAll({
+      where: { userId: req.params.id, purchased: true },
+      include: { model: Product, as: "cart" },
+    });
+    res.json(cart);
+  } catch (error) {
+    next(error);
   }
 });
