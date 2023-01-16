@@ -276,3 +276,49 @@ tr div {
 thead tr:first-child {
   width: 100px;
 }
+
+/* 
+*
+* CHECKOUT PAGE -> COLLAPSIBLE
+*
+*/
+
+.content {
+  border: 1px solid rgb(128, 123, 123);
+  padding: 0.5rem;
+  border-radius: 5px;
+}
+  
+.content-parent {
+  height: 0px;
+  overflow: hidden;
+  transition: height ease 0.9s;
+}
+  
+.content-show {
+  height: 200px;
+  overflow: hidden;
+  transition: height ease 0.9s;
+}
+
+.toggleButton {
+  display: block;
+  width: 100%;
+}
+
+/*
+*
+* CHECKOUT PAGE
+*
+*/
+
+#shipping-billing-info {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#billing-form {
+  display:flex;
+  flex-direction:column;
+}
