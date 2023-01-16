@@ -34,11 +34,11 @@ const PurchaseHistory = () => {
                       <img src={product.main_image} width="75" height="75" />
                       <h4>{product.title}</h4>
                     </span>
-                    <h4>{product.price}</h4>
+                    <h4>${product.price}</h4>
                   </div>
                 );
               })}
-              <h2>Total: {total}</h2>
+              <h2 className="purchase-history-total">Total: ${total}</h2>
             </div>
           );
         })}
