@@ -317,8 +317,3 @@ thead tr:first-child {
   flex-direction: column;
   align-items: center;
 }
-
-#billing-form {
-  display:flex;
-  flex-direction:column;
-}
