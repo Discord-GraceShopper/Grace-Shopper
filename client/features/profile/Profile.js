@@ -31,7 +31,7 @@ const Profile = () => {
       </Link>
       <Link to="/purchase-history">
         <button className="btn view-order-history-btn">
-          View order history
+          View purchase history
         </button>
       </Link>
     </div>
