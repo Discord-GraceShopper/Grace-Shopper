@@ -20,6 +20,7 @@
   "author": "Team Discord",
   "license": "MIT",
   "dependencies": {
+    "@emotion/react": "^11.10.5",
     "@table-library/react-table-library": "^4.0.23",
     "bcrypt": "^5.1.0",
     "compression": "^1.7.4",
