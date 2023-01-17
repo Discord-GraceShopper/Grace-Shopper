@@ -86,7 +86,11 @@ export const fetchUserPurchaseHistory = createAsyncThunk(
   "users/fetchPurchaseHistory",
   async (id) => {
     try {
-      const { data } = await axios.get(`/api/users/${id}/purchase-history`, {});
+      const { data } = await axios.get(`/api/users/${id}/purchase-history`, {
+        headers: {
+          authorization: "axios-request",
+        },
+      });
       return data;
     } catch (err) {
       return err;
