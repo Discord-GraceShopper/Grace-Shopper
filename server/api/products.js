@@ -21,7 +21,6 @@ router.get("/", async (req, res, next) => {
 //Get single product
 router.get("/:id", async (req, res, next) => {
   try {
-    console.log(await requireAxios(req.headers.authorization));
     if (await requireAxios(req.headers.authorization)) {
       res.json(await Product.findByPk(req.params.id));
     } else {
