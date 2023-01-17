@@ -3,7 +3,9 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const fetchAllUsers = createAsyncThunk("users/fetchAll", async () => {
   try {
-    const { data } = await axios.get("/api/users/directory");
+    const { data } = await axios.get(
+      "https://bullseye-4pzy.onrender.com/api/users/directory"
+    );
     return data;
   } catch (error) {
     return data;
