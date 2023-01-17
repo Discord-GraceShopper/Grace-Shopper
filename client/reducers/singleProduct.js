@@ -1,36 +1,43 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const fetchSingleProduct = createAsyncThunk("products/getOne", async (productId) => {
+export const fetchSingleProduct = createAsyncThunk(
+  "products/getOne",
+  async (productId) => {
     try {
-        const { data } = await axios.get(`/api/products/${productId}`);
-        return data;
+      const { data } = await axios.get(`/api/products/${productId}`, {
+        headers: {
+          authorization: "axios-request",
+        },
+      });
+      return data;
     } catch (error) {
-        return error;
+      return error;
     }
-});
+  }
+);
 
 const initialState = {
-    product: {},
-    error: null,
-}
+  product: {},
+  error: null,
+};
 
 export const singleProductSlice = createSlice({
-    name: "product",
-    initialState,
-    reducers: {},
-    extraReducers(builder) {
-        builder.addCase(fetchSingleProduct.fulfilled, (state, action) => {
-            state.product = action.payload;
-        })
-        builder.addCase(fetchSingleProduct.rejected, (state, action) => {
-            state.product = action.error; // should this reassign state.error instead?
-        });
-    },
+  name: "product",
+  initialState,
+  reducers: {},
+  extraReducers(builder) {
+    builder.addCase(fetchSingleProduct.fulfilled, (state, action) => {
+      state.product = action.payload;
+    });
+    builder.addCase(fetchSingleProduct.rejected, (state, action) => {
+      state.product = action.error; // should this reassign state.error instead?
+    });
+  },
 });
 
 export const selectSingleProduct = (state) => {
-    return state.singleProduct.product;
-}
+  return state.singleProduct.product;
+};
 
 export default singleProductSlice.reducer;
