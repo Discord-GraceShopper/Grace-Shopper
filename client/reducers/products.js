@@ -30,6 +30,26 @@ export const createNewProduct = createAsyncThunk(
   }
 })
 
+export const updateProduct = createAsyncThunk(
+  "products/update", 
+  async ({ productId, title, brand, sku, description, price, quantity, primary_category, main_image }) => {
+    try {
+      const { data } = await axios.put(`/api/products/${productId}`, {
+        title,
+        brand,
+        sku,
+        description,
+        price,
+        quantity,
+        primary_category,
+        main_image,
+      });
+      return data;
+    } catch (error) {
+      return error;
+    }
+})
+
 export const deleteProduct = createAsyncThunk("products/delete", async (productId) => {
   try {
     const { data } = await axios.delete(`/api/products/${productId}`);
@@ -64,7 +84,7 @@ export const productSlice = createSlice({
         const indexFinder = (product) => product.id === productToDelete.id;
         const indexOfProduct = state.allProducts.findIndex(indexFinder);
         state.splice(indexOfProduct, 1);
-      }) // What to do with deleteProduct.rejected?
+      }) // What to do with createNewProduct.rejected
   },
 });
 
