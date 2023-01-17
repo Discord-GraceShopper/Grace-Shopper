@@ -214,6 +214,32 @@ nav a {
 
 /* 
 *
+* USER -> EDIT PROFILE
+*
+*/
+
+.purchase-history-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.purchase-history-order-container {
+  /* display: flex;
+  flex-direction: column; */
+  border-style: solid;
+  border-radius: 5px;
+  margin-bottom: 5%;
+  padding: 2%;
+}
+
+.purchase-history-total {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* 
+*
 * USER DIRECTORY COMPONENT
 *
 */
