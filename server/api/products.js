@@ -25,9 +25,10 @@ router.get("/:id", async (req, res, next) => {
 //Create new product
 router.post('/', async (req, res, next) => {
   try {
-    const { title, brand, sku, description, price, availability, quantity, primary_category } = req.body;
-    res.json(await Product.create({title, brand, sku, description, price, availability, quantity, primary_category}));
+    const { title, brand, main_image, sku, description, price, availability, quantity, primary_category } = req.body;
+    res.json(await Product.create({title, brand, main_image, sku, description, price, availability, quantity, primary_category}));
   } catch (err) {
+    console.log(err);
     next(err);
   }
 });
@@ -36,8 +37,8 @@ router.post('/', async (req, res, next) => {
 router.put('/:id', async (req, res, next) => {
   try {
   const product = await Product.findByPk(req.params.id);
-  const { title, brand, sku, description, price, availability, quantity, primary_category } = req.body;
-  res.json(await product.update({title, brand, sku, description, price, availability, quantity, primary_category}))
+  const { title, brand, main_image, sku, description, price, availability, quantity, primary_category } = req.body;
+  res.json(await product.update({title, brand, main_image, sku, description, price, availability, quantity, primary_category}))
   } catch (err) {
     next(err);
   }
