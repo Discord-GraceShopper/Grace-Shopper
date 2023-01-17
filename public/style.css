@@ -7,9 +7,16 @@
 #14248A - Resolution Blue
 */
 
+/* 
+*
+* UNIVERSAL
+*
+*/
+
 body {
-  font-family: sans-serif;
+  font-family: "Poppins", sans-serif;
   color: #28262c;
+  margin: 0;
 }
 
 a {
@@ -24,10 +31,47 @@ input {
   margin-bottom: 1em;
 }
 
+hr {
+  width: 100%;
+}
+
+.btn {
+  background-color: #14248a;
+  border: none;
+  color: #ffffff;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn:hover {
+  background-color: #14248ad7;
+}
+
+.link {
+  text-decoration: underline;
+  color: #28262c;
+}
+
+.link:hover {
+  text-decoration: none;
+}
+
+/* 
+*
+* NAVBAR
+*
+*/
+
 .navbar {
   display: flex;
   justify-content: space-between;
-  padding: 15px 10px 15px 10px;
+  padding: 30px 15px 15px 15px;
+}
+
+.navbar-icons {
+  width: 32px;
+  height: 32px;
 }
 
 #logo-img-nav {
@@ -40,20 +84,20 @@ input {
 }
 
 nav a {
-  margin: 1em;
+  margin-right: 1em;
+  margin-top: 1em;
 }
 
-.btn {
-  background-color: #14248a;
-  border: none;
-  color: #ffffff;
-  border-radius: 8px;
-  cursor: pointer;
+.navbar-btn {
+  margin-top: 1em;
+  height: 32px;
 }
 
-.btn:hover {
-  background-color: #14248ad7;
-}
+/* 
+*
+* LOGIN / SIGNUP
+*
+*/
 
 .login-signup-container {
   display: flex;
@@ -80,11 +124,155 @@ nav a {
   width: 480px;
 }
 
-.login-signup-link {
-  text-decoration: underline;
-  color: #28262c;
+/* 
+*
+* USER -> PROFILE
+*
+*/
+
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 3%;
 }
 
-.login-signup-link:hover {
-  text-decoration: none;
+.profile-grid {
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  justify-content: center;
+  column-gap: 100px;
+}
+
+.profile-first-name {
+  grid-row: 1;
+  grid-column: 1;
+}
+
+.profile-last-name {
+  grid-row: 1;
+  grid-column: 2;
+}
+
+.profile-email {
+  grid-row: 2;
+  grid-column: 1;
+}
+
+.profile-password {
+  grid-row: 2;
+  grid-column: 2;
+}
+
+.profile-edit-link {
+  margin-bottom: 5%;
+}
+
+.view-order-history-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 500px;
+  font-size: 19px;
+  font-weight: bold;
+  height: 56px;
+  justify-content: center;
+}
+
+/* 
+*
+* USER -> EDIT PROFILE
+*
+*/
+
+.edit-profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5%;
+}
+
+.edit-profile-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 500px;
+}
+
+.edit-profile-input {
+  padding: 9px 8px;
+  width: 480px;
+}
+
+.edit-profile-btn {
+  font-size: 19px;
+  font-weight: bold;
+  height: 56px;
+  width: 500px;
+  margin-bottom: 20px;
+}
+
+/* 
+*
+* USER DIRECTORY COMPONENT
+*
+*/
+
+.directory-container {
+  box-shadow: inset 0px 0px 0px 3px #e7e7e7;
+  border-radius: 10px;
+  margin: 1rem;
+}
+
+.directory-container > p {
+  margin: 0;
+  padding: 1.2rem 1rem;
+  font-size: 30px;
+  background-color: #14248a;
+  color: #f9f5ff;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+}
+
+/* 
+*
+* USER DIRECTORY COMPONENT -> USER TABLE
+*
+*/
+
+.user-table {
+  margin: 1rem;
+  padding: 0 0 1rem 0;
+}
+
+.user-table table {
+  border-collapse: collapse;
+}
+
+.user-table th {
+  background-color: #14248a;
+  color: #f9f5ff;
+}
+
+.user-table th,
+td {
+  border-top: 2px solid gray;
+  padding: 5px;
+}
+
+.user-table tr {
+  margin: 0.5rem;
+}
+
+.user-table td,
+tr div {
+  padding-left: 0.5rem;
+}
+
+.pagination-container span {
+  margin-right: 1rem;
+}
+
+thead tr:first-child {
+  width: 100px;
 }

@@ -62,6 +62,26 @@ export const authenticate = createAsyncThunk(
   }
 );
 
+export const update = createAsyncThunk(
+  "auth/update",
+  async ({ id, first_name, last_name, email }) => {
+    const token = window.localStorage.getItem(TOKEN);
+    try {
+      if (token) {
+        const res = await axios.put(`/auth/${id}`, {
+          authorization: token,
+          first_name,
+          last_name,
+          email,
+        });
+        return res.data;
+      }
+    } catch (err) {
+      return err;
+    }
+  }
+);
+
 /*
   SLICE
 */
@@ -87,6 +107,12 @@ export const authSlice = createSlice({
     });
     builder.addCase(authenticate.rejected, (state, action) => {
       state.error = action.payload;
+    });
+    builder.addCase(update.fulfilled, (state, action) => {
+      state.me = action.payload;
+    });
+    builder.addCase(update.rejected, (state, action) => {
+      state.error = action.error;
     });
   },
 });

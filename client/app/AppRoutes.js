@@ -7,6 +7,9 @@ import { me } from "./store";
 import SingleProduct from "../features/products/singleProduct";
 import AllProducts from "../features/products/allProducts";
 import Cart from "../features/products/Cart";
+import Profile from "../features/profile/Profile";
+import EditProfile from "../features/profile/editProfile";
+import UserDirectory from "../features/userDirectory/UserDirectory";
 
 /**
  * COMPONENT
@@ -26,7 +29,9 @@ const AppRoutes = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/edit-profile" element={<EditProfile />} />
           <Route path="/products/:productId" element={<SingleProduct />} />
+          <Route path="/directory" element={<UserDirectory />} />
         </Routes>
       ) : (
         <Routes>
