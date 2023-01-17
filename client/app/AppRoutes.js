@@ -17,6 +17,7 @@ import PurchaseHistory from "../features/profile/purchaseHistory";
 
 const AppRoutes = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
+  const isAdmin = useSelector((state) => state.auth.me.account_type);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -32,7 +33,9 @@ const AppRoutes = () => {
           <Route path="/edit-profile" element={<EditProfile />} />
           <Route path="/purchase-history" element={<PurchaseHistory />} />
           <Route path="/products/:productId" element={<SingleProduct />} />
-          <Route path="/directory" element={<UserDirectory />} />
+          {isAdmin === "ADMIN" ? (
+            <Route path="/directory" element={<UserDirectory />} />
+          ) : null}
         </Routes>
       ) : (
         <Routes>
