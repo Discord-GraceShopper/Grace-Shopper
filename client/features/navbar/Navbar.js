@@ -5,7 +5,7 @@ import { logout } from "../../app/store";
 
 const Navbar = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
-  const isAdmin = useSelector((state) => !!state.auth.me.account_type);
+  const isAdmin = useSelector((state) => state.auth.me.account_type);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const logoutAndRedirectHome = () => {
@@ -35,13 +35,15 @@ const Navbar = () => {
                   src="./person_FILL0_wght400_GRAD0_opsz48.svg"
                 />
               </Link>
-              <Link to="/directory">
-                <p>User Directory</p>
-                {/* <img
+              {isAdmin === "ADMIN" ? (
+                <Link to="/directory">
+                  <p>User Directory</p>
+                  {/* <img
                   className="navbar-icons"
                   src="./person_FILL0_wght400_GRAD0_opsz48.svg"
                 /> */}
-              </Link>
+                </Link>
+              ) : null}
               <button
                 className="btn navbar-btn"
                 type="button"
