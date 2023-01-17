@@ -29,7 +29,11 @@ const Profile = () => {
       <Link className="link profile-edit-link" to="/edit-profile">
         Edit
       </Link>
-      <button className="btn view-order-history-btn">View order history</button>
+      <Link to="/purchase-history">
+        <button className="btn view-order-history-btn">
+          View purchase history
+        </button>
+      </Link>
     </div>
   );
 };

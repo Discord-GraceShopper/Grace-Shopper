@@ -9,6 +9,7 @@ import AllProducts from "../features/products/allProducts";
 import Profile from "../features/profile/Profile";
 import EditProfile from "../features/profile/editProfile";
 import UserDirectory from "../features/userDirectory/UserDirectory";
+import PurchaseHistory from "../features/profile/purchaseHistory";
 
 /**
  * COMPONENT
@@ -29,6 +30,7 @@ const AppRoutes = () => {
           <Route path="/" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/edit-profile" element={<EditProfile />} />
+          <Route path="/purchase-history" element={<PurchaseHistory />} />
           <Route path="/products/:productId" element={<SingleProduct />} />
           <Route path="/directory" element={<UserDirectory />} />
         </Routes>
