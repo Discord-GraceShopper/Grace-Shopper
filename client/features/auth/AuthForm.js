@@ -80,7 +80,7 @@ const AuthForm = ({ name, displayName }) => {
                 className="login-signup-input"
                 required
                 name="email"
-                type="text"
+                type="email"
               />
             </div>
             <div>
@@ -91,7 +91,7 @@ const AuthForm = ({ name, displayName }) => {
                 className="login-signup-input"
                 required
                 name="password"
-                type="text"
+                type="password"
               />
             </div>
             <div>
