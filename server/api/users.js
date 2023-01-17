@@ -27,10 +27,14 @@ router.get("/", async (req, res, next) => {
 // Directory route for all users
 router.get("/directory", async (req, res, next) => {
   try {
-    const users = await User.findAll({
-      attributes: ["id", "first_name", "last_name", "email", "account_type"],
-    });
-    res.json(users);
+    if (await requireAxios(req.headers.authorization)) {
+      const users = await User.findAll({
+        attributes: ["id", "first_name", "last_name", "email", "account_type"],
+      });
+      res.json(users);
+    } else {
+      res.status(403).send("Not authorized");
+    }
   } catch (error) {
     next(error);
   }
