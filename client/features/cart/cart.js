@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCart, editQuantity, deleteItem } from "../../reducers/cart";
 import { Link } from "react-router-dom";
@@ -38,9 +38,8 @@ const Cart = () => {
 
     dispatch(deleteItem({ productId, orderId }));
   };
-  console.log(carts);
+
   let subTotal = Number(0);
-  // let tax = subTotal * 0.15;
 
   return (
     <div>
@@ -49,7 +48,6 @@ const Cart = () => {
         {carts &&
           carts.map((product) => {
             subTotal += Number(product.order_details.total_price);
-
             return (
               <div key={product.id}>
                 <h2>{product.title}</h2>

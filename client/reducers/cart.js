@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export const getCart = createAsyncThunk("cart/getAll", async (id) => {
@@ -36,13 +36,6 @@ export const editQuantity = createAsyncThunk("cart/edit", async (product) => {
     const { id, productId, orderId, item_quantity, price } = product;
     const updatedQty = { id, productId, orderId, item_quantity, price };
     const { data } = await axios.put(`/api/order/editItem`, updatedQty);
-
-    // const { data } = await axios.get(`/api/order/${id}`, {
-    //   params: { orderId: 1 },
-    //   headers: {
-    //     authorization: "axios-request",
-    //   },
-    // });
     return data.cart;
   } catch (error) {
     return error;
@@ -91,29 +84,10 @@ export const cartSlice = createSlice({
       .addCase(editQuantity.fulfilled, (state, action) => {
         state.items = action.payload;
       })
-      //   state.items.map((item) => {
-      //     if (item.order_details.productId === action.payload.productId) {
-      //       return {
-      //         ...item,
-      //         item_quantity: action.payload.quantity,
-      //       };
-      //     }
-      //     return item;
-      //   });
-      // })
-      // .addCase(editQuantity.fulfilled, (state, action) => {
-      //   state.items.map((item) => (if (item.id === payload.id) return quantity: payload: quantity))
-      // })
       .addCase(editQuantity.rejected, (state, action) => {
         state.error = action.error;
       })
       .addCase(deleteItem.fulfilled, (state, action) => {
-        // state.items.filter(
-        //   (product) => product.order_details.productId !== action.payload
-        // );
-        console.log(action.payload, "action paylaod");
-        console.log(current(state), "state items");
-
         state.items.splice(
           state.items.findIndex(
             (item) =>
@@ -122,15 +96,6 @@ export const cartSlice = createSlice({
           ),
           1
         );
-
-        // const indexToRemove = state.items.findIndex((item) => {
-        // return (
-        //   item.orderId === action.payload.orderId &&
-        //   item.productId === action.payload.productId
-        // );
-        // console.log(item);
-        // });
-        // console.log(indexToRemove);
       })
       .addCase(deleteItem.rejected, (state, action) => {
         state.error = action.error;
