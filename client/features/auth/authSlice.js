@@ -43,14 +43,14 @@ export const authenticate = createAsyncThunk(
           password,
         });
         window.localStorage.setItem(TOKEN, res.data.token);
-        thunkAPI.dispatch(me());
+        await thunkAPI.dispatch(me());
       } else {
         const res = await axios.post(`/auth/${method}`, {
           email,
           password,
         });
         window.localStorage.setItem(TOKEN, res.data.token);
-        thunkAPI.dispatch(me());
+        await thunkAPI.dispatch(me());
       }
     } catch (err) {
       if (err.response.data) {
