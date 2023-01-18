@@ -388,6 +388,10 @@ thead tr:first-child {
   font-size: 10px;
 }
 
+#single-product-back-btn {
+  padding-left: 200px;
+}
+
 /*
 *
 * ALL PRODUCT PAGE
