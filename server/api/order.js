@@ -48,16 +48,6 @@ router.post("/addItem", async (req, res, next) => {
   }
 });
 
-// router.put("/:userId", async (req, res, next) => {
-//   try {
-//     const { userId } = req.params;
-//     const cart = await OrderDetails.findByPk(userId);
-//     res.json(await cart.update(req.body));
-//   } catch (error) {
-//     next(error);
-//   }
-// });
-
 // Edit item in user cart
 router.put("/editItem", async (req, res, next) => {
   try {
@@ -67,10 +57,6 @@ router.put("/editItem", async (req, res, next) => {
     const productDetails = await OrderDetails.findOne({
       where: { orderId, productId },
     });
-    // productDetails.update({
-    //   item_quantity,
-    //   total_price: item_quantity * base_price,
-    // });
     await productDetails.update({
       item_quantity,
       total_price: item_quantity * price,

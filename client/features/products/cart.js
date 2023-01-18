@@ -38,7 +38,7 @@ const Cart = () => {
 
     dispatch(deleteItem({ productId, orderId }));
   };
-  console.log(carts);
+
   let subTotal = Number(0);
   // let tax = subTotal * 0.15;
 
@@ -49,7 +49,6 @@ const Cart = () => {
         {carts &&
           carts.map((product) => {
             subTotal += Number(product.order_details.total_price);
-
             return (
               <div key={product.id}>
                 <h2>{product.title}</h2>
