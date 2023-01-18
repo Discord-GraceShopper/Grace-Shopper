@@ -48,6 +48,40 @@ router.post("/addItem", async (req, res, next) => {
   }
 });
 
+// Edit item in user cart
+router.put("/editItem", async (req, res, next) => {
+  try {
+    // item_quantity should be the new quantity
+    // base_price should be the price of ONE of the item
+    const { orderId, productId, item_quantity, base_price } = req.body;
+    const productDetails = await OrderDetails.findOne({
+      where: { orderId, productId },
+    });
+    productDetails.update({
+      item_quantity,
+      total_price: item_quantity * base_price,
+    });
+    res.status(201).json({ message: "Item updated" });
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Remove
+router.delete("/deleteItem", async (req, res, next) => {
+  try {
+    const { orderId, productId } = req.body;
+    const productDetails = await OrderDetails.findOne({
+      where: { orderId, productId },
+    });
+    await productDetails.destroy();
+    res.status(200).json({ message: "Item deleted from cart" });
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Checkout
 router.put("/checkout", async (req, res, next) => {
   try {
     // userId of current user
