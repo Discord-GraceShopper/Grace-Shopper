@@ -14,7 +14,7 @@ import ReactPaginate from "react-paginate";
 
       const destroyProduct = (productId) => {
         dispatch(deleteProduct(productId));
-        // dispatch(getAllProducts());
+        dispatch(getAllProducts());
       }
 
       return (
@@ -46,7 +46,7 @@ import ReactPaginate from "react-paginate";
     
       useEffect(() => {
         dispatch(getAllProducts());
-      }, [dispatch]);
+      }, []);
     
       const [itemOffset, setItemOffset] = useState(0);
     
