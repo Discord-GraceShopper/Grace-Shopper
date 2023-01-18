@@ -5,12 +5,14 @@ import AuthForm from "../features/auth/AuthForm";
 import Home from "../features/home/Home";
 import { me } from "./store";
 import SingleProduct from "../features/products/singleProduct";
-import AllProducts from "../features/products/AllProducts";
+import AllProducts from "../features/products/allProducts";
 import Profile from "../features/profile/Profile";
 import EditProfile from "../features/profile/editProfile";
 import UserDirectory from "../features/userDirectory/UserDirectory";
 import PurchaseHistory from "../features/profile/purchaseHistory";
 import NotFound from "../features/errorPages/notFound";
+import ProductsPanel from "../features/admin/ProductsPanel";
+import EditProduct from "../features/admin/EditProduct";
 
 /**
  * COMPONENT
@@ -35,7 +37,11 @@ const AppRoutes = () => {
           <Route path="/purchase-history" element={<PurchaseHistory />} />
           <Route path="/products/:productId" element={<SingleProduct />} />
           {isAdmin === "ADMIN" ? (
+            <>
             <Route path="/directory" element={<UserDirectory />} />
+            <Route path="/panel" element={<ProductsPanel />} />
+            <Route path="/edit-product/:productId" element={<EditProduct />} />
+            </>
           ) : null}
           <Route path="/*" element={<NotFound />} />
         </Routes>
