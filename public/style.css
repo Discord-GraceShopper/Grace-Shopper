@@ -66,7 +66,13 @@ hr {
 .navbar {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 30px 15px 15px 15px;
+}
+
+.welcome-statement {
+  margin-right: 1rem;
+  color: #14248a;
 }
 
 .navbar-icons {
@@ -91,6 +97,10 @@ nav a {
 .navbar-btn {
   margin-top: 1em;
   height: 32px;
+}
+
+.log-btn {
+  padding: 0 0.5rem;
 }
 
 /* 
@@ -377,6 +387,103 @@ thead tr:first-child {
   color: #737178;
   font-size: 10px;
 }
+
+/*
+*
+* ALL PRODUCT PAGE
+*
+*/
+
+.all-product-container {
+  margin: 0 1rem;
+  background-color: #fff;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  box-shadow: inset 0px 0px 0px 3px #e7e7e7;
+}
+
+.all-product-header {
+  background-color: #14248a;
+  color: #f9f5ff;
+  padding: 1rem;
+  margin: 0;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.all-products {
+  margin-left: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.all-products-product {
+  flex: 0 0 20%;
+  margin: 1rem;
+  width: 300px;
+}
+
+.all-products-product a {
+  text-decoration: none;
+  color: #14248a;
+}
+
+.all-products-product a:hover {
+  text-decoration: underline;
+  color: #364ee8;
+}
+
+.product-actions {
+  display: flex;
+}
+
+.product-actions h2 {
+  margin: 0 1rem 0 0;
+}
+
+.add-cart-btn {
+  background-color: #14248a;
+  color: #e7e7e7;
+  border: none;
+  font-weight: 500;
+  border-radius: 10px;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+}
+
+/*
+*
+* PAGINATION BUTTONS
+*
+*/
+
+.all-product-container > ul {
+  display: flex;
+  list-style: none;
+  justify-content: center;
+  background-color: #14248a;
+  padding: 1rem;
+}
+
+li a {
+  font-size: 20px;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  color: #f9f5ff;
+  cursor: pointer;
+  border-right: 1px solid #0c154f;
+  border-top: 1px solid #0c154f;
+  border-bottom: 1px solid #0c154f;
+}
+
+li:first-child a {
+  border-left: 1px solid #0c154f;
+}
+
+.selected a {
+  background-color: #f9f5ff;
+  color: #14248a;
 
 /*
 *
