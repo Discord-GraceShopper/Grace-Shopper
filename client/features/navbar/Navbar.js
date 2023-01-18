@@ -39,9 +39,14 @@ const Navbar = () => {
                 />
               </Link>
               {isAdmin === "ADMIN" ? (
+                <>
                 <Link to="/directory">
                   <img className="navbar-icons" src="./user-directory.svg" />
                 </Link>
+                <Link to="/panel">
+                  <img className="navbar-icons" src="./settings-icon.svg" />
+                </Link>
+                </>
               ) : null}
               <button
                 className="btn navbar-btn log-btn"
