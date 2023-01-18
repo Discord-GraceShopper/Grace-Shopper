@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const getCart = createAsyncThunk("cart/getAll", async () => {
+export const getCart = createAsyncThunk("cart/getAll", async (id) => {
   try {
-    const { data } = await axios.get(`/api/order/2`);
+    const { data } = await axios.get(`/api/order/${id}`);
     const cart = data.cart;
     return cart;
   } catch (error) {
@@ -31,8 +31,8 @@ export const editQuantity = createAsyncThunk("cart/edit", async (product) => {
   try {
     const { productId, orderId, item_quantity, price } = product;
     const updatedQty = { productId, orderId, item_quantity, price };
-    await axios.put(`/api/order/2`, { cart: updatedQty });
-    const { data } = await axios.get(`/api/order/2`);
+    await axios.put(`/api/order/${id}`, { cart: updatedQty });
+    const { data } = await axios.get(`/api/order/${id}`);
     return data.cart;
   } catch (error) {
     return error;
@@ -41,7 +41,7 @@ export const editQuantity = createAsyncThunk("cart/edit", async (product) => {
 
 export const deleteItem = createAsyncThunk("cart/deleteItem", async (id) => {
   try {
-    const { data } = axios.delete(`/api/orderdetails/${id}`);
+    const { data } = axios.delete(`/api/order//${id}`);
     return data;
   } catch (error) {
     return error;
@@ -99,5 +99,4 @@ export const cartSlice = createSlice({
   },
 });
 
-export const { incrementOne } = cartSlice.actions;
 export default cartSlice.reducer;

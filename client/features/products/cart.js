@@ -6,11 +6,12 @@ import { Link } from "react-router-dom";
 const Cart = () => {
   const dispatch = useDispatch();
   const carts = useSelector((state) => state.cart.items);
+  const id = useSelector((state) => state.auth.me.id);
 
   const total = 1;
 
   useEffect(() => {
-    dispatch(getCart());
+    dispatch(getCart(id));
   }, [dispatch]);
 
   const addQty = (product) => {
