@@ -42,3 +42,31 @@ router.post("/addItem", async (req, res, next) => {
     next(error);
   }
 });
+
+// router.put("/:userId", async (req, res, next) => {
+//   try {
+//     const { userId } = req.params;
+//     const cart = await OrderDetails.findByPk(userId);
+//     res.json(await cart.update(req.body));
+//   } catch (error) {
+//     next(error);
+//   }
+// });
+
+router.put("/editItem", async (req, res, next) => {
+  try {
+    // item_quantity should be the new quantity
+    // base_price should be the price of ONE of the item
+    const { orderId, productId, item_quantity, base_price } = req.body;
+    const productDetails = await OrderDetails.findOne({
+      where: { orderId, productId },
+    });
+    productDetails.update({
+      item_quantity,
+      total_price: item_quantity * base_price,
+    });
+    res.status(201).json({ message: "Item updated" });
+  } catch (error) {
+    next(error);
+  }
+});

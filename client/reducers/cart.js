@@ -3,10 +3,9 @@ import axios from "axios";
 
 export const getCart = createAsyncThunk("cart/getAll", async () => {
   try {
-    const { data } = await axios.get("/api/orderdetails", {
-      params: { orderId: 1 },
-    });
-    return data;
+    const { data } = await axios.get(`/api/order/2`);
+    const cart = data.cart;
+    return cart;
   } catch (error) {
     return error;
   }
@@ -16,7 +15,7 @@ export const addToCart = createAsyncThunk(
   "cart/add",
   async ({ id, price, quantity }) => {
     try {
-      const { data } = await axios.post("/api/orderdetails", {
+      const { data } = await axios.post("/api/additem", {
         id,
         price,
         quantity,
@@ -28,17 +27,17 @@ export const addToCart = createAsyncThunk(
   }
 );
 
-export const editQuantity = createAsyncThunk(
-  "cart/edit",
-  async (id, quantity) => {
-    try {
-      const { data } = await axios.put(`/api/orderdetails/${id}`, { quantity });
-      return data;
-    } catch (error) {
-      return error;
-    }
+export const editQuantity = createAsyncThunk("cart/edit", async (product) => {
+  try {
+    const { productId, orderId, item_quantity, price } = product;
+    const updatedQty = { productId, orderId, item_quantity, price };
+    await axios.put(`/api/order/2`, { cart: updatedQty });
+    const { data } = await axios.get(`/api/order/2`);
+    return data.cart;
+  } catch (error) {
+    return error;
   }
-);
+});
 
 export const deleteItem = createAsyncThunk("cart/deleteItem", async (id) => {
   try {
@@ -73,16 +72,18 @@ export const cartSlice = createSlice({
         state.error = action.error;
       })
       .addCase(editQuantity.fulfilled, (state, action) => {
-        state.items.map((item) => {
-          if (item.id === action.payload.id) {
-            return {
-              ...item,
-              quantity: action.payload.quantity,
-            };
-          }
-          return item;
-        });
+        state.items = action.payload;
       })
+      //   state.items.map((item) => {
+      //     if (item.order_details.productId === action.payload.productId) {
+      //       return {
+      //         ...item,
+      //         item_quantity: action.payload.quantity,
+      //       };
+      //     }
+      //     return item;
+      //   });
+      // })
       // .addCase(editQuantity.fulfilled, (state, action) => {
       //   state.items.map((item) => (if (item.id === payload.id) return quantity: payload: quantity))
       // })
@@ -98,4 +99,5 @@ export const cartSlice = createSlice({
   },
 });
 
+export const { incrementOne } = cartSlice.actions;
 export default cartSlice.reducer;
