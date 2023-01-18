@@ -22,7 +22,7 @@ import ReactPaginate from "react-paginate";
           {currentItems &&
             currentItems.map((product) => (
               <div className="all-products-product" key={product.id}>
-                <Link to={`/products/${product.id}`}>
+                <Link to={`/edit-product/${product.id}`}>
                   <img src={product.main_image} width="300" height="300" />
                   <h2>{product.title}</h2>
                 </Link>
