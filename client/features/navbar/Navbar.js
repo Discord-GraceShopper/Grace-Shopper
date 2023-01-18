@@ -5,6 +5,9 @@ import { logout } from "../../app/store";
 
 const Navbar = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
+  const isAdmin = useSelector((state) => state.auth.me.account_type);
+  const username = useSelector((state) => state.auth.me.first_name);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const logoutAndRedirectHome = () => {
@@ -17,11 +20,12 @@ const Navbar = () => {
       <nav>
         {isLoggedIn ? (
           <div className="navbar">
-            <div className="logo-container">
+            <Link to="/" className="logo-container">
               <img id="logo-img-nav" src="./logo-no-background.svg" />
-            </div>
+            </Link>
             {/* The navbar will show these links after you log in */}
             <div className="nav-link-container">
+              <h3 className="welcome-statement">Welcome, {username}</h3>
               <Link to="/">
                 <img
                   className="navbar-icons"
@@ -34,8 +38,13 @@ const Navbar = () => {
                   src="./person_FILL0_wght400_GRAD0_opsz48.svg"
                 />
               </Link>
+              {isAdmin === "ADMIN" ? (
+                <Link to="/directory">
+                  <img className="navbar-icons" src="./user-directory.svg" />
+                </Link>
+              ) : null}
               <button
-                className="btn navbar-btn"
+                className="btn navbar-btn log-btn"
                 type="button"
                 onClick={logoutAndRedirectHome}
               >

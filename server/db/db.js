@@ -1,14 +1,15 @@
-const Sequelize = require('sequelize');
-const pkg = require('../../package.json');
+const Sequelize = require("sequelize");
+require("dotenv").config();
+const pkg = require("../../package.json");
 
 const databaseName =
-  pkg.name + (process.env.NODE_ENV === 'test' ? '-test' : '');
+  pkg.name + (process.env.NODE_ENV === "test" ? "-test" : "");
 
 const config = {
   logging: false,
 };
 
-if (process.env.LOGGING === 'true') {
+if (process.env.LOGGING === "true") {
   delete config.logging;
 }
 
@@ -28,7 +29,7 @@ const db = new Sequelize(
 );
 
 if (db) {
-  console.log('Connected to Postgres');
+  console.log("Connected to Postgres");
 }
 
 module.exports = db;

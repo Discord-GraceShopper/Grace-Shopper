@@ -10,6 +10,7 @@ import Profile from "../features/profile/Profile";
 import EditProfile from "../features/profile/editProfile";
 import UserDirectory from "../features/userDirectory/UserDirectory";
 import PurchaseHistory from "../features/profile/purchaseHistory";
+import NotFound from "../features/errorPages/notFound";
 
 /**
  * COMPONENT
@@ -17,6 +18,7 @@ import PurchaseHistory from "../features/profile/purchaseHistory";
 
 const AppRoutes = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
+  const isAdmin = useSelector((state) => state.auth.me.account_type);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -32,7 +34,10 @@ const AppRoutes = () => {
           <Route path="/edit-profile" element={<EditProfile />} />
           <Route path="/purchase-history" element={<PurchaseHistory />} />
           <Route path="/products/:productId" element={<SingleProduct />} />
-          <Route path="/directory" element={<UserDirectory />} />
+          {isAdmin === "ADMIN" ? (
+            <Route path="/directory" element={<UserDirectory />} />
+          ) : null}
+          <Route path="/*" element={<NotFound />} />
         </Routes>
       ) : (
         <Routes>
@@ -46,6 +51,7 @@ const AppRoutes = () => {
             element={<AuthForm name="signup" displayName="Sign Up" />}
           />
           <Route path="/products/:productId" element={<SingleProduct />} />
+          <Route path="/*" element={<NotFound />} />
         </Routes>
       )}
     </div>
