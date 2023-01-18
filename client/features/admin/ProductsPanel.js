@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllProducts, selectAllProducts } from "../../reducers/products";
+import { getAllProducts } from "../../reducers/products";
 import { Link } from "react-router-dom";
+import { deleteProduct } from "../../reducers/products";
+import CreateProduct from "./CreateProduct";
 
 // Admin-only panel for maintaining products.
 
@@ -13,18 +15,12 @@ const ProductsPanel = () => {
         dispatch(getAllProducts());
     }, [dispatch]);
 
-    console.log(products);
-
-    const editProduct = (e) => {
-      console.log(e);
-      // Make edit fields visible for only this product
-      // Include save button (that becomes visible too) that registers all changes
+    const destroyProduct = (productId) => {
+      dispatch(deleteProduct(productId));
+      dispatch(getAllProducts());
     }
 
-     // ******* add delete buttons !!
-     // ***** add create product fields!
-
-    const productsFormatter = () => {
+    const productsFormatter = () => { // List of products
         return (
             products.map((product) => (
                 <div key={product.id}>
@@ -37,8 +33,9 @@ const ProductsPanel = () => {
                     <p>Category: {product.primary_category}</p>
                     <img src={product.main_image} width="200" height="200" />
                     <Link to={`/editproduct/${product.id}`}>
-                    <button onClick={editProduct} product={product.id}>Edit Product</button>
+                    <button>Edit Product</button>
                     </Link>
+                    <button onClick={() => {destroyProduct(product.id)}}>Delete Product</button>
                   <div>
                   </div>
                 </div>
@@ -48,6 +45,7 @@ const ProductsPanel = () => {
 
     return (
         <div>
+          <CreateProduct />
       <h1>Products Panel (admins only!)</h1>
       <div>
         {products[0] ? productsFormatter() : null}

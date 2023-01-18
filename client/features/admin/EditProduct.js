@@ -9,7 +9,7 @@ const EditProduct = () => {
     const [title, setTitle] = useState('');
     const [brand, setBrand] = useState('');
     const [price, setPrice] = useState('');
-    const [availability, setAvailability] = useState(true);
+    const [description, setDescription] = useState('');
     const [sku, setSku] = useState('');
     const [quantity, setQuantity] = useState('');
     const [category, setCategory] = useState('');
@@ -34,9 +34,9 @@ const EditProduct = () => {
     useEffect(() => {
         dispatch(fetchSingleProduct(productId));
         setTitle(product.title);
+        setDescription(product.description);
         setBrand(product.brand);
         setPrice(product.price);
-        setAvailability(product.availability);
         setSku(product.sku);
         setQuantity(product.quantity);
         setCategory(product.primary_category);
@@ -45,7 +45,7 @@ const EditProduct = () => {
     
     const handleSubmit = (evt) => {
         evt.preventDefault();
-        dispatch(updateProduct({productId, title, brand, price, sku, quantity, category, main_image}))
+        dispatch(updateProduct({productId, title, brand, description, price, sku, quantity, category, main_image}))
         dispatch(fetchSingleProduct(productId))
     }
 
@@ -79,6 +79,13 @@ const EditProduct = () => {
                     placeholder='Title'
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
+                    />
+                <label htmlFor='description'>Product Description: </label>
+                <input
+                    name='description'
+                    placeholder='Description'
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
                     />
                 <label htmlFor="brand">Product Brand: </label>
                 <input

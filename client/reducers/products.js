@@ -12,17 +12,20 @@ export const getAllProducts = createAsyncThunk("products/getAll", async () => {
 
 export const createNewProduct = createAsyncThunk(
   "products/create", 
-  async ({ title, brand, sku, description, price, availability, quantity, primary_category }) => {
+  async ({ title, brand, price, description, sku, quantity, primary_category, main_image }) => {
+    const availability = true;
   try {
+    console.log(primary_category);
     const { data } = await axios.post('/api/products', {
       title,
       brand,
       sku,
       description,
       price,
-      availability,
-      quantity,
+      quantity, // same order
       primary_category,
+      main_image,
+      availability,
     })
       return data;
   } catch (error) {
@@ -77,14 +80,22 @@ export const productSlice = createSlice({
         state.allProducts = action.error;
       })
       .addCase(createNewProduct.fulfilled, (state, action) => {
+        console.log(action.payload);
         state.allProducts.push(action.payload);
-      }) // What to do with createNewProduct.rejected?
+      })
+      .addCase(createNewProduct.rejected, (state, action) => {
+        state.error = action.error;
+      })
       .addCase(deleteProduct.fulfilled, (state, action) => {
         const productToDelete = action.payload;
         const indexFinder = (product) => product.id === productToDelete.id;
         const indexOfProduct = state.allProducts.findIndex(indexFinder);
-        state.splice(indexOfProduct, 1);
-      }) // What to do with createNewProduct.rejected
+        state.allProducts.splice(indexOfProduct, 1);
+      })
+      .addCase(deleteProduct.rejected, (state, action) => {
+        console.log('error:', action.error);
+        state.error = action.error;
+      })
   },
 });
 

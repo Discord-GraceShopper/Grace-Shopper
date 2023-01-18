@@ -377,3 +377,14 @@ thead tr:first-child {
   color: #737178;
   font-size: 10px;
 }
+
+/*
+*
+* ADMIN PANEL
+*
+*/
+
+#create-product {
+  display:flex;
+  justify-content:center;
+}
