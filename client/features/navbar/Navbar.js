@@ -38,6 +38,12 @@ const Navbar = () => {
                   src="/img/person_FILL0_wght400_GRAD0_opsz48.svg"
                 />
               </Link>
+              <Link to="/cart">
+                <img
+                  className="navbar-icons"
+                  src="./person_FILL0_wght400_GRAD0_opsz48.svg"
+                />
+              </Link>
               {isAdmin === "ADMIN" ? (
                 <>
                 <Link to="/directory">
@@ -72,6 +78,12 @@ const Navbar = () => {
                 <img
                   className="navbar-icons"
                   src="/img/person_FILL0_wght400_GRAD0_opsz48.svg"
+                />
+              </Link>
+              <Link to="/cart">
+                <img
+                  className="navbar-icons"
+                  src="./person_FILL0_wght400_GRAD0_opsz48.svg"
                 />
               </Link>
             </div>

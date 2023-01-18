@@ -48,64 +48,55 @@ router.post("/addItem", async (req, res, next) => {
   }
 });
 
+// router.put("/:userId", async (req, res, next) => {
+//   try {
+//     const { userId } = req.params;
+//     const cart = await OrderDetails.findByPk(userId);
+//     res.json(await cart.update(req.body));
+//   } catch (error) {
+//     next(error);
+//   }
+// });
+
 // Edit item in user cart
 router.put("/editItem", async (req, res, next) => {
   try {
     // item_quantity should be the new quantity
     // base_price should be the price of ONE of the item
-    const { orderId, productId, item_quantity, base_price } = req.body;
+    const { id, orderId, productId, item_quantity, price } = req.body;
     const productDetails = await OrderDetails.findOne({
       where: { orderId, productId },
     });
-    productDetails.update({
+    // productDetails.update({
+    //   item_quantity,
+    //   total_price: item_quantity * base_price,
+    // });
+    await productDetails.update({
       item_quantity,
-      total_price: item_quantity * base_price,
+      total_price: item_quantity * price,
     });
-    res.status(201).json({ message: "Item updated" });
+    const order = await Order.findOne({
+      where: { userId: id, purchased: false },
+      include: { model: Product, as: "cart" },
+    });
+    res.send(order);
   } catch (error) {
     next(error);
   }
 });
 
 // Remove
-router.delete("/deleteItem", async (req, res, next) => {
+router.put("/deleteItem", async (req, res, next) => {
   try {
-    const { orderId, productId } = req.body;
+    const { productId, orderId } = req.body;
+
     const productDetails = await OrderDetails.findOne({
-      where: { orderId, productId },
+      where: { productId, orderId },
     });
     await productDetails.destroy();
-    res.status(200).json({ message: "Item deleted from cart" });
-  } catch (error) {
-    next(error);
-  }
-});
-
-// Checkout
-router.put("/checkout", async (req, res, next) => {
-  try {
-    // userId of current user
-    // orderId corresponds to the current order for checkout
-    // productArray is an array that contains a list of productIds (or products) that need to have their quantities updated (can fe provide this?)
-    const { userId, orderId, productArray } = req.body;
-
-    for (const product of productArray) {
-      const productDetails = await Product.findOne({
-        where: { id: product.id },
-      }); // or id: productId depending on how fe send the data
-      productDetails.update({ quantity: product.quantity - 1 });
-    }
-
-    const order = await Order.findOne({ where: { id: orderId } });
-    order.update({ purchased: true });
-
-    await Order.create({ userId });
-
-    if (order) {
-      res.status(201).json({ message: "Transaction Successful" });
-    } else {
-      res.status(400).json({ message: "Something went wrong!" });
-    }
+    console.log(productId);
+    console.log(orderId);
+    res.json({ productId, orderId });
   } catch (error) {
     next(error);
   }
