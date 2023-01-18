@@ -4,10 +4,10 @@ import AllProducts from "../products/allProducts";
 /**
  * COMPONENT
  */
-const Home = (props) => {
+const Home = () => {
   return (
     <div>
-      <AllProducts />
+      <AllProducts itemsPerPage={16} />
     </div>
   );
 };
