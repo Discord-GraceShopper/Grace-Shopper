@@ -1,5 +1,5 @@
 import React from "react";
-import AllProducts from "../products/allProducts";
+import AllProducts from "../products/AllProducts";
 
 /**
  * COMPONENT
