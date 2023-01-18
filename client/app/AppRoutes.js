@@ -5,7 +5,7 @@ import AuthForm from "../features/auth/AuthForm";
 import Home from "../features/home/Home";
 import { me } from "./store";
 import SingleProduct from "../features/products/singleProduct";
-import AllProducts from "../features/products/allProducts";
+import AllProducts from "../features/products/AllProducts";
 import Profile from "../features/profile/Profile";
 import EditProfile from "../features/profile/editProfile";
 import UserDirectory from "../features/userDirectory/UserDirectory";
