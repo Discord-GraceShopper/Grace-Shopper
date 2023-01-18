@@ -40,6 +40,7 @@ const AppRoutes = () => {
             <>
             <Route path="/directory" element={<UserDirectory />} />
             <Route path="/panel" element={<ProductsPanel />} />
+            <Route path="/edit-product/:productId" element={<EditProduct />} />
             </>
           ) : null}
           <Route path="/*" element={<NotFound />} />
@@ -57,10 +58,6 @@ const AppRoutes = () => {
           />
           <Route path="/products/:productId" element={<SingleProduct />} />
           <Route path="/*" element={<NotFound />} />
-
-
-          <Route path="/panel" element={<ProductsPanel />} />
-          <Route path="/edit-product/:productId" element={<EditProduct />} />
         </Routes>
       )}
     </div>
