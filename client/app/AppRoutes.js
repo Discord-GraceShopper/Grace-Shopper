@@ -10,6 +10,8 @@ import Cart from "../features/products/Cart";
 import Profile from "../features/profile/Profile";
 import EditProfile from "../features/profile/editProfile";
 import UserDirectory from "../features/userDirectory/UserDirectory";
+import PurchaseHistory from "../features/profile/purchaseHistory";
+import NotFound from "../features/errorPages/notFound";
 
 /**
  * COMPONENT
@@ -17,6 +19,7 @@ import UserDirectory from "../features/userDirectory/UserDirectory";
 
 const AppRoutes = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
+  const isAdmin = useSelector((state) => state.auth.me.account_type);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -30,8 +33,12 @@ const AppRoutes = () => {
           <Route path="/" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/edit-profile" element={<EditProfile />} />
+          <Route path="/purchase-history" element={<PurchaseHistory />} />
           <Route path="/products/:productId" element={<SingleProduct />} />
-          <Route path="/directory" element={<UserDirectory />} />
+          {isAdmin === "ADMIN" ? (
+            <Route path="/directory" element={<UserDirectory />} />
+          ) : null}
+          <Route path="/*" element={<NotFound />} />
         </Routes>
       ) : (
         <Routes>
@@ -47,6 +54,7 @@ const AppRoutes = () => {
           <Route path="/products" element={<AllProducts />} />
           <Route path="/products/:productId" element={<SingleProduct />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/*" element={<NotFound />} />
         </Routes>
       )}
     </div>

@@ -82,6 +82,22 @@ export const update = createAsyncThunk(
   }
 );
 
+export const fetchUserPurchaseHistory = createAsyncThunk(
+  "users/fetchPurchaseHistory",
+  async (id) => {
+    try {
+      const { data } = await axios.get(`/api/users/${id}/purchase-history`, {
+        headers: {
+          authorization: "axios-request",
+        },
+      });
+      return data;
+    } catch (err) {
+      return err;
+    }
+  }
+);
+
 /*
   SLICE
 */
@@ -89,12 +105,14 @@ export const authSlice = createSlice({
   name: "auth",
   initialState: {
     me: {},
+    purchaseHistory: [],
     error: null,
   },
   reducers: {
     logout(state, action) {
       window.localStorage.removeItem(TOKEN);
       state.me = {};
+      state.purchaseHistory = [];
       state.error = null;
     },
   },
@@ -112,6 +130,12 @@ export const authSlice = createSlice({
       state.me = action.payload;
     });
     builder.addCase(update.rejected, (state, action) => {
+      state.error = action.error;
+    });
+    builder.addCase(fetchUserPurchaseHistory.fulfilled, (state, action) => {
+      state.purchaseHistory = action.payload;
+    });
+    builder.addCase(fetchUserPurchaseHistory.rejected, (state, action) => {
       state.error = action.error;
     });
   },

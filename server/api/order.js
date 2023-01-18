@@ -3,16 +3,21 @@ const {
   models: { Order, OrderDetails, Product },
 } = require("../db");
 module.exports = router;
+const requireAxios = require("./gateKeeper");
 
 // route @ api/order
 // Get a user's cart
 router.get("/:userId", async (req, res, next) => {
   try {
-    const cart = await Order.findOne({
-      where: { userId: req.params.userId, purchased: false },
-      include: { model: Product, as: "cart" },
-    });
-    res.json(cart);
+    if (await requireAxios(req.headers.authorization)) {
+      const cart = await Order.findOne({
+        where: { userId: req.params.userId, purchased: false },
+        include: { model: Product, as: "cart" },
+      });
+      res.json(cart);
+    } else {
+      res.status(403).send("Not authorized");
+    }
   } catch (error) {
     next(error);
   }
@@ -53,6 +58,7 @@ router.post("/addItem", async (req, res, next) => {
 //   }
 // });
 
+// Edit item in user cart
 router.put("/editItem", async (req, res, next) => {
   try {
     // item_quantity should be the new quantity
