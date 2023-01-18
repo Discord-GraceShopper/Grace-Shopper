@@ -21,7 +21,7 @@ const Navbar = () => {
         {isLoggedIn ? (
           <div className="navbar">
             <Link to="/" className="logo-container">
-              <img id="logo-img-nav" src="./logo-no-background.svg" />
+              <img id="logo-img-nav" src="/img/logo-no-background.svg" />
             </Link>
             {/* The navbar will show these links after you log in */}
             <div className="nav-link-container">
@@ -29,10 +29,16 @@ const Navbar = () => {
               <Link to="/">
                 <img
                   className="navbar-icons"
-                  src="./home_FILL0_wght400_GRAD0_opsz48.svg"
+                  src="/img/home_FILL0_wght400_GRAD0_opsz48.svg"
                 />
               </Link>
               <Link to="/profile">
+                <img
+                  className="navbar-icons"
+                  src="/img/person_FILL0_wght400_GRAD0_opsz48.svg"
+                />
+              </Link>
+              <Link to="/cart">
                 <img
                   className="navbar-icons"
                   src="./person_FILL0_wght400_GRAD0_opsz48.svg"
@@ -41,7 +47,7 @@ const Navbar = () => {
               {isAdmin === "ADMIN" ? (
                 <>
                 <Link to="/directory">
-                  <img className="navbar-icons" src="./user-directory.svg" />
+                  <img className="navbar-icons" src="/img/user-directory.svg" />
                 </Link>
                 <Link to="/panel">
                   <img className="navbar-icons" src="./settings-icon.svg" />
@@ -59,16 +65,22 @@ const Navbar = () => {
           </div>
         ) : (
           <div className="navbar">
-            <img id="logo-img-nav" src="./logo-no-background.svg" />
+            <img id="logo-img-nav" src="/img/logo-no-background.svg" />
             {/* The navbar will show these links before you log in */}
             <div className="nav-link-container">
               <Link to="/">
                 <img
                   className="navbar-icons"
-                  src="./home_FILL0_wght400_GRAD0_opsz48.svg"
+                  src="/img/home_FILL0_wght400_GRAD0_opsz48.svg"
                 />
               </Link>
               <Link to="/login">
+                <img
+                  className="navbar-icons"
+                  src="/img/person_FILL0_wght400_GRAD0_opsz48.svg"
+                />
+              </Link>
+              <Link to="/cart">
                 <img
                   className="navbar-icons"
                   src="./person_FILL0_wght400_GRAD0_opsz48.svg"

@@ -4,8 +4,9 @@ import { Route, Routes } from "react-router-dom";
 import AuthForm from "../features/auth/AuthForm";
 import Home from "../features/home/Home";
 import { me } from "./store";
-import SingleProduct from "../features/products/SingleProduct";
-import AllProducts from "../features/products/allProducts";
+import SingleProduct from "../features/products/singleProduct";
+import AllProducts from "../features/products/AllProducts";
+import Cart from "../features/cart/Cart";
 import Profile from "../features/profile/Profile";
 import EditProfile from "../features/profile/editProfile";
 import UserDirectory from "../features/userDirectory/UserDirectory";
@@ -36,11 +37,15 @@ const AppRoutes = () => {
           <Route path="/edit-profile" element={<EditProfile />} />
           <Route path="/purchase-history" element={<PurchaseHistory />} />
           <Route path="/products/:productId" element={<SingleProduct />} />
+          <Route path="/cart" element={<Cart />} />
           {isAdmin === "ADMIN" ? (
             <>
-            <Route path="/directory" element={<UserDirectory />} />
-            <Route path="/panel" element={<ProductsPanel />} />
-            <Route path="/edit-product/:productId" element={<EditProduct />} />
+              <Route path="/directory" element={<UserDirectory />} />
+              <Route path="/panel" element={<ProductsPanel />} />
+              <Route
+                path="/edit-product/:productId"
+                element={<EditProduct />}
+              />
             </>
           ) : null}
           <Route path="/*" element={<NotFound />} />
@@ -56,7 +61,9 @@ const AppRoutes = () => {
             path="/signup"
             element={<AuthForm name="signup" displayName="Sign Up" />}
           />
+          <Route path="/products" element={<AllProducts />} />
           <Route path="/products/:productId" element={<SingleProduct />} />
+          <Route path="/cart" element={<Cart />} />
           <Route path="/*" element={<NotFound />} />
         </Routes>
       )}

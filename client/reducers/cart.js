@@ -1,12 +1,15 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const getCart = createAsyncThunk("cart/getAll", async () => {
+export const getCart = createAsyncThunk("cart/getAll", async (id) => {
   try {
-    const { data } = await axios.get("/api/orderdetails", {
-      params: { orderId: 1 },
+    const { data } = await axios.get(`/api/order/${id}`, {
+      headers: {
+        authorization: "axios-request",
+      },
     });
-    return data;
+    const cart = data.cart;
+    return cart;
   } catch (error) {
     return error;
   }
@@ -16,10 +19,11 @@ export const addToCart = createAsyncThunk(
   "cart/add",
   async ({ id, price, quantity }) => {
     try {
-      const { data } = await axios.post(
-        "/api/orderdetails",
-        (id, price, quantity)
-      );
+      const { data } = await axios.post("/api/additem", {
+        id,
+        price,
+        quantity,
+      });
       return data;
     } catch (error) {
       return error;
@@ -27,26 +31,32 @@ export const addToCart = createAsyncThunk(
   }
 );
 
-export const editQuantity = createAsyncThunk(
-  "cart/edit",
-  async (id, quantity) => {
-    try {
-      const { data } = await axios.put(`/api/orderdetails/${id}`, { quantity });
-      return data;
-    } catch (error) {
-      return error;
-    }
-  }
-);
-
-export const deleteItem = createAsyncThunk("cart/deleteItem", async (id) => {
+export const editQuantity = createAsyncThunk("cart/edit", async (product) => {
   try {
-    const { data } = axios.delete(`/api/orderdetails/${id}`);
-    return data;
+    const { id, productId, orderId, item_quantity, price } = product;
+    const updatedQty = { id, productId, orderId, item_quantity, price };
+    const { data } = await axios.put(`/api/order/editItem`, updatedQty);
+    return data.cart;
   } catch (error) {
     return error;
   }
 });
+
+export const deleteItem = createAsyncThunk(
+  "cart/deleteItem",
+  async ({ productId, orderId }) => {
+    try {
+      const data = axios.put(`/api/order/deleteItem`, {
+        productId,
+        orderId,
+      });
+      console.log("updated", data);
+      return data;
+    } catch (error) {
+      return error;
+    }
+  }
+);
 
 const initialState = {
   items: [],
@@ -72,24 +82,20 @@ export const cartSlice = createSlice({
         state.error = action.error;
       })
       .addCase(editQuantity.fulfilled, (state, action) => {
-        state.items.map((item) => {
-          if (item.id === action.payload.id) {
-            return {
-              ...item,
-              quantity: action.payload.quantity,
-            };
-          }
-          return item;
-        });
+        state.items = action.payload;
       })
-      // .addCase(editQuantity.fulfilled, (state, action) => {
-      //   state.items.map((item) => (if (item.id === payload.id) return quantity: payload: quantity))
-      // })
       .addCase(editQuantity.rejected, (state, action) => {
         state.error = action.error;
       })
       .addCase(deleteItem.fulfilled, (state, action) => {
-        state.items.filter((product) => product.id !== action.payload);
+        state.items.splice(
+          state.items.findIndex(
+            (item) =>
+              item.order_details.productId === action.payload.data.productId &&
+              item.order_details.orderId === action.payload.data.orderId
+          ),
+          1
+        );
       })
       .addCase(deleteItem.rejected, (state, action) => {
         state.error = action.error;
