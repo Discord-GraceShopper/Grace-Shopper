@@ -53,7 +53,7 @@ export const deleteItem = createAsyncThunk(
   "cart/deleteItem",
   async ({ productId, orderId }) => {
     try {
-      const { data } = axios.put(`/api/order/deleteItem`, {
+      const data = axios.put(`/api/order/deleteItem`, {
         productId,
         orderId,
       });
@@ -108,10 +108,20 @@ export const cartSlice = createSlice({
         state.error = action.error;
       })
       .addCase(deleteItem.fulfilled, (state, action) => {
-        // state.items.filter((product) => product.id !== action.payload);
-        // state.items = action.payload;
+        // state.items.filter(
+        //   (product) => product.order_details.productId !== action.payload
+        // );
         console.log(action.payload, "action paylaod");
         console.log(current(state), "state items");
+
+        state.items.splice(
+          state.items.findIndex(
+            (item) =>
+              item.order_details.productId === action.payload.data.productId &&
+              item.order_details.orderId === action.payload.data.orderId
+          ),
+          1
+        );
 
         // const indexToRemove = state.items.findIndex((item) => {
         // return (

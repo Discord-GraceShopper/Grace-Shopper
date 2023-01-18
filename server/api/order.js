@@ -63,7 +63,7 @@ router.put("/editItem", async (req, res, next) => {
   try {
     // item_quantity should be the new quantity
     // base_price should be the price of ONE of the item
-    const { id, orderId, productId, item_quantity, base_price } = req.body;
+    const { id, orderId, productId, item_quantity, price } = req.body;
     const productDetails = await OrderDetails.findOne({
       where: { orderId, productId },
     });
@@ -73,7 +73,7 @@ router.put("/editItem", async (req, res, next) => {
     // });
     await productDetails.update({
       item_quantity,
-      total_price: item_quantity * base_price,
+      total_price: item_quantity * price,
     });
     const order = await Order.findOne({
       where: { userId: id, purchased: false },
@@ -96,7 +96,7 @@ router.put("/deleteItem", async (req, res, next) => {
     await productDetails.destroy();
     console.log(productId);
     console.log(orderId);
-    res.json({ message: "test" });
+    res.json({ productId, orderId });
   } catch (error) {
     next(error);
   }
