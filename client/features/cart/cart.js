@@ -19,7 +19,7 @@ const Cart = () => {
     let price = product.price;
     item_quantity++;
     const updatedQty = { id, productId, orderId, item_quantity, price };
-    dispatch(editQuantity(updatedQty));
+    if (item_quantity <= product.quantity) dispatch(editQuantity(updatedQty));
   };
 
   const subtractQty = (product) => {
