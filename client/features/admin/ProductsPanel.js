@@ -1,56 +1,82 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../../reducers/products";
 import { Link } from "react-router-dom";
 import { deleteProduct } from "../../reducers/products";
 import CreateProduct from "./CreateProduct";
+import ReactPaginate from "react-paginate";
+
 
 // Admin-only panel for maintaining products.
 
-const ProductsPanel = () => {
-    const dispatch = useDispatch();
-    const products = useSelector((state) => state.product.allProducts);
+    const Items = ({ currentItems }) => {
+      const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(getAllProducts());
-    }, [dispatch]);
+      const destroyProduct = (productId) => {
+        dispatch(deleteProduct(productId));
+        // dispatch(getAllProducts());
+      }
 
-    const destroyProduct = (productId) => {
-      dispatch(deleteProduct(productId));
-      dispatch(getAllProducts());
-    }
-
-    const productsFormatter = () => { // List of products
-        return (
-            products.map((product) => (
-                <div key={product.id}>
-                    <h2> {product.title} </h2>
-                    <h3>Brand: {product.brand}</h3>
-                    <h3>Price: {product.price}</h3>
-                    <p>SKU: {product.sku}</p>
-                    <p>Quantity: {product.quantity}</p>
-                    <p>Category: {product.primary_category}</p>
-                    <img src={product.main_image} width="200" height="200" />
-                    <Link to={`/editproduct/${product.id}`}>
-                    <button>Edit Product</button>
-                    </Link>
-                    <button onClick={() => {destroyProduct(product.id)}}>Delete Product</button>
-                  <div>
-                  </div>
+      return (
+        <>
+          {currentItems &&
+            currentItems.map((product) => (
+              <div className="all-products-product" key={product.id}>
+                <Link to={`/products/${product.id}`}>
+                  <img src={product.main_image} width="300" height="300" />
+                  <h2>{product.title}</h2>
+                </Link>
+                <div className="product-actions">
+                  <h2>${product.price}</h2>
+                  <Link to={`/edit-product/${product.id}`}>
+                        <button id='admin-panel-btn'>Edit Product</button>
+                  </Link>
+                  <button id='admin-panel-btn' onClick={() => {destroyProduct(product.id)}}>Delete Product</button>
                 </div>
-              ))
-        )
-    }
-
-    return (
-        <div>
+              </div>
+            ))}
+        </>
+      );
+    };
+    
+    const ProductsPanel = () => {
+      const itemsPerPage = 16;
+      const dispatch = useDispatch();
+      const products = useSelector((state) => state.product.allProducts);
+    
+      useEffect(() => {
+        dispatch(getAllProducts());
+      }, [dispatch]);
+    
+      const [itemOffset, setItemOffset] = useState(0);
+    
+      const endOffset = itemOffset + itemsPerPage;
+      const currentItems = products.slice(itemOffset, endOffset);
+      const pageCount = Math.ceil(products.length / itemsPerPage);
+    
+      const handlePageClick = (e) => {
+        const newOffset = (e.selected * itemsPerPage) % products.length;
+        setItemOffset(newOffset);
+      };
+    
+      return (
+        <div className="all-product-container">
           <CreateProduct />
-      <h1>Products Panel (admins only!)</h1>
-      <div>
-        {products[0] ? productsFormatter() : null}
-      </div>
-    </div>
-    )
-}
+          <h1 className="all-product-header">Products Panel (admins only)</h1>
+          <div className="all-products">
+            <Items currentItems={currentItems} />
+          </div>
+          <ReactPaginate
+            breakLabel="..."
+            nextLabel="next >"
+            onPageChange={handlePageClick}
+            pageRangeDisplayed={5}
+            pageCount={pageCount}
+            previousLabel="< previous"
+            renderOnZeroPageCount={null}
+          />
+        </div>
+      );
+    };
 
 export default ProductsPanel;

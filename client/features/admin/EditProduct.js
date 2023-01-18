@@ -6,6 +6,12 @@ import { Link } from "react-router-dom";
 import { updateProduct } from "../../reducers/products";
 
 const EditProduct = () => {
+    
+    const { productId } = useParams();
+    const dispatch = useDispatch();
+    const product = useSelector(selectSingleProduct);
+    let productName = null;
+  
     const [title, setTitle] = useState('');
     const [brand, setBrand] = useState('');
     const [price, setPrice] = useState('');
@@ -14,14 +20,6 @@ const EditProduct = () => {
     const [quantity, setQuantity] = useState('');
     const [category, setCategory] = useState('');
     const [main_image, setMainImage] = useState('');
-    
-    const { productId } = useParams();
-    const dispatch = useDispatch();
-    const product = useSelector(selectSingleProduct);
-    let productName = null;
-
-    // Product title is currently: BRAND | Product_Name 
-    // ^ This has to be fixed on All Products view as well
 
     if (product.title) {
         if (product.title.startsWith(product.brand)) {
@@ -33,14 +31,14 @@ const EditProduct = () => {
 
     useEffect(() => {
         dispatch(fetchSingleProduct(productId));
-        setTitle(product.title);
-        setDescription(product.description);
-        setBrand(product.brand);
-        setPrice(product.price);
-        setSku(product.sku);
-        setQuantity(product.quantity);
-        setCategory(product.primary_category);
-        setMainImage(product.main_image);
+        // setTitle(product.title);
+        // setDescription(product.description);
+        // setBrand(product.brand);
+        // setPrice(product.price);
+        // setSku(product.sku);
+        // setQuantity(product.quantity);
+        // setCategory(product.primary_category);
+        // setMainImage(product.main_image);
     }, [dispatch, product.updatedAt])
     
     const handleSubmit = (evt) => {
@@ -49,16 +47,13 @@ const EditProduct = () => {
         dispatch(fetchSingleProduct(productId))
     }
 
-    // Add button that redirects to main products page
-    // See if this button can return to previous placement on page
-
     return (
         <div>
-            <h1>Editing</h1>
+            <h1 style={{textAlign: 'center'}}>Product Editor</h1>
             <Link to='/panel'>
-                <p> Go Back</p>
+            <img className="navbar-icons" style={{height:60, width:60}} src="../left-arrow.svg"/>
             </Link>
-        {product.title ? <div className='single-product'>
+        {product.title ? <div className='single-product-editor'>
             <div className='single-product-img'>
                 <img src={product.main_image} style={{maxHeight:500, maxWidth:300}}></img>
             </div>
@@ -69,7 +64,7 @@ const EditProduct = () => {
             <h2>SKU: {product.sku}</h2>
             <h2>QTY available: {product.quantity}</h2>
             <h2>Category: {product.primary_category}</h2>
-            {quantity > 0 ? <h2 style={{fontSize: '20px'}}> In Stock </h2> : <h2 style={{fontSize: '20px'}}> Out of Stock </h2>}
+            {product.quantity > 0 ? <h2 style={{fontSize: '20px'}}> In Stock </h2> : <h2 style={{fontSize: '20px'}}> Out of Stock </h2>}
             </div>
             <div>
             <form id='edit-product' onSubmit={handleSubmit}>
@@ -102,6 +97,7 @@ const EditProduct = () => {
                     type='number'
                     min='1'
                     max='999'
+                    step='0.01'
                     onChange={(e) => setPrice(e.target.value)}
                     />
                 <label htmlFor="sku">Product SKU: </label>

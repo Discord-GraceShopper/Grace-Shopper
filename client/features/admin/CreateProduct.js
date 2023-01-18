@@ -30,50 +30,45 @@ const CreateProduct = () => {
 
     return (
         <div>
-            <h2> Create a New Product </h2>
+            <h2 className="create-product-header"> Create a New Product </h2>
             <form id='create-product' onSubmit={createTheProduct}>
                 <label htmlFor="title">Title: </label>
                 <input
                     name='title'
-                    placeholder='Title'
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     />
                 <label htmlFor='description'>Description: </label>
                 <input
                     name='description'
-                    placeholder='Description'
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     />
                 <label htmlFor="brand">Brand: </label>
                 <input
                     name='brand'
-                    placeholder='Brand'
                     value={brand}
                     onChange={(e) => setBrand(e.target.value)}
                     />
                 <label htmlFor="price">Price: </label>
                 <input
                     name='price'
-                    placeholder='Price'
                     value={price}
                     type='number'
-                    min='1'
+                    min='0.25'
                     max='999'
+                    step='0.01'
                     onChange={(e) => setPrice(e.target.value)}
                     />
                 <label htmlFor="sku">SKU: </label>
                 <input
                     name='sku'
-                    placeholder='SKU'
                     value={sku}
                     onChange={(e) => setSku(e.target.value)}
                     />
                 <label htmlFor="quantity">Quantity: </label>
                 <input 
                     name='quantity'
-                    placeholder='QTY'
                     value={quantity}
                     type='number'
                     min='0'
@@ -83,7 +78,6 @@ const CreateProduct = () => {
                 <label htmlFor='category'>Category: </label>
                 <input
                     name='category'
-                    placeholder='Category'
                     value={primary_category}
                     onChange={(e) => setPrimaryCategory(e.target.value)}
                     />
@@ -93,7 +87,7 @@ const CreateProduct = () => {
                     value={main_image}
                     onChange={(e) => setMainImage(e.target.value)}
                     />
-            <button type='submit'>Create Product</button>
+            <button type='submit' id='admin-panel-btn'>Create Product</button>
             </form>
         </div>
     )
