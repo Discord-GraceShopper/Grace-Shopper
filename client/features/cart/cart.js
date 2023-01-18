@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCart, editQuantity, deleteItem } from "../../reducers/cart";
 import { Link } from "react-router-dom";
@@ -40,7 +40,6 @@ const Cart = () => {
   };
 
   let subTotal = Number(0);
-  // let tax = subTotal * 0.15;
 
   return (
     <div>
