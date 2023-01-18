@@ -393,6 +393,7 @@ thead tr:first-child {
 * ALL PRODUCT PAGE
 *
 */
+
 .all-product-container {
   margin: 0 1rem;
   background-color: #fff;
@@ -404,7 +405,7 @@ thead tr:first-child {
 .all-product-header {
   background-color: #14248a;
   color: #f9f5ff;
-  padding: 0.5rem 1rem;
+  padding: 1rem;
   margin: 0;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
@@ -419,8 +420,8 @@ thead tr:first-child {
 
 .all-products-product {
   flex: 0 0 20%;
-  min-width: 0;
   margin: 1rem;
+  width: 300px;
 }
 
 .all-products-product a {
@@ -449,4 +450,38 @@ thead tr:first-child {
   border-radius: 10px;
   padding: 0.4rem 0.8rem;
   cursor: pointer;
+}
+
+/*
+*
+* PAGINATION BUTTONS
+*
+*/
+
+.all-product-container > ul {
+  display: flex;
+  list-style: none;
+  justify-content: center;
+  background-color: #14248a;
+  padding: 1rem;
+}
+
+li a {
+  font-size: 20px;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  color: #f9f5ff;
+  cursor: pointer;
+  border-right: 1px solid #0c154f;
+  border-top: 1px solid #0c154f;
+  border-bottom: 1px solid #0c154f;
+}
+
+li:first-child a {
+  border-left: 1px solid #0c154f;
+}
+
+.selected a {
+  background-color: #f9f5ff;
+  color: #14248a;
 }
