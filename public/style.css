@@ -366,7 +366,6 @@ thead tr:first-child {
   align-items: center;
   margin: auto;
   max-width: 1000px;
-  padding: 100px;
 }
 
 .single-product-details {
@@ -388,8 +387,10 @@ thead tr:first-child {
   font-size: 10px;
 }
 
-#single-product-back-btn {
+.single-product-back-btn {
   padding-left: 200px;
+  height:60px;
+  width:60px;
 }
 
 /*

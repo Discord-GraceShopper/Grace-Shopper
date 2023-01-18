@@ -43,7 +43,7 @@ const EditProduct = () => {
         <div>
             <h1 style={{textAlign: 'center'}}>Product Editor</h1>
             <Link to='/panel'>
-            <img id='single-product-back-btn' style={{height:60, width:60}} src="../left-arrow.svg"/>
+            <img className='single-product-back-btn' style={{height:60, width:60}} src="../left-arrow.svg"/>
             </Link>
         {product.title ? <div className='single-product-editor'>
             <div className='single-product-img'>

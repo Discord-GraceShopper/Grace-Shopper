@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { fetchSingleProduct, selectSingleProduct } from '../../reducers/singleProduct';
 
 const SingleProduct = () => {
@@ -42,6 +42,9 @@ const SingleProduct = () => {
 
     return (
         <div>
+            <Link to='/'>
+            <img className='single-product-back-btn' style={{paddingTop:100}} src="../left-arrow.svg"/>
+            </Link>
         {product.title ? <div className='single-product'>
             <div className='single-product-img'>
                 <img src={product.main_image}></img>
@@ -51,13 +54,12 @@ const SingleProduct = () => {
             <h3> {product.description} </h3> 
             <h2> ${product.price} </h2>
             {isStockAvailable ? <h3 style={{fontSize: '20px'}}> In Stock </h3> : <h3> Out of Stock </h3>}
-            <button className='single-product-addToCart btn'onClick={addToCart()}>Add to Cart</button>
+            <button className='single-product-addToCart btn' onClick={addToCart()}>Add to Cart</button>
             </div>
             </div>
             : <h1> Loading... </h1>}
         </div>
     )
 }
-
 
 export default SingleProduct;
