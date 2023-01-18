@@ -484,4 +484,15 @@ li:first-child a {
 .selected a {
   background-color: #f9f5ff;
   color: #14248a;
+
+/*
+*
+* NOT FOUND
+*
+*/
+
+.not-found-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

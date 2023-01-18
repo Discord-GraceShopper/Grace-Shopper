@@ -10,6 +10,7 @@ import Profile from "../features/profile/Profile";
 import EditProfile from "../features/profile/editProfile";
 import UserDirectory from "../features/userDirectory/UserDirectory";
 import PurchaseHistory from "../features/profile/purchaseHistory";
+import NotFound from "../features/errorPages/notFound";
 
 /**
  * COMPONENT
@@ -36,6 +37,7 @@ const AppRoutes = () => {
           {isAdmin === "ADMIN" ? (
             <Route path="/directory" element={<UserDirectory />} />
           ) : null}
+          <Route path="/*" element={<NotFound />} />
         </Routes>
       ) : (
         <Routes>
@@ -49,6 +51,7 @@ const AppRoutes = () => {
             element={<AuthForm name="signup" displayName="Sign Up" />}
           />
           <Route path="/products/:productId" element={<SingleProduct />} />
+          <Route path="/*" element={<NotFound />} />
         </Routes>
       )}
     </div>
