@@ -524,7 +524,7 @@ li:first-child a {
 #create-product {
   display:flex;
   align-items: baseline;
-  justify-content: space-evenly;
+  justify-content: space-between;
 }
 
 .single-product-editor {

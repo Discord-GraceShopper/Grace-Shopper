@@ -9,7 +9,7 @@ const Product = db.define("product", {
   brand: Sequelize.STRING,
   main_image: {
     type: Sequelize.STRING,
-    defaultValue: "N/A", // We'll need to get a locally stored img for products that have no img
+    defaultValue: 'N/A'
   },
   sku: {
     type: Sequelize.INTEGER,
