@@ -40,7 +40,7 @@ const SingleProduct = () => {
             <h2>{productName} <span className='single-product-brand'>by {product.brand}</span></h2>
             <h3> {product.description} </h3> 
             <h2> ${product.price} </h2>
-            {product.quantity > 0 ? <h3 style={{fontSize: '20px'}}> In Stock </h3> : null}
+            {product.quantity > 0 ? <h3 style={{fontSize: '24px'}}> In Stock </h3> : null}
             <button className={product.quantity > 0 ? 'single-product-addToCart btn' : "out-of-stock-btn"} 
             onClick={addToCart()}>{product.quantity > 0 ? 'Add to Cart' : 'Out of Stock'}</button>
             </div>

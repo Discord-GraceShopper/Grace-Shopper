@@ -66,6 +66,7 @@ const EditProduct = () => {
                     name='title'
                     placeholder='Title'
                     value={title}
+                    required={true}
                     onChange={(e) => setTitle(e.target.value)}
                     />
                 <label htmlFor='description'>Product Description: </label>
@@ -73,6 +74,7 @@ const EditProduct = () => {
                     name='description'
                     placeholder='Description'
                     value={description}
+                    required={true}
                     onChange={(e) => setDescription(e.target.value)}
                     />
                 <label htmlFor="brand">Product Brand: </label>
@@ -87,6 +89,7 @@ const EditProduct = () => {
                     name='price'
                     placeholder='Price'
                     value={price}
+                    required={true}
                     type='number'
                     min='1'
                     max='999'
@@ -97,6 +100,7 @@ const EditProduct = () => {
                 <input
                     name='sku'
                     placeholder='SKU'
+                    required={true}
                     value={sku}
                     onChange={(e) => setSku(e.target.value)}
                     />
@@ -105,6 +109,7 @@ const EditProduct = () => {
                     name='quantity'
                     placeholder='QTY'
                     value={quantity}
+                    required={true}
                     type='number'
                     min='0'
                     max='999'
@@ -114,6 +119,7 @@ const EditProduct = () => {
                 <input
                     name='category'
                     placeholder='Category'
+                    required={true}
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
                     />
