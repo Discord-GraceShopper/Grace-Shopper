@@ -13,20 +13,19 @@ const AllProducts = () => {
   }, [dispatch]);
 
   return (
-    <div>
-      <h1>Products</h1>
-      <div>
+    <div className="all-product-container">
+      <h1 className="all-product-header">Products</h1>
+      <div className="all-products">
         {products.map((product) => (
-          <div key={product.id}>
+          <div className="all-products-product" key={product.id}>
             <Link to={`/products/${product.id}`}>
-              <h2>
-                {product.title} {product.price}
-              </h2>
-              <img src={product.main_image} width="200" height="200" />
+              <img src={product.main_image} width="300" height="300" />
+              <h2>{product.title}</h2>
             </Link>
-            <div>
+            <div className="product-actions">
+              <h2>{product.price}</h2>
               <button
-                id="add"
+                className="add-cart-btn"
                 onClick={(event) =>
                   dispatch(addToCart(product.name, product.price))
                 }
