@@ -12,8 +12,8 @@ import ReactPaginate from "react-paginate";
     const Items = ({ currentItems }) => {
       const dispatch = useDispatch();
 
-      const destroyProduct = (productId) => {
-        dispatch(deleteProduct(productId));
+      const destroyProduct = async (productId) => {
+        await dispatch(deleteProduct(productId));
         dispatch(getAllProducts());
       }
 
