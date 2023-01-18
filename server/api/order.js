@@ -63,15 +63,40 @@ router.put("/editItem", async (req, res, next) => {
   try {
     // item_quantity should be the new quantity
     // base_price should be the price of ONE of the item
-    const { orderId, productId, item_quantity, base_price } = req.body;
+    const { id, orderId, productId, item_quantity, base_price } = req.body;
     const productDetails = await OrderDetails.findOne({
       where: { orderId, productId },
     });
-    productDetails.update({
+    // productDetails.update({
+    //   item_quantity,
+    //   total_price: item_quantity * base_price,
+    // });
+    await productDetails.update({
       item_quantity,
       total_price: item_quantity * base_price,
     });
-    res.status(201).json({ message: "Item updated" });
+    const order = await Order.findOne({
+      where: { userId: id, purchased: false },
+      include: { model: Product, as: "cart" },
+    });
+    res.send(order);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Remove
+router.put("/deleteItem", async (req, res, next) => {
+  try {
+    const { productId, orderId } = req.body;
+
+    const productDetails = await OrderDetails.findOne({
+      where: { productId, orderId },
+    });
+    await productDetails.destroy();
+    console.log(productId);
+    console.log(orderId);
+    res.json({ message: "test" });
   } catch (error) {
     next(error);
   }

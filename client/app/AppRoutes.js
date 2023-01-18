@@ -35,6 +35,7 @@ const AppRoutes = () => {
           <Route path="/edit-profile" element={<EditProfile />} />
           <Route path="/purchase-history" element={<PurchaseHistory />} />
           <Route path="/products/:productId" element={<SingleProduct />} />
+          <Route path="/cart" element={<Cart />} />
           {isAdmin === "ADMIN" ? (
             <Route path="/directory" element={<UserDirectory />} />
           ) : null}
