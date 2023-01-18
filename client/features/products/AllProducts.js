@@ -32,19 +32,19 @@ const Items = ({ currentItems }) => {
   );
 };
 
-const AllProducts = ({ itemsPerPage }) => {
+const AllProducts = () => {
+  const itemsPerPage = 16;
   const dispatch = useDispatch();
   const products = useSelector((state) => state.product.allProducts);
 
   useEffect(() => {
     dispatch(getAllProducts());
-  }, [dispatch]);
+  }, []);
 
   const [itemOffset, setItemOffset] = useState(0);
 
   const endOffset = itemOffset + itemsPerPage;
   const currentItems = products.slice(itemOffset, endOffset);
-  console.log(products);
   const pageCount = Math.ceil(products.length / itemsPerPage);
 
   const handlePageClick = (e) => {
