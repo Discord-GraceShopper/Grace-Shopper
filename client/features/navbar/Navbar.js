@@ -20,9 +20,9 @@ const Navbar = () => {
       <nav>
         {isLoggedIn ? (
           <div className="navbar">
-            <div className="logo-container">
+            <Link to="/" className="logo-container">
               <img id="logo-img-nav" src="./logo-no-background.svg" />
-            </div>
+            </Link>
             {/* The navbar will show these links after you log in */}
             <div className="nav-link-container">
               <h3 className="welcome-statement">Welcome, {username}</h3>
