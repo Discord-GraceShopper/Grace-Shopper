@@ -31,14 +31,6 @@ const EditProduct = () => {
 
     useEffect(() => {
         dispatch(fetchSingleProduct(productId));
-        // setTitle(product.title);
-        // setDescription(product.description);
-        // setBrand(product.brand);
-        // setPrice(product.price);
-        // setSku(product.sku);
-        // setQuantity(product.quantity);
-        // setCategory(product.primary_category);
-        // setMainImage(product.main_image);
     }, [dispatch, product.updatedAt])
     
     const handleSubmit = (evt) => {

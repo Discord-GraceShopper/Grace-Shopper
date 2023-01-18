@@ -15,7 +15,7 @@ const CreateProduct = () => {
 
     const dispatch = useDispatch();
 
-    const createTheProduct = (e) => { // dispatch works
+    const createTheProduct = (e) => {
         e.preventDefault();
         dispatch(createNewProduct({title, brand, price, description, sku, quantity, primary_category, main_image}))
         setTitle('');
