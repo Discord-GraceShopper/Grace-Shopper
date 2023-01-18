@@ -9,9 +9,6 @@ const SingleProduct = () => {
     const product = useSelector(selectSingleProduct);
     let productName = null;
 
-    // Product title is currently: BRAND | Product_Name 
-    // ^ This has to be fixed on All Products view as well
-
     if (product.title) {
         if (product.title.startsWith(product.brand)) {
             productName = product.title.slice(product.brand.length + 1);
@@ -20,31 +17,21 @@ const SingleProduct = () => {
         }
     }
 
-    const isStockAvailable = () => {
-        if (product.quantity > 0) {
-            return true;
-        }
-        return false;
-    }
-
     useEffect(() => {
         dispatch(fetchSingleProduct(productId));
     }, [dispatch])
     
-    const addToCart = () => { // Updates redux cart reducer
+    const addToCart = () => { 
         console.log('BUTTON PRESSED')
-         // dispatch(addToCart(name, price))
-        // Once added to cart, make post request to current user's cart via async thunk on cart reducer
     }
-
-    // Add button that redirects to main products page
-    // See if this button can return to previous placement on page
 
     return (
         <div>
+            <div className='single-product-back-btn'>
             <Link to='/'>
-            <img className='single-product-back-btn' style={{paddingTop:100}} src="../left-arrow.svg"/>
+            <img style={{height:'60px', width:'60px'}} src="../left-arrow.svg"/>
             </Link>
+            </div>
         {product.title ? <div className='single-product'>
             <div className='single-product-img'>
                 <img src={product.main_image}></img>
@@ -53,8 +40,9 @@ const SingleProduct = () => {
             <h2>{productName} <span className='single-product-brand'>by {product.brand}</span></h2>
             <h3> {product.description} </h3> 
             <h2> ${product.price} </h2>
-            {isStockAvailable ? <h3 style={{fontSize: '20px'}}> In Stock </h3> : <h3> Out of Stock </h3>}
-            <button className='single-product-addToCart btn' onClick={addToCart()}>Add to Cart</button>
+            {product.quantity > 0 ? <h3 style={{fontSize: '20px'}}> In Stock </h3> : null}
+            <button className={product.quantity > 0 ? 'single-product-addToCart btn' : "out-of-stock-btn"} 
+            onClick={addToCart()}>{product.quantity > 0 ? 'Add to Cart' : 'Out of Stock'}</button>
             </div>
             </div>
             : <h1> Loading... </h1>}

@@ -18,12 +18,12 @@ const Items = ({ currentItems }) => {
             <div className="product-actions">
               <h2>${product.price}</h2>
               <button
-                className="add-cart-btn"
-                onClick={(event) =>
+                className={product.quantity > 0 ? "add-cart-btn" : "out-of-stock-btn"}
+                onClick={(event) => 
                   dispatch(addToCart(product.name, product.price))
-                }
+                } // Add to Cart only works if quantity > 0, otherwise don't add to cart
               >
-                Add to cart
+                {product.quantity > 0 ? "Add to cart" : "Out of Stock"}
               </button>
             </div>
           </div>
