@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { createNewProduct } from "../../reducers/products";
 
 const CreateProduct = () => {
@@ -11,26 +10,27 @@ const CreateProduct = () => {
     const [description, setDescription] = useState('');
     const [sku, setSku] = useState('');
     const [quantity, setQuantity] = useState('');
-    const [category, setCategory] = useState('');
+    const [primary_category, setPrimaryCategory] = useState('');
     const [main_image, setMainImage] = useState('');
 
     const dispatch = useDispatch();
 
-    const createTheProduct = (e) => {
+    const createTheProduct = (e) => { // dispatch works
         e.preventDefault();
-        dispatch(createNewProduct({title, brand, price, description, sku, quantity, category, main_image}))
+        dispatch(createNewProduct({title, brand, price, description, sku, quantity, primary_category, main_image}))
         setTitle('');
         setDescription('');
         setBrand('');
         setPrice('');
         setSku('');
         setQuantity('');
-        setCategory('');
+        setPrimaryCategory('');
         setMainImage('');
     }
 
     return (
         <div>
+            <h2> Create a New Product </h2>
             <form id='create-product' onSubmit={createTheProduct}>
                 <label htmlFor="title">Title: </label>
                 <input
@@ -84,8 +84,8 @@ const CreateProduct = () => {
                 <input
                     name='category'
                     placeholder='Category'
-                    value={category}
-                    onChange={(e) => setCategory(e.target.value)}
+                    value={primary_category}
+                    onChange={(e) => setPrimaryCategory(e.target.value)}
                     />
                 <label htmlFor="imageUrl">Image URL:</label>
                 <input

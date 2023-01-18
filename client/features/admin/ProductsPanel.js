@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../../reducers/products";
 import { Link } from "react-router-dom";
@@ -28,7 +28,6 @@ const ProductsPanel = () => {
                     <h3>Brand: {product.brand}</h3>
                     <h3>Price: {product.price}</h3>
                     <p>SKU: {product.sku}</p>
-                    <p>Availability: {product.availability}</p>
                     <p>Quantity: {product.quantity}</p>
                     <p>Category: {product.primary_category}</p>
                     <img src={product.main_image} width="200" height="200" />

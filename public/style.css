@@ -497,3 +497,15 @@ li:first-child a {
   flex-direction: column;
   align-items: center;
 }
+
+/*
+*
+* ADMIN PANEL
+*
+*/
+
+#create-product {
+  display:flex;
+  align-items: baseline;
+  justify-content: space-evenly;
+}

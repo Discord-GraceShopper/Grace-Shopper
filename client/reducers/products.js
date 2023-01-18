@@ -17,19 +17,16 @@ export const getAllProducts = createAsyncThunk("products/getAll", async () => {
 export const createNewProduct = createAsyncThunk(
   "products/create", 
   async ({ title, brand, price, description, sku, quantity, primary_category, main_image }) => {
-    const availability = true;
   try {
-    console.log(primary_category);
     const { data } = await axios.post('/api/products', {
       title,
       brand,
       sku,
       description,
       price,
-      quantity, // same order
+      quantity,
       primary_category,
       main_image,
-      availability,
     })
       return data;
   } catch (error) {
@@ -97,7 +94,6 @@ export const productSlice = createSlice({
         state.allProducts.splice(indexOfProduct, 1);
       })
       .addCase(deleteProduct.rejected, (state, action) => {
-        console.log('error:', action.error);
         state.error = action.error;
       })
   },
