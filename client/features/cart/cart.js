@@ -27,9 +27,13 @@ const Cart = () => {
     let orderId = product.order_details.orderId;
     let item_quantity = product.order_details.item_quantity;
     let price = product.price;
-    item_quantity--;
-    const updatedQty = { id, productId, orderId, item_quantity, price };
-    dispatch(editQuantity(updatedQty));
+    if (item_quantity === 1) {
+      dispatch(deleteItem({ productId, orderId }));
+    } else {
+      item_quantity--;
+      const updatedQty = { id, productId, orderId, item_quantity, price };
+      dispatch(editQuantity(updatedQty));
+    }
   };
 
   const deleteItems = (product) => {
