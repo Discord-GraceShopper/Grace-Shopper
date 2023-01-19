@@ -15,16 +15,14 @@ export const getCart = createAsyncThunk("cart/getAll", async (id) => {
   }
 });
 
-export const getOrder = createAsyncThunk("order/getOrder", async (id) => {
+export const getOrder = createAsyncThunk("order/getOne", async (id) => {
   try {
     const { data } = await axios.get(`/api/order/${id}`, {
       headers: {
         authorization: "axios-request",
       },
     });
-    const cart = data;
-    // console.log("-------------------------", cart);
-    return cart;
+    return data;
   } catch (error) {
     return error;
   }
@@ -32,22 +30,16 @@ export const getOrder = createAsyncThunk("order/getOrder", async (id) => {
 
 export const addToCart = createAsyncThunk(
   "cart/add",
-  async ({ item_quantity, total_price, orderId, productId }) => {
+  async ({ id, item_quantity, total_price, orderId, productId }) => {
     try {
-      console.log(
-        "----------------------------",
-        item_quantity,
-        total_price,
-        orderId,
-        productId
-      );
-      const { data } = await axios.post("/api/addItem", {
+      const { data } = await axios.post("/api/order/addItem", {
+        id,
         item_quantity,
         total_price,
         orderId,
         productId,
       });
-      return data;
+      return data.cart;
     } catch (error) {
       return error;
     }
@@ -73,7 +65,6 @@ export const deleteItem = createAsyncThunk(
         productId,
         orderId,
       });
-      console.log("updated", data);
       return data;
     } catch (error) {
       return error;
@@ -83,9 +74,9 @@ export const deleteItem = createAsyncThunk(
 
 export const processOrder = createAsyncThunk(
   "cart/checkout",
-  async ({userId, orderId, productArray}) => {
+  async ({ userId, orderId, productArray }) => {
     try {
-      const { data }  = await axios.put(`/api/order/checkout`, {
+      const { data } = await axios.put(`/api/order/checkout`, {
         userId,
         orderId,
         productArray,
@@ -95,11 +86,11 @@ export const processOrder = createAsyncThunk(
       return error;
     }
   }
-)
+);
 
 const initialState = {
-  items: {},
-  orderId: null,
+  items: [],
+  order: {},
   error: null,
   orderStatus: null,
 };
@@ -108,7 +99,7 @@ export const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {},
-  extraReducers: (builder) => {
+  extraReducers(builder) {
     builder
       .addCase(getCart.fulfilled, (state, action) => {
         state.items = action.payload;
@@ -116,16 +107,17 @@ export const cartSlice = createSlice({
       .addCase(getCart.rejected, (state, action) => {
         state.error = action.error;
       })
+      .addCase(getOrder.fulfilled, (state, action) => {
+        state.order = action.payload;
+      })
+      .addCase(getOrder.rejected, (state, action) => {
+        state.error = action.error;
+      })
       .addCase(addToCart.fulfilled, (state, action) => {
-        console.log("INSIDE BUILDER CASE");
-        state.items.push(action.payload);
-        // state.items = action.payload;
+        state.items = action.payload;
       })
       .addCase(addToCart.rejected, (state, action) => {
         state.error = action.error;
-      })
-      .addCase(getOrder.fulfilled, (state, action) => {
-        state.orderId = action.payload;
       })
       .addCase(editQuantity.fulfilled, (state, action) => {
         state.items = action.payload;
@@ -151,7 +143,7 @@ export const cartSlice = createSlice({
       })
       .addCase(processOrder.rejected, (state, action) => {
         state.error = action.error;
-      })
+      });
   },
 });
 
