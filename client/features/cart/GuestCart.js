@@ -7,7 +7,7 @@ const GuestCart = () => {
   );
 
   useEffect(() => {
-    setCart(JSON.parse(localStorage.getItem("cart")));
+    setCart(JSON.parse(localStorage.getItem("cart")) || []);
   }, [cart.length]);
 
   const addQty = (product) => {
