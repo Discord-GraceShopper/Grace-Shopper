@@ -68,7 +68,9 @@ const Navbar = () => {
           </div>
         ) : (
           <div className="navbar">
-            <img id="logo-img-nav" src="/img/logo-no-background.svg" />
+            <Link to="/" className="logo-container">
+              <img id="logo-img-nav" src="/img/logo-no-background.svg" />
+            </Link>
             {/* The navbar will show these links before you log in */}
             <div className="nav-link-container">
               <Link to="/">
