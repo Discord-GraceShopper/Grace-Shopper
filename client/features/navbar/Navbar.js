@@ -83,7 +83,7 @@ const Navbar = () => {
                   src="/img/person_FILL0_wght400_GRAD0_opsz48.svg"
                 />
               </Link>
-              <Link to="/cart">
+              <Link to="/guest-cart">
                 <img
                   className="navbar-icons"
                   src="/img/shopping_cart_FILL0_wght400_GRAD0_opsz48.svg"
