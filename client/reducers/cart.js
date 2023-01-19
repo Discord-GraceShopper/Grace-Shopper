@@ -15,16 +15,31 @@ export const getCart = createAsyncThunk("cart/getAll", async (id) => {
   }
 });
 
+export const getOrder = createAsyncThunk("order/getOne", async (id) => {
+  try {
+    const { data } = await axios.get(`/api/order/${id}`, {
+      headers: {
+        authorization: "axios-request",
+      },
+    });
+    return data;
+  } catch (error) {
+    return error;
+  }
+});
+
 export const addToCart = createAsyncThunk(
   "cart/add",
-  async ({ id, price, quantity }) => {
+  async ({ id, item_quantity, total_price, orderId, productId }) => {
     try {
-      const { data } = await axios.post("/api/additem", {
+      const { data } = await axios.post("/api/order/addItem", {
         id,
-        price,
-        quantity,
+        item_quantity,
+        total_price,
+        orderId,
+        productId,
       });
-      return data;
+      return data.cart;
     } catch (error) {
       return error;
     }
@@ -50,7 +65,6 @@ export const deleteItem = createAsyncThunk(
         productId,
         orderId,
       });
-      console.log("updated", data);
       return data;
     } catch (error) {
       return error;
@@ -60,9 +74,9 @@ export const deleteItem = createAsyncThunk(
 
 export const processOrder = createAsyncThunk(
   "cart/checkout",
-  async ({userId, orderId, productArray}) => {
+  async ({ userId, orderId, productArray }) => {
     try {
-      const { data }  = await axios.put(`/api/order/checkout`, {
+      const { data } = await axios.put(`/api/order/checkout`, {
         userId,
         orderId,
         productArray,
@@ -72,10 +86,11 @@ export const processOrder = createAsyncThunk(
       return error;
     }
   }
-)
+);
 
 const initialState = {
   items: [],
+  order: {},
   error: null,
   orderStatus: null,
 };
@@ -92,8 +107,14 @@ export const cartSlice = createSlice({
       .addCase(getCart.rejected, (state, action) => {
         state.error = action.error;
       })
+      .addCase(getOrder.fulfilled, (state, action) => {
+        state.order = action.payload;
+      })
+      .addCase(getOrder.rejected, (state, action) => {
+        state.error = action.error;
+      })
       .addCase(addToCart.fulfilled, (state, action) => {
-        state.items.push(action.payload);
+        state.items = action.payload;
       })
       .addCase(addToCart.rejected, (state, action) => {
         state.error = action.error;
@@ -122,7 +143,7 @@ export const cartSlice = createSlice({
       })
       .addCase(processOrder.rejected, (state, action) => {
         state.error = action.error;
-      })
+      });
   },
 });
 

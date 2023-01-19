@@ -40,7 +40,7 @@ const AppRoutes = () => {
           <Route path="/purchase-history" element={<PurchaseHistory />} />
           <Route path="/products/:productId" element={<SingleProduct />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path='/checkout' element={<Checkout />} />
+          <Route path="/checkout" element={<Checkout />} />
 
           {isAdmin === "ADMIN" ? (
             <>
@@ -67,7 +67,8 @@ const AppRoutes = () => {
           />
           <Route path="/products" element={<AllProducts />} />
           <Route path="/products/:productId" element={<SingleProduct />} />
-          <Route path="/guest-cart" element={<GuestCart />} />
+          <Route path="/guest-cart" element={<GuestCart />} />{" "}
+          <Route path="/checkout" element={<Checkout />} />
           <Route path="/*" element={<NotFound />} />
         </Routes>
       )}

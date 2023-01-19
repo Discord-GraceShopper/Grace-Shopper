@@ -67,11 +67,13 @@ hr {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 30px 15px 15px 15px;
+  padding: 25px 15px 10px 15px;
 }
 
 .welcome-statement {
+  margin: 0;
   margin-right: 1rem;
+  margin-top: 0.4em;
   color: #14248a;
 }
 
@@ -87,15 +89,15 @@ hr {
 
 .nav-link-container {
   display: flex;
+  align-items: center;
 }
 
 nav a {
   margin-right: 1em;
-  margin-top: 1em;
+  margin-top: 0.5em;
 }
 
 .navbar-btn {
-  margin-top: 1em;
   height: 32px;
 }
 
@@ -390,8 +392,12 @@ thead tr:first-child {
 .single-product-back-btn {
   padding-left: 200px;
   padding-top: 100px;
-  height:60px;
-  width:60px;
+  height: 60px;
+  width: 60px;
+}
+
+.back-arrow {
+  cursor: pointer;
 }
 
 /*
@@ -466,7 +472,7 @@ thead tr:first-child {
   border-radius: 10px;
   padding: 0.4rem 0.8rem;
   cursor: not-allowed;
-  opacity:0.5;
+  opacity: 0.5;
 }
 
 /*

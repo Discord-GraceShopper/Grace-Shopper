@@ -39,10 +39,7 @@ const Navbar = () => {
                 />
               </Link>
               <Link to="/cart">
-                <img
-                  className="navbar-icons"
-                  src="/img/shopping_cart_FILL0_wght400_GRAD0_opsz48.svg"
-                />
+                <img className="navbar-icons" src="/img/shopping-cart.svg" />
               </Link>
               {isAdmin === "ADMIN" ? (
                 <>
@@ -53,7 +50,10 @@ const Navbar = () => {
                     />
                   </Link>
                   <Link to="/panel">
-                    <img className="navbar-icons" src="./settings-icon.svg" />
+                    <img
+                      className="navbar-icons"
+                      src="/img/settings-icon.svg"
+                    />
                   </Link>
                 </>
               ) : null}
@@ -68,7 +68,9 @@ const Navbar = () => {
           </div>
         ) : (
           <div className="navbar">
-            <img id="logo-img-nav" src="/img/logo-no-background.svg" />
+            <Link to="/" className="logo-container">
+              <img id="logo-img-nav" src="/img/logo-no-background.svg" />
+            </Link>
             {/* The navbar will show these links before you log in */}
             <div className="nav-link-container">
               <Link to="/">
@@ -84,10 +86,7 @@ const Navbar = () => {
                 />
               </Link>
               <Link to="/guest-cart">
-                <img
-                  className="navbar-icons"
-                  src="/img/shopping_cart_FILL0_wght400_GRAD0_opsz48.svg"
-                />
+                <img className="navbar-icons" src="/img/shopping-cart.svg" />
               </Link>
             </div>
           </div>

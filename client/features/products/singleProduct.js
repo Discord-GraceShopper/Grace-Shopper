@@ -5,8 +5,14 @@ import {
   fetchSingleProduct,
   selectSingleProduct,
 } from "../../reducers/singleProduct";
+import { addToCart, getOrder } from "../../reducers/cart";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const SingleProduct = () => {
+  const isLoggedIn = useSelector((state) => !!state.auth.me.id);
+  const id = useSelector((state) => state.auth.me.id);
+
   const { productId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -39,22 +45,56 @@ const SingleProduct = () => {
     setCart(JSON.parse(localStorage.getItem("cart"))) || [];
   }, [dispatch, cart.length]);
 
-  const addToCart = () => {
-    // Grabs cart on localStorage
-    let a = [];
-    a = JSON.parse(localStorage.getItem("cart")) || [];
+  const handleAddToCart = async () => {
+    if (isLoggedIn) {
+      const order = await dispatch(getOrder(id));
+      const orderId = order.payload.id;
+      const item_quantity = 1;
+      dispatch(
+        addToCart({
+          id,
+          item_quantity,
+          total_price: product.price,
+          orderId,
+          productId: product.id,
+        })
+      );
+      toast.success("Added to cart!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } else {
+      // Grabs cart on localStorage
+      let a = [];
+      a = JSON.parse(localStorage.getItem("cart")) || [];
 
-    // Pushes product info into cart
-    a.push({
-      productId: product.id,
-      productImg: product.main_image,
-      productPrice: product.price,
-      productTitle: product.title,
-      productQuantity: 1,
-    });
-    // Sets the cart on the localStorage
-    localStorage.setItem("cart", JSON.stringify(a));
-    navigate("/guest-cart");
+      // Pushes product info into cart
+      a.push({
+        productId: product.id,
+        productImg: product.main_image,
+        productPrice: product.price,
+        productTitle: product.title,
+        productQuantity: 1,
+      });
+      // Sets the cart on the localStorage
+      localStorage.setItem("cart", JSON.stringify(a));
+      toast.success("Added to cart!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
   };
 
   // Add button that redirects to main products page
@@ -63,12 +103,12 @@ const SingleProduct = () => {
   return (
     <div>
       <div className="single-product-back-btn">
-        <Link to="/">
-          <img
-            style={{ height: "60px", width: "60px" }}
-            src="../left-arrow.svg"
-          />
-        </Link>
+        <img
+          className="back-arrow"
+          onClick={() => navigate(-1)}
+          style={{ height: "60px", width: "60px" }}
+          src="/img/left-arrow.svg"
+        />
       </div>
       {product.title ? (
         <div className="single-product">
@@ -89,11 +129,12 @@ const SingleProduct = () => {
             )}
             <button
               className="single-product-addToCart btn"
-              onClick={addToCart}
+              onClick={handleAddToCart}
             >
               Add to Cart
             </button>
           </div>
+          <ToastContainer />
         </div>
       ) : (
         <h1> Loading... </h1>

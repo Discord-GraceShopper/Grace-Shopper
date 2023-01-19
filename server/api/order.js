@@ -26,9 +26,9 @@ router.get("/:userId", async (req, res, next) => {
 // add an item to cart
 router.post("/addItem", async (req, res, next) => {
   try {
-    const { item_quantity, total_price, orderId, productId } = req.body;
+    const { id, item_quantity, total_price, orderId, productId } = req.body;
 
-    if (!item_quantity || !total_price || !orderId || !productId)
+    if (!id || !item_quantity || !total_price || !orderId || !productId)
       return res.status(400).json({ message: "All fields required" });
 
     const newItem = await OrderDetails.create({
@@ -38,8 +38,13 @@ router.post("/addItem", async (req, res, next) => {
       productId,
     });
 
+    const cart = await Order.findOne({
+      where: { userId: id, purchased: false },
+      include: { model: Product, as: "cart" },
+    });
+
     if (newItem) {
-      res.status(201).json({ message: `New item added` });
+      res.json(cart);
     } else {
       res.status(400).json({ message: "Invalid item data received" });
     }
@@ -97,7 +102,9 @@ router.put("/checkout", async (req, res, next) => {
       const productDetails = await Product.findOne({
         where: { id: product.id },
       }); // or id: productId depending on how fe send the data
-      productDetails.update({ quantity: (product.quantity - product.order_details.item_quantity) });
+      productDetails.update({
+        quantity: product.quantity - product.order_details.item_quantity,
+      });
     }
 
     const order = await Order.findOne({ where: { id: orderId } });
