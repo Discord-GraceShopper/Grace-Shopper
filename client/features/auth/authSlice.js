@@ -77,6 +77,9 @@ export const update = createAsyncThunk(
         return res.data;
       }
     } catch (err) {
+      if (err.response.data) {
+        return thunkAPI.rejectWithValue(err.response.data);
+      }
       return err;
     }
   }
