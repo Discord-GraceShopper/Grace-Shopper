@@ -1,21 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import {
   fetchSingleProduct,
   selectSingleProduct,
 } from "../../reducers/singleProduct";
-import { addToCart, getOrder } from "../../reducers/cart";
 
 const SingleProduct = () => {
-  const id = useSelector((state) => state.auth.me.id);
-  const test = useSelector((state) => state.cart);
-
   const { productId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const product = useSelector(selectSingleProduct);
   let productName = null;
+
+  const [cart, setCart] = useState(
+    JSON.parse(localStorage.getItem("cart")) || []
+  );
+
+  // Product title is currently: BRAND | Product_Name
+  // ^ This has to be fixed on All Products view as well
 
   if (product.title) {
     if (product.title.startsWith(product.brand)) {
@@ -29,40 +32,29 @@ const SingleProduct = () => {
     if (product.quantity > 0) {
       return true;
     }
-    return false;
   };
 
   useEffect(() => {
     dispatch(fetchSingleProduct(productId));
-    dispatch(getOrder(id));
-  }, [dispatch]);
+    setCart(JSON.parse(localStorage.getItem("cart"))) || [];
+  }, [dispatch, cart.length]);
 
   const addToCart = () => {
-    const item_quantity = 1;
+    // Grabs cart on localStorage
+    let a = [];
+    a = JSON.parse(localStorage.getItem("cart")) || [];
 
-    // const orderId = await dispatch(getOrder(id));
-    // console.log("ORDERID?", test.orderId.id);
-    // console.log("ORDERID: ", orderId.payload);
-    console.log(
-      "-----INFO:",
-      item_quantity,
-      product.price,
-      test.orderId.id,
-      product.id
-    );
-    function someFunc() {
-      dispatch(
-        addToCart({
-          item_quantity,
-          total_price: product.price,
-          orderId: test.orderId.id,
-          productId: product.id,
-        })
-      );
-    }
-    someFunc();
-    // dispatch(addToCart(name, price))
-    // Once added to cart, make post request to current user's cart via async thunk on cart reducer
+    // Pushes product info into cart
+    a.push({
+      productId: product.id,
+      productImg: product.main_image,
+      productPrice: product.price,
+      productTitle: product.title,
+      productQuantity: 1,
+    });
+    // Sets the cart on the localStorage
+    localStorage.setItem("cart", JSON.stringify(a));
+    navigate("/guest-cart");
   };
 
   // Add button that redirects to main products page
@@ -70,11 +62,14 @@ const SingleProduct = () => {
 
   return (
     <div>
-      <img
-        onClick={() => navigate(-1)}
-        className="back-arrow"
-        src="/img/left-arrow.svg"
-      />
+      <div className="single-product-back-btn">
+        <Link to="/">
+          <img
+            style={{ height: "60px", width: "60px" }}
+            src="../left-arrow.svg"
+          />
+        </Link>
+      </div>
       {product.title ? (
         <div className="single-product">
           <div className="single-product-img">
