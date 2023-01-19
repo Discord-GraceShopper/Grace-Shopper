@@ -1,11 +1,75 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../../reducers/products";
-import { addToCart } from "../../reducers/cart";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ReactPaginate from "react-paginate";
+import { addToCart, getOrder } from "../../reducers/cart";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const Items = ({ currentItems }) => {
+const Items = ({ currentItems, isLoggedIn, id }) => {
+  const dispatch = useDispatch();
+
+  const [cart, setCart] = useState(
+    JSON.parse(localStorage.getItem("cart")) || []
+  );
+
+  useEffect(() => {
+    setCart(JSON.parse(localStorage.getItem("cart"))) || [];
+  }, [dispatch, cart.length]);
+
+  const handleAddToCart = async (product) => {
+    if (isLoggedIn) {
+      const order = await dispatch(getOrder(id));
+      const orderId = order.payload.id;
+      const item_quantity = 1;
+      dispatch(
+        addToCart({
+          id,
+          item_quantity,
+          total_price: product.price,
+          orderId,
+          productId: product.id,
+        })
+      );
+      toast.success("Added to cart!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } else {
+      // Grabs cart on localStorage
+      let a = [];
+      a = JSON.parse(localStorage.getItem("cart")) || [];
+
+      // Pushes product info into cart
+      a.push({
+        productId: product.id,
+        productImg: product.main_image,
+        productPrice: product.price,
+        productTitle: product.title,
+        productQuantity: 1,
+      });
+      // Sets the cart on the localStorage
+      localStorage.setItem("cart", JSON.stringify(a));
+      toast.success("Added to cart!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+  };
+
   return (
     <>
       {currentItems &&
@@ -21,9 +85,7 @@ const Items = ({ currentItems }) => {
                 className={
                   product.quantity > 0 ? "add-cart-btn" : "out-of-stock-btn"
                 }
-                onClick={(event) =>
-                  dispatch(addToCart(product.name, product.price))
-                } // Add to Cart only works if quantity > 0, otherwise don't add to cart
+                onClick={() => handleAddToCart(product)} // Add to Cart only works if quantity > 0, otherwise don't add to cart
               >
                 {product.quantity > 0 ? "Add to cart" : "Out of Stock"}
               </button>
@@ -38,6 +100,8 @@ const AllProducts = () => {
   const itemsPerPage = 16;
   const dispatch = useDispatch();
   const products = useSelector((state) => state.product.allProducts);
+  const isLoggedIn = useSelector((state) => !!state.auth.me.id);
+  const id = useSelector((state) => state.auth.me.id);
 
   useEffect(() => {
     dispatch(getAllProducts());
@@ -61,7 +125,7 @@ const AllProducts = () => {
     <div className="all-product-container">
       <h1 className="all-product-header">Products</h1>
       <div className="all-products">
-        <Items currentItems={currentItems} />
+        <Items currentItems={currentItems} isLoggedIn={isLoggedIn} id={id} />
       </div>
       <ReactPaginate
         breakLabel="..."
@@ -72,6 +136,7 @@ const AllProducts = () => {
         previousLabel="< previous"
         renderOnZeroPageCount={null}
       />
+      <ToastContainer />
     </div>
   );
 };
