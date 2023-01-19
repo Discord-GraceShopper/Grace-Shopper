@@ -30,7 +30,7 @@ const GuestCart = () => {
       }
     });
     localStorage.setItem("cart", JSON.stringify(updatedCart));
-    setCart(JSON.parse(localStorage.getItem("cart")));
+    setCart(JSON.parse(localStorage.getItem("cart")) || []);
   };
 
   let subTotal = Number(0);
