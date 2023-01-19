@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { authenticate } from "../../app/store";
 import { Link, useNavigate } from "react-router-dom";
@@ -14,7 +14,7 @@ const AuthForm = ({ name, displayName }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleSubmit = (evt) => {
+  const handleSubmit = async (evt) => {
     evt.preventDefault();
     const formName = evt.target.name;
 
@@ -24,7 +24,7 @@ const AuthForm = ({ name, displayName }) => {
     if (name === "signup") {
       const first_name = evt.target.first_name.value;
       const last_name = evt.target.last_name.value;
-      dispatch(
+      const res = await dispatch(
         authenticate({
           first_name,
           last_name,
@@ -33,10 +33,17 @@ const AuthForm = ({ name, displayName }) => {
           method: formName,
         })
       );
-      navigate("/");
+
+      if (res.type === "auth/authenticate/fulfilled") {
+        navigate("/");
+      }
     } else {
-      dispatch(authenticate({ email, password, method: formName }));
-      navigate("/");
+      const res = await dispatch(
+        authenticate({ email, password, method: formName })
+      );
+      if (res.type === "auth/authenticate/fulfilled") {
+        navigate("/");
+      }
     }
   };
 
@@ -80,7 +87,7 @@ const AuthForm = ({ name, displayName }) => {
                 className="login-signup-input"
                 required
                 name="email"
-                type="text"
+                type="email"
               />
             </div>
             <div>
@@ -91,7 +98,7 @@ const AuthForm = ({ name, displayName }) => {
                 className="login-signup-input"
                 required
                 name="password"
-                type="text"
+                type="password"
               />
             </div>
             <div>

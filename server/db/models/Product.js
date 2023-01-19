@@ -1,7 +1,7 @@
-const Sequelize = require('sequelize');
-const db = require('../db');
+const Sequelize = require("sequelize");
+const db = require("../db");
 
-const Product = db.define('product', {
+const Product = db.define("product", {
   title: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -9,7 +9,7 @@ const Product = db.define('product', {
   brand: Sequelize.STRING,
   main_image: {
     type: Sequelize.STRING,
-    defaultValue: 'N/A', // We'll need to get a locally stored img for products that have no img
+    defaultValue: "N/A", // We'll need to get a locally stored img for products that have no img
   },
   sku: {
     type: Sequelize.INTEGER,
@@ -21,10 +21,6 @@ const Product = db.define('product', {
   },
   price: {
     type: Sequelize.DECIMAL(10, 2),
-  },
-  availability: {
-    type: Sequelize.BOOLEAN,
-    allowNull: false,
   },
   quantity: {
     type: Sequelize.INTEGER,

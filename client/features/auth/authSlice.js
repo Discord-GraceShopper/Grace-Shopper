@@ -43,14 +43,14 @@ export const authenticate = createAsyncThunk(
           password,
         });
         window.localStorage.setItem(TOKEN, res.data.token);
-        thunkAPI.dispatch(me());
+        await thunkAPI.dispatch(me());
       } else {
         const res = await axios.post(`/auth/${method}`, {
           email,
           password,
         });
         window.localStorage.setItem(TOKEN, res.data.token);
-        thunkAPI.dispatch(me());
+        await thunkAPI.dispatch(me());
       }
     } catch (err) {
       if (err.response.data) {
@@ -86,7 +86,11 @@ export const fetchUserPurchaseHistory = createAsyncThunk(
   "users/fetchPurchaseHistory",
   async (id) => {
     try {
-      const { data } = await axios.get(`/api/users/${id}/purchase-history`, {});
+      const { data } = await axios.get(`/api/users/${id}/purchase-history`, {
+        headers: {
+          authorization: "axios-request",
+        },
+      });
       return data;
     } catch (err) {
       return err;
