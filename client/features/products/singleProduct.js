@@ -35,9 +35,8 @@ const SingleProduct = () => {
   };
 
   useEffect(() => {
-    console.log("In use effect");
     dispatch(fetchSingleProduct(productId));
-    setCart(JSON.parse(localStorage.getItem("cart")));
+    setCart(JSON.parse(localStorage.getItem("cart")) || []);
   }, [dispatch, cart.length]);
 
   const addToCart = () => {
