@@ -99,7 +99,7 @@ router.put("/checkout", async (req, res, next) => {
       const productDetails = await Product.findOne({
         where: { id: product.id },
       }); // or id: productId depending on how fe send the data
-      productDetails.update({ quantity: product.quantity - 1 });
+      productDetails.update({ quantity: (product.quantity - product.order_details.item_quantity) });
     }
 
     const order = await Order.findOne({ where: { id: orderId } });

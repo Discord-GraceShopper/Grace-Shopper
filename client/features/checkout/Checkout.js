@@ -1,47 +1,33 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getCart } from '../../reducers/cart';
+import { getCart, processOrder } from '../../reducers/cart';
 import Collapsible from './Collapsible';
 import { fetchUserPurchaseHistory } from "../auth/authSlice";
+import { updateProduct } from '../../reducers/products';
 
 
 const Checkout = () => {
 
-    // By submitting the order, we need to...
-    // 1. Set 'purchased' on the order to true.
-    // 2. Send order details to purchase history.
-    // 3. Reset the user's cart.
-    // 4. Adjust each purchased item's stock in the db.
-
     const dispatch = useDispatch();
-    const cart = useSelector((state) => state.cart.items);
-    const id = useSelector((state) => state.auth.me.id);
+    const productArray = useSelector((state) => state.cart.items);
+    const userId = useSelector((state) => state.auth.me.id);
     const history = useSelector((state) => state.auth.purchaseHistory);
+    let orderId = null;
 
+    if (productArray[0]) { // WORKS
+        orderId = productArray[0].order_details.orderId
+    }
 
-    console.log('carts', cart);
-    console.log('id', id);
+    console.log('carts', productArray);
+    console.log('id', userId);
     console.log('history', history);
 
     useEffect(() => {
-        dispatch(getCart(id));
-        dispatch(fetchUserPurchaseHistory(id));
+        dispatch(getCart(userId));
+        dispatch(fetchUserPurchaseHistory(userId));
     }, [dispatch])
 
-    // Map thru order details
-    // Add up total
-    // Cart[0].order_details.orderId for the Order ID
-
-    // Display subtotal
-    // Display tax $$ (8.625%?)
-    // Display total
-
-    // Confirm Order =>
-    // -Set orderID to Purchased
-    // -[Cart].forEach((prod) => prod.quantity -= prod.order_details.item_quantity)
-    // Redirect to Order Confirmation page
     // displays order ID, total amt, shipping info (all states in obj, pass as prop? idk)
-
     
     const [shipName, setShipName] = useState('');
     const [billName, setBillName] = useState('');
@@ -74,11 +60,8 @@ const Checkout = () => {
         
     }
     
-    const placeOrder = (evt) => {
-        evt.preventDefault();
-        // Dispatch/save billing info to user profile.
-        // changes Order property 'purchased' to true && redirects to order confirm. page/profile?
-        
+    const placeOrder = async () => {
+        await dispatch(processOrder({userId, orderId, productArray}))
     }
     
     const sameAsShipping = () => {
@@ -91,7 +74,9 @@ const Checkout = () => {
     }
 
     const initialValue = 0;
-    const subTotal = cart.reduce((acc, currVal) => {
+    console.log('---------product array----------', productArray);
+
+    const subTotal = productArray.reduce((acc, currVal) => {
         let price = parseFloat(currVal.order_details.total_price);
         return acc + price;
     }, initialValue).toFixed(2);
@@ -99,6 +84,7 @@ const Checkout = () => {
     const taxCosts = ((subTotal * 1.0888) - subTotal).toFixed(2);
     const totalCost = (parseFloat(taxCosts) + parseFloat(subTotal))
 
+    console.log(subTotal);
 
     return (
         <div>
@@ -230,13 +216,11 @@ const Checkout = () => {
             <h1>Subtotal: ${subTotal}</h1> 
             <h2>Tax: ${taxCosts}</h2>
             <h3>Total: ${totalCost}</h3>
-            <button>Confirm Order</button>
+            <h1>Shipping Name: {shipName}</h1>
+            <button onClick={() => {placeOrder()}}>Confirm Order</button>
         </div>
         </div>
     )
 }
-
-// all of the total cost nonsense is already available on the cart page
-
 
 export default Checkout;
