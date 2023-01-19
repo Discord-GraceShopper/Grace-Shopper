@@ -41,17 +41,20 @@ const Navbar = () => {
               <Link to="/cart">
                 <img
                   className="navbar-icons"
-                  src="./person_FILL0_wght400_GRAD0_opsz48.svg"
+                  src="/img/shopping_cart_FILL0_wght400_GRAD0_opsz48.svg"
                 />
               </Link>
               {isAdmin === "ADMIN" ? (
                 <>
-                <Link to="/directory">
-                  <img className="navbar-icons" src="/img/user-directory.svg" />
-                </Link>
-                <Link to="/panel">
-                  <img className="navbar-icons" src="./settings-icon.svg" />
-                </Link>
+                  <Link to="/directory">
+                    <img
+                      className="navbar-icons"
+                      src="/img/user-directory.svg"
+                    />
+                  </Link>
+                  <Link to="/panel">
+                    <img className="navbar-icons" src="./settings-icon.svg" />
+                  </Link>
                 </>
               ) : null}
               <button
@@ -83,7 +86,7 @@ const Navbar = () => {
               <Link to="/cart">
                 <img
                   className="navbar-icons"
-                  src="./person_FILL0_wght400_GRAD0_opsz48.svg"
+                  src="/img/shopping_cart_FILL0_wght400_GRAD0_opsz48.svg"
                 />
               </Link>
             </div>
