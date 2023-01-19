@@ -36,7 +36,6 @@ const SingleProduct = () => {
 
   useEffect(() => {
     dispatch(fetchSingleProduct(productId));
-    localStorage.setItem("cart", JSON.stringify([]));
     setCart(JSON.parse(localStorage.getItem("cart"))) || [];
   }, [dispatch, cart.length]);
 
