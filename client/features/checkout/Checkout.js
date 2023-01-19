@@ -74,7 +74,6 @@ const Checkout = () => {
     }
 
     const initialValue = 0;
-    console.log('---------product array----------', productArray);
 
     const subTotal = productArray.reduce((acc, currVal) => {
         let price = parseFloat(currVal.order_details.total_price);
