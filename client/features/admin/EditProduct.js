@@ -11,15 +11,15 @@ const EditProduct = () => {
     const dispatch = useDispatch();
     const product = useSelector(selectSingleProduct);
     let productName = null;
-  
-    const [title, setTitle] = useState('');
-    const [brand, setBrand] = useState('');
-    const [price, setPrice] = useState('');
-    const [description, setDescription] = useState('');
-    const [sku, setSku] = useState('');
-    const [quantity, setQuantity] = useState('');
-    const [category, setCategory] = useState('');
-    const [main_image, setMainImage] = useState('');
+
+    const [title, setTitle] = useState(product.title);
+    const [brand, setBrand] = useState(product.brand);
+    const [price, setPrice] = useState(product.price);
+    const [description, setDescription] = useState(product.description);
+    const [sku, setSku] = useState(product.sku);
+    const [quantity, setQuantity] = useState(product.quantity);
+    const [category, setCategory] = useState(product.primary_category);
+    const [main_image, setMainImage] = useState(product.main_image);
 
     if (product.title) {
         if (product.title.startsWith(product.brand)) {
@@ -33,18 +33,19 @@ const EditProduct = () => {
         dispatch(fetchSingleProduct(productId));
     }, [dispatch, product.updatedAt])
     
-    const handleSubmit = (evt) => {
+    const handleSubmit = async (evt) => {
         evt.preventDefault();
-        dispatch(updateProduct({productId, title, brand, description, price, sku, quantity, category, main_image}))
+        await dispatch(updateProduct({productId, title, brand, description, price, sku, quantity, category, main_image}))
         dispatch(fetchSingleProduct(productId))
     }
 
     return (
         <div>
-            <h1 style={{textAlign: 'center'}}>Product Editor</h1>
+            <div className='single-product-back-btn'>
             <Link to='/panel'>
-            <img className="navbar-icons" style={{height:60, width:60}} src="../left-arrow.svg"/>
+            <img style={{height:'60px', width:'60px'}} src="../left-arrow.svg"/>
             </Link>
+            </div>
         {product.title ? <div className='single-product-editor'>
             <div className='single-product-img'>
                 <img src={product.main_image} style={{maxHeight:500, maxWidth:300}}></img>
@@ -64,28 +65,31 @@ const EditProduct = () => {
                 <input
                     name='title'
                     placeholder='Title'
-                    value={title}
+                    defaultValue={product.title}
+                    required={true}
                     onChange={(e) => setTitle(e.target.value)}
                     />
                 <label htmlFor='description'>Product Description: </label>
                 <input
                     name='description'
                     placeholder='Description'
-                    value={description}
+                    defaultValue={product.description}
+                    required={true}
                     onChange={(e) => setDescription(e.target.value)}
                     />
                 <label htmlFor="brand">Product Brand: </label>
                 <input
                     name='brand'
                     placeholder='Brand'
-                    value={brand}
+                    defaultValue={product.brand}
                     onChange={(e) => setBrand(e.target.value)}
                     />
                 <label htmlFor="price">Product Price: </label>
                 <input
                     name='price'
                     placeholder='Price'
-                    value={price}
+                    defaultValue={product.price}
+                    required={true}
                     type='number'
                     min='1'
                     max='999'
@@ -96,14 +100,16 @@ const EditProduct = () => {
                 <input
                     name='sku'
                     placeholder='SKU'
-                    value={sku}
+                    required={true}
+                    defaultValue={product.sku}
                     onChange={(e) => setSku(e.target.value)}
                     />
                 <label htmlFor="quantity">Product Quantity: </label>
                 <input 
                     name='quantity'
                     placeholder='QTY'
-                    value={quantity}
+                    defaultValue={product.quantity}
+                    required={true}
                     type='number'
                     min='0'
                     max='999'
@@ -113,13 +119,14 @@ const EditProduct = () => {
                 <input
                     name='category'
                     placeholder='Category'
-                    value={category}
+                    required={true}
+                    defaultValue={product.primary_category}
                     onChange={(e) => setCategory(e.target.value)}
                     />
                 <label htmlFor="imageUrl">Product Image URL:</label>
                 <input
                     name='img'
-                    value={main_image}
+                    defaultValue={product.main_image}
                     onChange={(e) => setMainImage(e.target.value)}
                     />
             <button type='submit'>Save Changes</button>

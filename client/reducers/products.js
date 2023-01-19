@@ -81,7 +81,6 @@ export const productSlice = createSlice({
         state.allProducts = action.error;
       })
       .addCase(createNewProduct.fulfilled, (state, action) => {
-        console.log(action.payload);
         state.allProducts.push(action.payload);
       })
       .addCase(createNewProduct.rejected, (state, action) => {

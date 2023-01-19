@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
@@ -31,6 +32,13 @@ const SingleProduct = () => {
   const isStockAvailable = () => {
     if (product.quantity > 0) {
       return true;
+
+    useEffect(() => {
+        dispatch(fetchSingleProduct(productId));
+    }, [dispatch])
+    
+    const addToCart = () => { 
+        console.log('BUTTON PRESSED')
     }
     return false;
   };
@@ -39,6 +47,7 @@ const SingleProduct = () => {
     dispatch(fetchSingleProduct(productId));
     setCart(JSON.parse(localStorage.getItem("cart")));
   }, [dispatch, cart.length]);
+
 
   const addToCart = () => {
     // Grabs cart on localStorage
@@ -63,6 +72,11 @@ const SingleProduct = () => {
 
   return (
     <div>
+    <div className='single-product-back-btn'>
+            <Link to='/'>
+            <img style={{height:'60px', width:'60px'}} src="../left-arrow.svg"/>
+            </Link>
+            </div>
       {product.title ? (
         <div className="single-product">
           <div className="single-product-img">
@@ -96,3 +110,4 @@ const SingleProduct = () => {
 };
 
 export default SingleProduct;
+
