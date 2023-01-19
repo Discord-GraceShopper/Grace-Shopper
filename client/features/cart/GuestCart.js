@@ -11,32 +11,14 @@ const GuestCart = () => {
     setCart(JSON.parse(localStorage.getItem("cart")) || []);
   }, [cart.length]);
 
-  /*
-   * addQty and subtractQty don't work it needs to be adjusted
-   * to handle guest cart info as of this moment, I don't see a way
-   * to access orderId since it doesn't exist for guests
-   */
   const addQty = (product) => {
-    let productId = product.order_details.productId;
-    let orderId = product.order_details.orderId;
-    let item_quantity = product.order_details.item_quantity;
-    let price = product.price;
-    item_quantity++;
-    const updatedQty = { id, productId, orderId, item_quantity, price };
-    if (item_quantity <= product.quantity) dispatch(editQuantity(updatedQty));
+    product.productQuantity += 1;
   };
 
   const subtractQty = (product) => {
-    let productId = product.order_details.productId;
-    let orderId = product.order_details.orderId;
-    let item_quantity = product.order_details.item_quantity;
-    let price = product.price;
-    if (item_quantity === 1) {
-      dispatch(deleteItem({ productId, orderId }));
-    } else {
-      item_quantity--;
-      const updatedQty = { id, productId, orderId, item_quantity, price };
-      dispatch(editQuantity(updatedQty));
+    product.productQuantity -= 1;
+    if (product.productQuantity < 1) {
+      deleteItems(product);
     }
   };
 
