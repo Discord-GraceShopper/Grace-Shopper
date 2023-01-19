@@ -23,7 +23,7 @@ export const getOrder = createAsyncThunk("order/getOrder", async (id) => {
       },
     });
     const cart = data;
-    console.log("-------------------------", cart);
+    // console.log("-------------------------", cart);
     return cart;
   } catch (error) {
     return error;
@@ -82,7 +82,7 @@ export const deleteItem = createAsyncThunk(
 );
 
 const initialState = {
-  items: [],
+  items: {},
   orderId: null,
   error: null,
 };
@@ -91,7 +91,7 @@ export const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {},
-  extraReducers(builder) {
+  extraReducers: (builder) => {
     builder
       .addCase(getCart.fulfilled, (state, action) => {
         state.items = action.payload;
@@ -100,7 +100,9 @@ export const cartSlice = createSlice({
         state.error = action.error;
       })
       .addCase(addToCart.fulfilled, (state, action) => {
+        console.log("INSIDE BUILDER CASE");
         state.items.push(action.payload);
+        // state.items = action.payload;
       })
       .addCase(addToCart.rejected, (state, action) => {
         state.error = action.error;

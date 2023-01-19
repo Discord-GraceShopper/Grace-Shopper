@@ -9,18 +9,13 @@ import { addToCart, getOrder } from "../../reducers/cart";
 
 const SingleProduct = () => {
   const id = useSelector((state) => state.auth.me.id);
-  //   const [orderId, setOrderId] = useState("");
-  const test = useSelector((state) => state.cart.orderId);
-  console.log(test);
+  const test = useSelector((state) => state.cart);
 
   const { productId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const product = useSelector(selectSingleProduct);
   let productName = null;
-
-  // Product title is currently: BRAND | Product_Name
-  // ^ This has to be fixed on All Products view as well
 
   if (product.title) {
     if (product.title.startsWith(product.brand)) {
@@ -39,23 +34,33 @@ const SingleProduct = () => {
 
   useEffect(() => {
     dispatch(fetchSingleProduct(productId));
-    dispatch(getOrder(1));
+    dispatch(getOrder(id));
   }, [dispatch]);
 
-  const addToCart = async () => {
+  const addToCart = () => {
     const item_quantity = 1;
 
     // const orderId = await dispatch(getOrder(id));
+    // console.log("ORDERID?", test.orderId.id);
     // console.log("ORDERID: ", orderId.payload);
-    // console.log(item_quantity, product.price, orderId.payload, product.id);
-    await dispatch(
-      addToCart({
-        item_quantity,
-        total_price: product.price,
-        orderId: test,
-        productId: product.id,
-      })
+    console.log(
+      "-----INFO:",
+      item_quantity,
+      product.price,
+      test.orderId.id,
+      product.id
     );
+    function someFunc() {
+      dispatch(
+        addToCart({
+          item_quantity,
+          total_price: product.price,
+          orderId: test.orderId.id,
+          productId: product.id,
+        })
+      );
+    }
+    someFunc();
     // dispatch(addToCart(name, price))
     // Once added to cart, make post request to current user's cart via async thunk on cart reducer
   };
