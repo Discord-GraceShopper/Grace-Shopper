@@ -10,6 +10,7 @@ const EditProfile = () => {
   const user = useSelector((state) => state.auth.me);
   const id = user.id;
 
+  const [error, setError] = useState(false);
   const [first_name, setFirstName] = useState(user.first_name);
   const [last_name, setLastName] = useState(user.last_name);
   const [email, setEmail] = useState(user.email);
@@ -17,8 +18,13 @@ const EditProfile = () => {
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
-    dispatch(update({ id, first_name, last_name, email }));
-    navigate("/profile");
+    const res = await dispatch(update({ id, first_name, last_name, email }));
+    if (res.type === "auth/update/fulfilled") {
+      setError(false);
+      navigate("/profile");
+    } else {
+      setError(true);
+    }
   };
 
   return (
@@ -62,6 +68,7 @@ const EditProfile = () => {
             type="email"
             onChange={(e) => setEmail(e.target.value)}
           ></input>
+          <h4>{error && "Email already in use"}</h4>
         </div>
         {/* <div>
           <label htmlFor="password">
