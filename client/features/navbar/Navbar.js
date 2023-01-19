@@ -41,7 +41,7 @@ const Navbar = () => {
               <Link to="/cart">
                 <img
                   className="navbar-icons"
-                  src="./person_FILL0_wght400_GRAD0_opsz48.svg"
+                  src="/img/shopping_cart_FILL0_wght400_GRAD0_opsz48.svg"
                 />
               </Link>
               {isAdmin === "ADMIN" ? (
@@ -86,7 +86,7 @@ const Navbar = () => {
               <Link to="/guest-cart">
                 <img
                   className="navbar-icons"
-                  src="./person_FILL0_wght400_GRAD0_opsz48.svg"
+                  src="/img/shopping_cart_FILL0_wght400_GRAD0_opsz48.svg"
                 />
               </Link>
             </div>

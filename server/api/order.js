@@ -80,8 +80,6 @@ router.put("/deleteItem", async (req, res, next) => {
       where: { productId, orderId },
     });
     await productDetails.destroy();
-    console.log(productId);
-    console.log(orderId);
     res.json({ productId, orderId });
   } catch (error) {
     next(error);
