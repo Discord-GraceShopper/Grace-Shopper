@@ -366,7 +366,6 @@ thead tr:first-child {
   align-items: center;
   margin: auto;
   max-width: 1000px;
-  padding: 100px;
 }
 
 .single-product-details {
@@ -386,6 +385,13 @@ thead tr:first-child {
 .single-product-brand {
   color: #737178;
   font-size: 10px;
+}
+
+.single-product-back-btn {
+  padding-left: 200px;
+  padding-top: 100px;
+  height:60px;
+  width:60px;
 }
 
 /*
@@ -452,6 +458,17 @@ thead tr:first-child {
   cursor: pointer;
 }
 
+.out-of-stock-btn {
+  background-color: #14248a;
+  color: #e7e7e7;
+  border: none;
+  font-weight: 500;
+  border-radius: 10px;
+  padding: 0.4rem 0.8rem;
+  cursor: not-allowed;
+  opacity:0.5;
+}
+
 /*
 *
 * PAGINATION BUTTONS
@@ -507,7 +524,7 @@ li:first-child a {
 #create-product {
   display:flex;
   align-items: baseline;
-  justify-content: space-evenly;
+  justify-content: space-between;
 }
 
 .single-product-editor {
