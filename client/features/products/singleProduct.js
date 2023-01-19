@@ -14,7 +14,7 @@ const SingleProduct = () => {
   let productName = null;
 
   const [cart, setCart] = useState(
-    JSON.parse(localStorage.getItem("cart") || [])
+    JSON.parse(localStorage.getItem("cart")) || []
   );
 
   // Product title is currently: BRAND | Product_Name
@@ -36,6 +36,7 @@ const SingleProduct = () => {
 
   useEffect(() => {
     dispatch(fetchSingleProduct(productId));
+    localStorage.setItem("cart", JSON.stringify([]));
     setCart(JSON.parse(localStorage.getItem("cart"))) || [];
   }, [dispatch, cart.length]);
 
