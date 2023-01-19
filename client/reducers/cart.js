@@ -15,14 +15,37 @@ export const getCart = createAsyncThunk("cart/getAll", async (id) => {
   }
 });
 
+export const getOrder = createAsyncThunk("order/getOrder", async (id) => {
+  try {
+    const { data } = await axios.get(`/api/order/${id}`, {
+      headers: {
+        authorization: "axios-request",
+      },
+    });
+    const cart = data;
+    console.log("-------------------------", cart);
+    return cart;
+  } catch (error) {
+    return error;
+  }
+});
+
 export const addToCart = createAsyncThunk(
   "cart/add",
-  async ({ id, price, quantity }) => {
+  async ({ item_quantity, total_price, orderId, productId }) => {
     try {
-      const { data } = await axios.post("/api/additem", {
-        id,
-        price,
-        quantity,
+      console.log(
+        "----------------------------",
+        item_quantity,
+        total_price,
+        orderId,
+        productId
+      );
+      const { data } = await axios.post("/api/addItem", {
+        item_quantity,
+        total_price,
+        orderId,
+        productId,
       });
       return data;
     } catch (error) {
@@ -60,6 +83,7 @@ export const deleteItem = createAsyncThunk(
 
 const initialState = {
   items: [],
+  orderId: null,
   error: null,
 };
 
@@ -80,6 +104,9 @@ export const cartSlice = createSlice({
       })
       .addCase(addToCart.rejected, (state, action) => {
         state.error = action.error;
+      })
+      .addCase(getOrder.fulfilled, (state, action) => {
+        state.orderId = action.payload;
       })
       .addCase(editQuantity.fulfilled, (state, action) => {
         state.items = action.payload;
