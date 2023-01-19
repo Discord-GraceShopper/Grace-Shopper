@@ -14,6 +14,7 @@ import PurchaseHistory from "../features/profile/purchaseHistory";
 import NotFound from "../features/errorPages/notFound";
 import ProductsPanel from "../features/admin/ProductsPanel";
 import EditProduct from "../features/admin/EditProduct";
+import GuestCart from "../features/cart/GuestCart";
 
 /**
  * COMPONENT
@@ -63,7 +64,7 @@ const AppRoutes = () => {
           />
           <Route path="/products" element={<AllProducts />} />
           <Route path="/products/:productId" element={<SingleProduct />} />
-          <Route path="/cart" element={<Cart />} />
+          <Route path="/guest-cart" element={<GuestCart />} />
           <Route path="/*" element={<NotFound />} />
         </Routes>
       )}
