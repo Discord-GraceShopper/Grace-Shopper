@@ -1,33 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Route, Routes, Redirect } from 'react-router-dom';
 import { getCart, processOrder } from '../../reducers/cart';
 import Collapsible from './Collapsible';
-import { fetchUserPurchaseHistory } from "../auth/authSlice";
-import { updateProduct } from '../../reducers/products';
-
 
 const Checkout = () => {
 
     const dispatch = useDispatch();
     const productArray = useSelector((state) => state.cart.items);
     const userId = useSelector((state) => state.auth.me.id);
-    const history = useSelector((state) => state.auth.purchaseHistory);
     let orderId = null;
 
     if (productArray[0]) { // WORKS
         orderId = productArray[0].order_details.orderId
     }
 
-    console.log('carts', productArray);
-    console.log('id', userId);
-    console.log('history', history);
-
     useEffect(() => {
         dispatch(getCart(userId));
-        dispatch(fetchUserPurchaseHistory(userId));
     }, [dispatch])
-
-    // displays order ID, total amt, shipping info (all states in obj, pass as prop? idk)
     
     const [shipName, setShipName] = useState('');
     const [billName, setBillName] = useState('');
@@ -46,6 +36,9 @@ const Checkout = () => {
     const [cardNumber, setCardNumber] = useState('');
     const [expDate, setExpDate] = useState('');
     
+    const [orderPlaced, setOrderPlaced] = useState(false);
+    const [formStatus, setFormStatus] = useState(false);
+
     const stateAbbreviations = ["AK", "AL", "AR", "AS", "AZ", "CA", "CO", "CT", "DC", "DE", "FL", "GA", "GU", "HI", "IA", "ID", "IL", "IN", "KS", "KY", "LA", "MA", "MD", "ME", "MI", "MN", "MO", "MP", "MS", "MT", "NC", "ND", "NE", "NH", "NJ", "NM", "NV", "NY", "OH", "OK", "OR", "PA", "PR", "RI", "SC", "SD", "TN", "TX", "UM", "UT", "VA", "VI", "VT", "WA", "WI", "WV", "WY"];
     const stateList = stateAbbreviations.map((state) => {
         return (
@@ -53,15 +46,21 @@ const Checkout = () => {
             )
         })
 
-    const saveShippingInfo = (evt) => {
-            evt.preventDefault();
-            // Dispatch/save shipping info to user profile.
-            // When shipping info is saved, close shipping tab and open billing tab.
-        
+    const saveShippingForm = (evt) => {
+        evt.preventDefault();
+        // Saves shipping information to user.    
     }
-    
+
+    const saveBillingForm = (evt) => {
+        evt.preventDefault();
+        // Saves billing information to user.
+    }
+
+    const [orderDone, setOrderDone] = useState(false);
+
     const placeOrder = async () => {
         await dispatch(processOrder({userId, orderId, productArray}))
+        setOrderPlaced(true);
     }
     
     const sameAsShipping = () => {
@@ -81,15 +80,13 @@ const Checkout = () => {
     }, initialValue).toFixed(2);
 
     const taxCosts = ((subTotal * 1.0888) - subTotal).toFixed(2);
-    const totalCost = (parseFloat(taxCosts) + parseFloat(subTotal))
-
-    console.log(subTotal);
+    const totalCost = (parseFloat(taxCosts) + parseFloat(subTotal)).toFixed(2);
 
     return (
         <div>
         <Collapsible section='Shipping Information'>
             <div>
-        <form id="shipping-billing-info" onSubmit={saveShippingInfo}>
+        <form id="shipping-billing-info" onSubmit={saveShippingForm}>
             <h2>Shipping Information</h2>
             <label htmlFor='fullName'> Full name: </label>
             <input
@@ -132,7 +129,7 @@ const Checkout = () => {
                 // Valid zipcode/numbers only 
                 onChange={(e) => setShipZip(e.target.value)}
                 />
-            <button type='submit'>Save Information</button>
+            <button type='submit'>Save Shipping Information</button>
         </form>
         </div>
         </Collapsible>
@@ -140,7 +137,7 @@ const Checkout = () => {
         <Collapsible section='Billing Information'>
         <div>
             {/* onSubmit = close out billing tab, populate 'delivering to' fields(?), add a 'Confirm Order' button to place it, backend stuff */}
-        <form id="shipping-billing-info" onSubmit={placeOrder}>
+        <form id="shipping-billing-info" onSubmit={saveBillingForm}>
             <h2>Billing Information</h2>
             <button type='button' onClick={sameAsShipping}>Same as Shipping?</button>
             <label htmlFor='fullName'> Full name: </label>
@@ -184,7 +181,7 @@ const Checkout = () => {
                 // Valid zipcode/numbers only 
                 onChange={(e) => setBillZip(e.target.value)}
                 />
-            <div id='billing-form'>
+            <>
             <label htmlFor='cardName'>Name on Card:</label>
             <input
                 name='cardName'
@@ -197,6 +194,7 @@ const Checkout = () => {
                 name='cardNumber'
                 value={cardNumber}
                 required={true}
+                type='number'
                 onChange={(e) => setCardNumber(e.target.value)}
                 />
             <label htmlFor='expDate'>Expiration Date:</label>
@@ -206,17 +204,29 @@ const Checkout = () => {
                 required={true}
                 onChange={(e) => setExpDate(e.target.value)}
                 />
-            <button type='submit'>Submit Order</button>
-        </div>
+            <button type='submit' onClick={() => {setFormStatus(true)}}>Save Billing Information</button>
+        </>
         </form>
         </div>
         </Collapsible>
+        <div id='checkout-bottom'>
         <div className='total-costs'>
-            <h1>Subtotal: ${subTotal}</h1> 
-            <h2>Tax: ${taxCosts}</h2>
-            <h3>Total: ${totalCost}</h3>
-            <h1>Shipping Name: {shipName}</h1>
+            <h3>Subtotal: ${subTotal}</h3> 
+            <h3>Tax: ${taxCosts}</h3>
+            <h2>Total: ${totalCost}</h2>
+        </div>
+        {formStatus ? ( <>
+            <p>Shipping to: {shipName}</p>
+            <p>{shipAddress}</p>
+            <p>{shipPhoneNum}</p>
+            <p>{shipCity}, {shipZip}</p>
+            </>
+        ) : null}
             <button onClick={() => {placeOrder()}}>Confirm Order</button>
+            {orderPlaced ? (<>
+                <h2>Your order has been placed!</h2>
+            </>
+            ) : null}
         </div>
         </div>
     )
