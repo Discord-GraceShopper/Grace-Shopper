@@ -7,23 +7,19 @@ const GuestCart = () => {
   );
 
   useEffect(() => {
-    setCart(JSON.parse(localStorage.getItem("cart")));
+    setCart(JSON.parse(localStorage.getItem("cart")) || []);
   }, [cart.length]);
 
   const addQty = (product) => {
     product.productQuantity += 1;
-    console.log(product.productQuantity);
   };
 
-  // const subtractQty = (product) => {
-  //   let productId = product.order_details.productId;
-  //   let orderId = product.order_details.orderId;
-  //   let item_quantity = product.order_details.item_quantity;
-  //   let price = product.price;
-  //   item_quantity--;
-  //   const updatedQty = { id, productId, orderId, item_quantity, price };
-  //   dispatch(editQuantity(updatedQty));
-  // };
+  const subtractQty = (product) => {
+    product.productQuantity -= 1;
+    if (product.productQuantity < 1) {
+      deleteItems(product);
+    }
+  };
 
   const deleteItems = (item) => {
     let productId = item.productId;
@@ -34,7 +30,7 @@ const GuestCart = () => {
       }
     });
     localStorage.setItem("cart", JSON.stringify(updatedCart));
-    setCart(JSON.parse(localStorage.getItem("cart")));
+    setCart(JSON.parse(localStorage.getItem("cart")) || []);
   };
 
   let subTotal = Number(0);
@@ -53,7 +49,7 @@ const GuestCart = () => {
                   <img src={product.productImg} width="200" height="200" />
                 </Link>
                 <h3>{product.productPrice}</h3>
-                {/* <h3>Qty: {product.order_details.item_quantity}</h3> */}
+                <h3>Qty: {product.productQuantity}</h3>
                 <div>
                   <button id="remove" onClick={() => deleteItems(product)}>
                     X
