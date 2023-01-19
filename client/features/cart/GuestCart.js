@@ -10,15 +10,10 @@ const GuestCart = () => {
     setCart(JSON.parse(localStorage.getItem("cart")));
   }, [cart.length]);
 
-  // const addQty = (product) => {
-  //   let productId = product.order_details.productId;
-  //   let orderId = product.order_details.orderId;
-  //   let item_quantity = product.order_details.item_quantity;
-  //   let price = product.price;
-  //   item_quantity++;
-  //   const updatedQty = { id, productId, orderId, item_quantity, price };
-  //   dispatch(editQuantity(updatedQty));
-  // };
+  const addQty = (product) => {
+    product.productQuantity += 1;
+    console.log(product.productQuantity);
+  };
 
   // const subtractQty = (product) => {
   //   let productId = product.order_details.productId;
@@ -52,7 +47,7 @@ const GuestCart = () => {
           cart.map((product) => {
             subTotal += Number(product.productPrice);
             return (
-              <div key={product.productId}>
+              <div key={product.id}>
                 <h2>{product.productTitle}</h2>
                 <Link to={`/products/${product.productId}`}>
                   <img src={product.productImg} width="200" height="200" />
