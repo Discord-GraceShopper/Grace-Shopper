@@ -46,12 +46,15 @@ const Navbar = () => {
               </Link>
               {isAdmin === "ADMIN" ? (
                 <>
-                <Link to="/directory">
-                  <img className="navbar-icons" src="/img/user-directory.svg" />
-                </Link>
-                <Link to="/panel">
-                  <img className="navbar-icons" src="./settings-icon.svg" />
-                </Link>
+                  <Link to="/directory">
+                    <img
+                      className="navbar-icons"
+                      src="/img/user-directory.svg"
+                    />
+                  </Link>
+                  <Link to="/panel">
+                    <img className="navbar-icons" src="./settings-icon.svg" />
+                  </Link>
                 </>
               ) : null}
               <button
@@ -80,7 +83,7 @@ const Navbar = () => {
                   src="/img/person_FILL0_wght400_GRAD0_opsz48.svg"
                 />
               </Link>
-              <Link to="/cart">
+              <Link to="/guest-cart">
                 <img
                   className="navbar-icons"
                   src="./person_FILL0_wght400_GRAD0_opsz48.svg"
