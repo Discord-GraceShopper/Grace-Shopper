@@ -18,8 +18,10 @@ const Items = ({ currentItems }) => {
             <div className="product-actions">
               <h2>${product.price}</h2>
               <button
-                className={product.quantity > 0 ? "add-cart-btn" : "out-of-stock-btn"}
-                onClick={(event) => 
+                className={
+                  product.quantity > 0 ? "add-cart-btn" : "out-of-stock-btn"
+                }
+                onClick={(event) =>
                   dispatch(addToCart(product.name, product.price))
                 } // Add to Cart only works if quantity > 0, otherwise don't add to cart
               >
@@ -39,6 +41,9 @@ const AllProducts = () => {
 
   useEffect(() => {
     dispatch(getAllProducts());
+    if (!JSON.parse(localStorage.getItem("cart"))) {
+      localStorage.setItem("cart", JSON.stringify([]));
+    }
   }, []);
 
   const [itemOffset, setItemOffset] = useState(0);
