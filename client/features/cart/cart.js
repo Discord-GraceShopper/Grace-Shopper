@@ -46,22 +46,37 @@ const Cart = () => {
   let subTotal = Number(0);
 
   return (
-    <div>
-      <h1>Cart</h1>
-      <div className="cart-container">
+    <div className="cart-container">
+      <h1 className="cart-header">Cart</h1>
+      <div>
         {carts &&
           carts.map((product) => {
             subTotal += Number(product.order_details.total_price);
             return (
               <div key={product.id} className="cart-details">
-                <h2>{product.title}</h2>
                 <Link to={`/products/${product.id}`}>
                   <div className="cart-image">
                     <img src={product.main_image} width="200" height="200" />
                   </div>
                 </Link>
-                <h3>{product.price}</h3>
-                <h3>Qty: {product.order_details.item_quantity}</h3>
+                <h2 className="cart-product-details">{product.title}</h2>
+                <h3 className="cart-product-details">${product.price}</h3>
+                <h3 className="cart-product-details">
+                  Qty:{" "}
+                  <button
+                    className="cart-subtract-qty"
+                    onClick={() => subtractQty(product)}
+                  >
+                    -
+                  </button>
+                  {product.order_details.item_quantity}
+                  <button
+                    className="cart-add-qty"
+                    onClick={() => addQty(product)}
+                  >
+                    +
+                  </button>
+                </h3>
                 <div>
                   <button
                     className="cart-remove-button"
@@ -69,28 +84,16 @@ const Cart = () => {
                   >
                     X
                   </button>
-                  <button
-                    className="cart-add-qty"
-                    onClick={() => addQty(product)}
-                  >
-                    +
-                  </button>
-                  <button
-                    className="cart-subtract-qty"
-                    onClick={() => subtractQty(product)}
-                  >
-                    -
-                  </button>
                 </div>
               </div>
             );
           })}
         <div className="ordersummary-container">
           <h1>Order Summary</h1>
-          <h3>{`Subtotal: ${subTotal.toFixed(2)}`} </h3>
+          <h3>{`Subtotal: $${subTotal.toFixed(2)}`} </h3>
           <h3>Delivery: </h3>
-          <h3>{`Tax: ${(subTotal * 0.08).toFixed(2)}`}</h3>
-          <h3>{`Total: ${(subTotal + subTotal * 0.08).toFixed(2)}`}</h3>
+          <h3>{`Tax: $${(subTotal * 0.08).toFixed(2)}`}</h3>
+          <h3>{`Total: $${(subTotal + subTotal * 0.08).toFixed(2)}`}</h3>
           <div>
             <Link to="/checkout">
               <button className="checkout-button">Proceed to Checkout</button>
