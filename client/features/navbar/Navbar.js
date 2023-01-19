@@ -39,10 +39,7 @@ const Navbar = () => {
                 />
               </Link>
               <Link to="/cart">
-                <img
-                  className="navbar-icons"
-                  src="/img/shopping_cart_FILL0_wght400_GRAD0_opsz48.svg"
-                />
+                <img className="navbar-icons" src="/img/shopping-cart.svg" />
               </Link>
               {isAdmin === "ADMIN" ? (
                 <>
@@ -53,7 +50,10 @@ const Navbar = () => {
                     />
                   </Link>
                   <Link to="/panel">
-                    <img className="navbar-icons" src="./settings-icon.svg" />
+                    <img
+                      className="navbar-icons"
+                      src="/img/settings-icon.svg"
+                    />
                   </Link>
                 </>
               ) : null}
@@ -84,10 +84,7 @@ const Navbar = () => {
                 />
               </Link>
               <Link to="/guest-cart">
-                <img
-                  className="navbar-icons"
-                  src="/img/shopping_cart_FILL0_wght400_GRAD0_opsz48.svg"
-                />
+                <img className="navbar-icons" src="/img/shopping-cart.svg" />
               </Link>
             </div>
           </div>
