@@ -87,3 +87,32 @@ router.put("/deleteItem", async (req, res, next) => {
     next(error);
   }
 });
+
+router.put("/checkout", async (req, res, next) => {
+  try {
+    // userId of current user
+    // orderId corresponds to the current order for checkout
+    // productArray is an array that contains a list of productIds (or products) that need to have their quantities updated (can fe provide this?)
+    const { userId, orderId, productArray } = req.body;
+
+    for (const product of productArray) {
+      const productDetails = await Product.findOne({
+        where: { id: product.id },
+      }); // or id: productId depending on how fe send the data
+      productDetails.update({ quantity: product.quantity - 1 });
+    }
+
+    const order = await Order.findOne({ where: { id: orderId } });
+    order.update({ purchased: true });
+
+    await Order.create({ userId });
+
+    if (order) {
+      res.status(201).json({ message: "Transaction Successful" });
+    } else {
+      res.status(400).json({ message: "Something went wrong!" });
+    }
+  } catch (error) {
+    next(error);
+  }
+});
