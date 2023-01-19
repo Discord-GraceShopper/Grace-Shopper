@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
@@ -33,81 +32,83 @@ const SingleProduct = () => {
     if (product.quantity > 0) {
       return true;
 
-    useEffect(() => {
+      useEffect(() => {
         dispatch(fetchSingleProduct(productId));
-    }, [dispatch])
-    
-    const addToCart = () => { 
-        console.log('BUTTON PRESSED')
+      }, [dispatch]);
+
+      const addToCart = () => {
+        console.log("BUTTON PRESSED");
+      };
+      return false;
     }
-    return false;
-  };
 
-  useEffect(() => {
-    dispatch(fetchSingleProduct(productId));
-    setCart(JSON.parse(localStorage.getItem("cart")));
-  }, [dispatch, cart.length]);
+    useEffect(() => {
+      dispatch(fetchSingleProduct(productId));
+      setCart(JSON.parse(localStorage.getItem("cart")));
+    }, [dispatch, cart.length]);
 
+    const addToCart = () => {
+      // Grabs cart on localStorage
+      let a = [];
+      a = JSON.parse(localStorage.getItem("cart")) || [];
 
-  const addToCart = () => {
-    // Grabs cart on localStorage
-    let a = [];
-    a = JSON.parse(localStorage.getItem("cart")) || [];
+      // Pushes product info into cart
+      a.push({
+        productId: product.id,
+        productImg: product.main_image,
+        productPrice: product.price,
+        productTitle: product.title,
+        productQuantity: 1,
+      });
+      // Sets the cart on the localStorage
+      localStorage.setItem("cart", JSON.stringify(a));
+      navigate("/guest-cart");
+    };
 
-    // Pushes product info into cart
-    a.push({
-      productId: product.id,
-      productImg: product.main_image,
-      productPrice: product.price,
-      productTitle: product.title,
-      productQuantity: 1,
-    });
-    // Sets the cart on the localStorage
-    localStorage.setItem("cart", JSON.stringify(a));
-    navigate("/guest-cart");
-  };
+    // Add button that redirects to main products page
+    // See if this button can return to previous placement on page
 
-  // Add button that redirects to main products page
-  // See if this button can return to previous placement on page
-
-  return (
-    <div>
-    <div className='single-product-back-btn'>
-            <Link to='/'>
-            <img style={{height:'60px', width:'60px'}} src="../left-arrow.svg"/>
-            </Link>
-            </div>
-      {product.title ? (
-        <div className="single-product">
-          <div className="single-product-img">
-            <img src={product.main_image}></img>
-          </div>
-          <div className="single-product-details">
-            <h2>
-              {productName}{" "}
-              <span className="single-product-brand">by {product.brand}</span>
-            </h2>
-            <h3> {product.description} </h3>
-            <h2> ${product.price} </h2>
-            {isStockAvailable ? (
-              <h3 style={{ fontSize: "20px" }}> In Stock </h3>
-            ) : (
-              <h3> Out of Stock </h3>
-            )}
-            <button
-              className="single-product-addToCart btn"
-              onClick={addToCart}
-            >
-              Add to Cart
-            </button>
-          </div>
+    return (
+      <div>
+        <div className="single-product-back-btn">
+          <Link to="/">
+            <img
+              style={{ height: "60px", width: "60px" }}
+              src="../left-arrow.svg"
+            />
+          </Link>
         </div>
-      ) : (
-        <h1> Loading... </h1>
-      )}
-    </div>
-  );
+        {product.title ? (
+          <div className="single-product">
+            <div className="single-product-img">
+              <img src={product.main_image}></img>
+            </div>
+            <div className="single-product-details">
+              <h2>
+                {productName}{" "}
+                <span className="single-product-brand">by {product.brand}</span>
+              </h2>
+              <h3> {product.description} </h3>
+              <h2> ${product.price} </h2>
+              {isStockAvailable ? (
+                <h3 style={{ fontSize: "20px" }}> In Stock </h3>
+              ) : (
+                <h3> Out of Stock </h3>
+              )}
+              <button
+                className="single-product-addToCart btn"
+                onClick={addToCart}
+              >
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        ) : (
+          <h1> Loading... </h1>
+        )}
+      </div>
+    );
+  };
 };
 
 export default SingleProduct;
-
