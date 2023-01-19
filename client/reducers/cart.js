@@ -58,9 +58,26 @@ export const deleteItem = createAsyncThunk(
   }
 );
 
+export const processOrder = createAsyncThunk(
+  "cart/checkout",
+  async ({userId, orderId, productArray}) => {
+    try {
+      const { data }  = await axios.put(`/api/order/checkout`, {
+        userId,
+        orderId,
+        productArray,
+      });
+      return data;
+    } catch (error) {
+      return error;
+    }
+  }
+)
+
 const initialState = {
   items: [],
   error: null,
+  orderStatus: null,
 };
 
 export const cartSlice = createSlice({
@@ -99,7 +116,13 @@ export const cartSlice = createSlice({
       })
       .addCase(deleteItem.rejected, (state, action) => {
         state.error = action.error;
-      });
+      })
+      .addCase(processOrder.fulfilled, (state, action) => {
+        state.orderStatus = action.payload;
+      })
+      .addCase(processOrder.rejected, (state, action) => {
+        state.error = action.error;
+      })
   },
 });
 

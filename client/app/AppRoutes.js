@@ -15,6 +15,7 @@ import NotFound from "../features/errorPages/notFound";
 import ProductsPanel from "../features/admin/ProductsPanel";
 import EditProduct from "../features/admin/EditProduct";
 import GuestCart from "../features/cart/GuestCart";
+import Checkout from "../features/checkout/Checkout";
 
 /**
  * COMPONENT
@@ -39,6 +40,8 @@ const AppRoutes = () => {
           <Route path="/purchase-history" element={<PurchaseHistory />} />
           <Route path="/products/:productId" element={<SingleProduct />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path='/checkout' element={<Checkout />} />
+
           {isAdmin === "ADMIN" ? (
             <>
               <Route path="/directory" element={<UserDirectory />} />

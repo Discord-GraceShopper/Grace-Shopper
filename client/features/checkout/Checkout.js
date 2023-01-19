@@ -1,15 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { getCart, processOrder } from '../../reducers/cart';
 import Collapsible from './Collapsible';
+import { fetchUserPurchaseHistory } from "../auth/authSlice";
+import { updateProduct } from '../../reducers/products';
+
 
 const Checkout = () => {
 
-    // By submitting the order, we need to...
-    // 1. Set 'purchased' on the order to true.
-    // 2. Send order details to purchase history.
-    // 3. Reset the user's cart.
-    // 4. Adjust each purchased item's stock in the db.
+    const dispatch = useDispatch();
+    const productArray = useSelector((state) => state.cart.items);
+    const userId = useSelector((state) => state.auth.me.id);
+    const history = useSelector((state) => state.auth.purchaseHistory);
+    let orderId = null;
 
+    if (productArray[0]) { // WORKS
+        orderId = productArray[0].order_details.orderId
+    }
+
+    console.log('carts', productArray);
+    console.log('id', userId);
+    console.log('history', history);
+
+    useEffect(() => {
+        dispatch(getCart(userId));
+        dispatch(fetchUserPurchaseHistory(userId));
+    }, [dispatch])
+
+    // displays order ID, total amt, shipping info (all states in obj, pass as prop? idk)
+    
     const [shipName, setShipName] = useState('');
     const [billName, setBillName] = useState('');
     const [shipPhoneNum, setShipPhoneNum] = useState('');
@@ -22,7 +41,7 @@ const Checkout = () => {
     const [billState, setBillState] = useState('AK');
     const [shipZip, setShipZip] = useState('');
     const [billZip, setBillZip] = useState('');
-
+    
     const [cardName, setCardName] = useState('');
     const [cardNumber, setCardNumber] = useState('');
     const [expDate, setExpDate] = useState('');
@@ -31,23 +50,20 @@ const Checkout = () => {
     const stateList = stateAbbreviations.map((state) => {
         return (
             <option value={state} key={state}>{state}</option>
-        )
-    })
+            )
+        })
 
     const saveShippingInfo = (evt) => {
-        evt.preventDefault();
-        // Dispatch/save shipping info to user profile.
-        // When shipping info is saved, close shipping tab and open billing tab.
+            evt.preventDefault();
+            // Dispatch/save shipping info to user profile.
+            // When shipping info is saved, close shipping tab and open billing tab.
         
     }
     
-    const placeOrder = (evt) => {
-        evt.preventDefault();
-        // Dispatch/save billing info to user profile.
-        // changes Order property 'purchased' to true && redirects to order confirm. page/profile?
-
+    const placeOrder = async () => {
+        await dispatch(processOrder({userId, orderId, productArray}))
     }
-
+    
     const sameAsShipping = () => {
         setBillName(shipName);
         setBillPhoneNum(shipPhoneNum);
@@ -56,6 +72,18 @@ const Checkout = () => {
         setBillState(shipState);
         setBillZip(shipZip);
     }
+
+    const initialValue = 0;
+
+    const subTotal = productArray.reduce((acc, currVal) => {
+        let price = parseFloat(currVal.order_details.total_price);
+        return acc + price;
+    }, initialValue).toFixed(2);
+
+    const taxCosts = ((subTotal * 1.0888) - subTotal).toFixed(2);
+    const totalCost = (parseFloat(taxCosts) + parseFloat(subTotal))
+
+    console.log(subTotal);
 
     return (
         <div>
@@ -111,6 +139,7 @@ const Checkout = () => {
 
         <Collapsible section='Billing Information'>
         <div>
+            {/* onSubmit = close out billing tab, populate 'delivering to' fields(?), add a 'Confirm Order' button to place it, backend stuff */}
         <form id="shipping-billing-info" onSubmit={placeOrder}>
             <h2>Billing Information</h2>
             <button type='button' onClick={sameAsShipping}>Same as Shipping?</button>
@@ -182,9 +211,15 @@ const Checkout = () => {
         </form>
         </div>
         </Collapsible>
+        <div className='total-costs'>
+            <h1>Subtotal: ${subTotal}</h1> 
+            <h2>Tax: ${taxCosts}</h2>
+            <h3>Total: ${totalCost}</h3>
+            <h1>Shipping Name: {shipName}</h1>
+            <button onClick={() => {placeOrder()}}>Confirm Order</button>
+        </div>
         </div>
     )
 }
-
 
 export default Checkout;
