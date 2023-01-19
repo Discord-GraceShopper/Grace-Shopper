@@ -18,10 +18,6 @@ const Checkout = () => {
         orderId = productArray[0].order_details.orderId
     }
 
-    console.log('carts', productArray);
-    console.log('id', userId);
-    console.log('history', history);
-
     useEffect(() => {
         dispatch(getCart(userId));
         dispatch(fetchUserPurchaseHistory(userId));
